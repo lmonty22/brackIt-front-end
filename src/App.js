@@ -18,7 +18,7 @@ class App extends React.Component{
     <div className="App">
       <NavBar />
       <Switch>
-          <Route exact path="/tournaments/:id" component={TournamentPage} />
+          <Route exact path="/tournaments/:id" render={(props) => {return <TournamentPage {...props} />}} />
           <Route exact path="/" render= {() => {return (<div>This is the homepage...</div>)}}/>
       </Switch>
     </div>
@@ -34,4 +34,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapDispatchToProps)(App);
+export default connect(null, mapDispatchToProps)(App);
