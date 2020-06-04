@@ -8,6 +8,7 @@ import LeftHalfContainer from './LeftHalfContainer'
 import FinalsContainer from './FinalsContainer'
 import RightHalfContainer from './RightHalfContainer'
 
+
 let round_type
 let final_round
 let number_of_rounds 
@@ -58,14 +59,14 @@ const TournamentPage = (props) => {
                 }
    }
 
-   
+
     return (!props.tournament? <div>No Tourney to see here.</div> : 
         <div>
             <h1>{props.tournament.name}</h1>
             <Container fluid>
-                <Row>
-                    <Col><LeftHalfContainer rounds={leftSideMatchUps}/></Col>
-                    <Col md="auto"><FinalsContainer rounds={final_round}/></Col>
+                <Row >
+                    <Col  ><LeftHalfContainer rounds={leftSideMatchUps}/></Col>
+                    <Col md="auto"><FinalsContainer round={final_round}/></Col>
                     <Col ><RightHalfContainer rounds={rightSideMatchUps}/></Col>
                 </Row>
             </Container>
@@ -79,16 +80,3 @@ const mapStateToProps = (state, ownProps) => (
 
 export default connect(mapStateToProps)(TournamentPage)
 
-
-// <Container>
-//   <Row>
-//     <Col>1 of 3</Col>
-//     <Col xs={6}>2 of 3 (wider)</Col>
-//     <Col>3 of 3</Col>
-//   </Row>
-//   <Row>
-//     <Col>1 of 3</Col>
-//     <Col xs={5}>2 of 3 (wider)</Col>
-//     <Col>3 of 3</Col>
-//   </Row>
-// </Container>

@@ -7,6 +7,7 @@ import {connect} from 'react-redux'
 import {fetchingTournaments} from './redux/actions'
 
 
+
 class App extends React.Component{
    
   componentDidMount = ()=> {
@@ -25,8 +26,6 @@ class App extends React.Component{
   );
 }
 }
-
-
 
 const mapDispatchToProps = (dispatch) => {
   return {

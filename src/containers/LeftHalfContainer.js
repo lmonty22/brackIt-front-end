@@ -4,9 +4,9 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
 const LeftHalfContainer= (props) => {
-        return <Row>
+        return <Row >
         {props.rounds.map(r => {
-            return  <Col> <RoundCol  round={r}/></Col>})}
+            return  <Col> <RoundCol key={r.id} round={r}/></Col>})}
         </Row>
 }
 
