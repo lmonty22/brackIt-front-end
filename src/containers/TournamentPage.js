@@ -72,7 +72,7 @@ const TournamentPage = (props) => {
             <Container fluid>
                 <Row >
                     <Col  ><LeftHalfContainer rounds={leftSideMatchUps}/></Col>
-                    <Col md="auto"><FinalsContainer round={finalRound}/></Col>
+                    <Col md="auto"><FinalsContainer round={finalRound} champ={props.tournament.champion}/></Col>
                     <Col ><RightHalfContainer rounds={rightSideMatchUps}/></Col>
                 </Row>
             </Container>

@@ -22,7 +22,7 @@ const MatchUp = (props) => (
                     }
                 </Row>
                 <Row> 
-                    {props.matchUp.team_b?  <button  type="button" class="btn btn-dark" onClick={() => props.matchUpWinner(props.matchUp, props.matchUp.team_a.id)} > {props.matchUp.team_b.name}</button> : 
+                    {props.matchUp.team_b?  <button  type="button" class="btn btn-dark" onClick={() => props.matchUpWinner(props.matchUp, props.matchUp.team_b.id)} > {props.matchUp.team_b.name}</button> : 
                         <button type="button" class="btn btn-dark" disabled>TBD</button>
                     }
                 </Row>
