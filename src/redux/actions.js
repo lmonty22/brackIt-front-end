@@ -3,16 +3,16 @@ const URL = 'http://localhost:3000/'
 
 function matchUpWinner(matchUp, winnerId){
   let obj = {
-    ...matchUp,
     winner_id: winnerId
   }
   return (dispatch) => {
-    fetch(`http://localhost:3000//match_ups/${obj.id}`, {
+    fetch(`http://localhost:3000//match_ups/${matchUp.id}`, {
       method: 'PATCH',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(obj)
     }).then(response => response.json())
     .then(uT => {
+      // console.log(uT)
       dispatch(updatedTournament(uT))
     })
   }

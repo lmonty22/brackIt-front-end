@@ -30,7 +30,6 @@ const MatchUp = (props) => (
 )
 
 const mapDispatchToProps = (dispatch) => {
-    // debugger
     return {matchUpWinner: (matchUp, winnerId) => {dispatch(matchUpWinner(matchUp, winnerId))}}
 }
 

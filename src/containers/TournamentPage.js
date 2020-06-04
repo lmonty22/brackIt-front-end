@@ -3,32 +3,37 @@ import { connect } from "react-redux";
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import Button from 'react-bootstrap/Button'
 import LeftHalfContainer from './LeftHalfContainer'
 import FinalsContainer from './FinalsContainer'
 import RightHalfContainer from './RightHalfContainer'
 
 
-let round_type
-let final_round
-let number_of_rounds 
+let roundType
+let finalRound
+let numberOfRounds 
+let roundsSorted
 let roundsNotIncludingFinal
 let leftSideMatchUps
 let rightSideMatchUps
 
+const sortRounds = (allRounds) => {
+    let sr = allRounds.sort((a, b) => {return a.id - b.id})
+    return sr.map( r => {
+        return {...r, match_ups: [...r.match_ups].sort((a, b)=> a.match_up_number - b.match_up_number)}
+        })
+}
+
 // determines that round has 2, 4, 8, 12, 32, 64 teams 
-const checkRoundType = (number_of_teams) => {
-    let round_type 
-    let x = Math.log2(number_of_teams)
-    return Number.isInteger(x)? "normal" : 'invalid'
+const checkRoundNumber = (numberOfTeams) => {   
+   return (Math.log2(numberOfTeams))
 }
 
 const ReturnLetSideMatchUps = (roundsNotIncludingFinal) =>{
     return roundsNotIncludingFinal.map(r => {
-        let match_half = r.match_ups.length/2
+        let matchHalf = r.match_ups.length/2
         let obj = {
             ...r, 
-            match_ups: [...r.match_ups.slice(0, (match_half))]
+            match_ups: [...r.match_ups.slice(0, (matchHalf))]
         }
         return obj
     })
@@ -47,13 +52,14 @@ const ReturnRightSideMatchUps = (roundsNotIncludingFinal) => {
 }
 
 const TournamentPage = (props) => {
-
     if (props.tournament){
-        round_type = checkRoundType(props.tournament.number_of_teams)
-        number_of_rounds = props.tournament.rounds.length
-        final_round = props.tournament.rounds[number_of_rounds - 1]
-        roundsNotIncludingFinal = [...props.tournament.rounds.slice(0, number_of_rounds-1)]
-                if (round_type === 'normal'){
+        numberOfRounds = checkRoundNumber(props.tournament.number_of_teams)
+        roundsSorted = sortRounds(props.tournament.rounds)
+        //array of 1 elemenet
+        finalRound = roundsSorted[numberOfRounds-1]
+        roundsNotIncludingFinal = [...roundsSorted.slice(0, numberOfRounds-1)]
+        console.log(roundsNotIncludingFinal)
+                if (Number.isInteger(numberOfRounds)){
                     leftSideMatchUps = ReturnLetSideMatchUps(roundsNotIncludingFinal)
                     rightSideMatchUps = ReturnRightSideMatchUps(roundsNotIncludingFinal)
                 }
@@ -66,7 +72,7 @@ const TournamentPage = (props) => {
             <Container fluid>
                 <Row >
                     <Col  ><LeftHalfContainer rounds={leftSideMatchUps}/></Col>
-                    <Col md="auto"><FinalsContainer round={final_round}/></Col>
+                    <Col md="auto"><FinalsContainer round={finalRound}/></Col>
                     <Col ><RightHalfContainer rounds={rightSideMatchUps}/></Col>
                 </Row>
             </Container>
