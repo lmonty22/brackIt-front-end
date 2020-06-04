@@ -9,9 +9,9 @@ const FinalsContainer= (props) => {
         <div> <Row>
              {props.round.match_ups.map(m => <MatchUp matchUp={m} />)}
         </Row>
-                <Row>   
-                    <Champion champ={props.champion} />
-                </Row>
+            <Row>   
+             <Champion champ={props.champ} />
+            </Row>
         </div>
     )
 }

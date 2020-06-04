@@ -15,6 +15,7 @@ let roundsSorted
 let roundsNotIncludingFinal
 let leftSideMatchUps
 let rightSideMatchUps
+let champ
 
 const sortRounds = (allRounds) => {
     let sr = allRounds.sort((a, b) => {return a.id - b.id})
@@ -58,21 +59,25 @@ const TournamentPage = (props) => {
         //array of 1 elemenet
         finalRound = roundsSorted[numberOfRounds-1]
         roundsNotIncludingFinal = [...roundsSorted.slice(0, numberOfRounds-1)]
-        console.log(roundsNotIncludingFinal)
                 if (Number.isInteger(numberOfRounds)){
                     leftSideMatchUps = ReturnLetSideMatchUps(roundsNotIncludingFinal)
                     rightSideMatchUps = ReturnRightSideMatchUps(roundsNotIncludingFinal)
                 }
+                if (props.tournament.champion){
+                    console.log(props.tournament.champion)
+                    champ = props.tournament.champion
+                }
+                
    }
-
-
+   console.log(champ)
+    
     return (!props.tournament? <div>No Tourney to see here.</div> : 
         <div>
             <h1>{props.tournament.name}</h1>
             <Container fluid>
                 <Row >
                     <Col  ><LeftHalfContainer rounds={leftSideMatchUps}/></Col>
-                    <Col md="auto"><FinalsContainer round={finalRound} champ={props.tournament.champion}/></Col>
+                    <Col md="auto"><FinalsContainer round={finalRound} champ={champ}/></Col>
                     <Col ><RightHalfContainer rounds={rightSideMatchUps}/></Col>
                 </Row>
             </Container>
