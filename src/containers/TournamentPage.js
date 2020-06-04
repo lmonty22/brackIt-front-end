@@ -8,14 +8,8 @@ import FinalsContainer from './FinalsContainer'
 import RightHalfContainer from './RightHalfContainer'
 
 
-let roundType
-let finalRound
-let numberOfRounds 
-let roundsSorted
-let roundsNotIncludingFinal
-let leftSideMatchUps
-let rightSideMatchUps
-let champ
+let roundType, finalRound, numberOfRounds, roundsSorted, roundsNotIncludingFinal, leftSideMatchUps, rightSideMatchUps
+
 
 const sortRounds = (allRounds) => {
     let sr = allRounds.sort((a, b) => {return a.id - b.id})
@@ -63,21 +57,16 @@ const TournamentPage = (props) => {
                     leftSideMatchUps = ReturnLetSideMatchUps(roundsNotIncludingFinal)
                     rightSideMatchUps = ReturnRightSideMatchUps(roundsNotIncludingFinal)
                 }
-                if (props.tournament.champion){
-                    console.log(props.tournament.champion)
-                    champ = props.tournament.champion
-                }
                 
    }
-   console.log(champ)
     
     return (!props.tournament? <div>No Tourney to see here.</div> : 
         <div>
             <h1>{props.tournament.name}</h1>
             <Container fluid>
                 <Row >
-                    <Col  ><LeftHalfContainer rounds={leftSideMatchUps}/></Col>
-                    <Col md="auto"><FinalsContainer round={finalRound} champ={champ}/></Col>
+                    <Col ><LeftHalfContainer rounds={leftSideMatchUps}/></Col>
+                    <Col md="auto"><FinalsContainer round={finalRound} champ={props.tournament.champion}/></Col>
                     <Col ><RightHalfContainer rounds={rightSideMatchUps}/></Col>
                 </Row>
             </Container>

@@ -5,6 +5,7 @@ import TournamentPage from './containers/TournamentPage'
 import { Route, Switch} from "react-router-dom"
 import {connect} from 'react-redux'
 import {fetchingTournaments} from './redux/actions'
+import HomePage from './containers/HomePage'
 
 
 
@@ -20,7 +21,7 @@ class App extends React.Component{
       <NavBar />
       <Switch>
           <Route exact path="/tournaments/:id" render={(props) => {return <TournamentPage {...props} />}} />
-          <Route exact path="/" render= {() => {return (<div>This is the homepage...</div>)}}/>
+          <Route exact path="/" render= {HomePage}/>
       </Switch>
     </div>
   );
