@@ -7,7 +7,6 @@ const HomePage = () => {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state)
    return  {tournaments: state.tournaments}
 }
 export default connect(mapStateToProps)(HomePage)

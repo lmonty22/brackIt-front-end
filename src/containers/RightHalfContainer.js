@@ -6,7 +6,7 @@ import Col from 'react-bootstrap/Col'
 const RightHalfContainer= (props) => {
         return <Row>
         {props.rounds.reverse().map(r => {
-            return  <Col> <RoundCol round={r} /></Col>})}
+            return  <Col key={r.id}> <RoundCol key={r.id} round={r} /></Col>})}
         </Row>
 }
 

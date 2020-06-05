@@ -7,7 +7,7 @@ import Champion from '../components/Champion'
 const FinalsContainer= (props) => {
     return (
         <div> <Row>
-             {props.round.match_ups.map(m => <MatchUp matchUp={m} />)}
+             {props.round.match_ups.map(m => <MatchUp key={m.id} matchUp={m} />)}
         </Row>
             <Row>   
              <Champion champ={props.champ} />
