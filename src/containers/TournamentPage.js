@@ -74,9 +74,10 @@ const TournamentPage = (props) => {
     )
 }
 
-const mapStateToProps = (state, ownProps) => (
-        {tournament: state.tournaments.find(t => t.id === parseInt(ownProps.match.params.id))}
-)
+const mapStateToProps = (state, ownProps) => {
+        console.log(state.tournaments)
+        return {tournament: state.tournaments.find(t => t.id === parseInt(ownProps.match.params.id))}
+}
 
 export default connect(mapStateToProps)(TournamentPage)
 

@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import NavBar from './components/NavBar'
 import TournamentPage from './containers/TournamentPage'
-import { Route, Switch} from "react-router-dom"
+import { Route, Switch, withRouter} from "react-router-dom"
 import {connect} from 'react-redux'
 import {fetchingTournaments} from './redux/actions'
 import HomePage from './containers/HomePage'
@@ -36,4 +36,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(App);
+export default withRouter(connect(null, mapDispatchToProps)(App));
