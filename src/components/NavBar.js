@@ -6,9 +6,9 @@ import Form from 'react-bootstrap/Form'
 const NavBar = ( ) => {
     return (
         <Navbar bg="light" expand="lg">
-            <Navbar.Brand href="#home">BrackIt</Navbar.Brand>
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#link">Link</Nav.Link>
+            <Navbar.Brand href="/">BrackIt</Navbar.Brand>
+            <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="/createtournament">Create Tournament</Nav.Link>
         </Navbar>
     )
 }

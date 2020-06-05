@@ -13,6 +13,11 @@ const tournamentsReducer = (state = [], action)=> {
         }
         )
         return newArray
+    case "NEW_TOURNAMENT":
+        console.log(action)
+        let newStateArray = [...state, action.payload]
+        console.log(newStateArray)
+        return newStateArray
     default: 
         return state
     }

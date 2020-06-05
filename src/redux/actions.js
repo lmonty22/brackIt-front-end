@@ -12,7 +12,6 @@ function matchUpWinner(matchUp, winnerId){
       body: JSON.stringify(obj)
     }).then(response => response.json())
     .then(uT => {
-      // console.log(uT)
       dispatch(updatedTournament(uT))
     })
   }
@@ -36,6 +35,24 @@ function fetchingTournaments(){
       })
     }
   }
+
+  function newTournament(tournament){
+    return {type: "NEW_TOURNAMENT", payload: tournament}
+  }
+
+  function postTournament(tournamentDetails){
+    return (dispatch) => {
+      fetch(URL+'tournaments', {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(tournamentDetails)
+      })
+      .then(res => res.json())
+      .then(tournament => {
+        dispatch(newTournament(tournament))
+      })
+    }
+  }
   
-  export { fetchingTournaments, matchUpWinner };
+  export { fetchingTournaments, matchUpWinner, postTournament };
   
