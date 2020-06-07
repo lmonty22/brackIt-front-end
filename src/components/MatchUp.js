@@ -13,10 +13,10 @@ const MatchUp = (props) => {
         if (props.matchUp.winner_id){
         return (<div> 
                 <Row className="teamA">
-                    <Button type="button" className="teamButton" variant={props.matchUp.winner_id === props.matchUp.team_a_id? "success": "light"} disabled> {props.matchUp.team_a.name}</Button>  
+                    <Button type="button" className="teamButton" style={props.matchUp.winner_id === props.matchUp.team_a_id? {color: 'green', fontWeight: 'bold'}: {textDecoration: 'line-through'}} variant={"light"} > {props.matchUp.team_a.name}</Button>  
                 </Row>
                 <Row className="teamB">
-                    <Button type="button" className="teamButton" variant={props.matchUp.winner_id === props.matchUp.team_b_id? "success": "dark"} disabled>{props.matchUp.team_b.name}</Button>
+                    <Button type="button" className="teamButton" style={props.matchUp.winner_id === props.matchUp.team_b_id? {color: 'green', fontWeight: 'bold'}: {textDecoration: 'line-through'}}  variant={"dark"} >{props.matchUp.team_b.name}</Button>
                 </Row>
         </div>)}
         else if (!props.matchUp.team_a_id || !props.matchUp.team_b_id){
