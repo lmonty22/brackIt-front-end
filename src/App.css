@@ -1,9 +1,6 @@
 .App {
-  text-align: center;
+  align-items: center;
   padding: 10px;
-  margin: auto;
-  /* need to take out padding left before publish  */
-  padding-left: 50px;
 }
 
 .App-logo {
@@ -36,6 +33,48 @@
 .App-link {
   color: #61dafb;
 }
+
+.roundLeft {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.roundRight {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.final {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+
+.teamButton{
+  width: 100%;
+  height: 100%;
+}
+
+.round1{
+  height: 10px;
+}
+
+.round2{
+  height: 50px
+}
+
+.round3{
+  height: 150px;
+}
+
+.round4{
+  height: 100px;
+} 
+
+
 
 @keyframes App-logo-spin {
   from {

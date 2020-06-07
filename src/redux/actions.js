@@ -1,3 +1,4 @@
+import { browserHistory } from 'react-router'
 
 const URL = 'http://localhost:3000/'
 

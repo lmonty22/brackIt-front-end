@@ -4,6 +4,7 @@ import {Container, Row, Col} from 'react-bootstrap'
 import LeftHalfContainer from './LeftHalfContainer'
 import FinalsContainer from './FinalsContainer'
 import RightHalfContainer from './RightHalfContainer'
+import '../App.css';
 
 
 let roundType, finalRound, numberOfRounds, roundsSorted, roundsNotIncludingFinal, leftSideMatchUps, rightSideMatchUps
@@ -61,11 +62,11 @@ const TournamentPage = (props) => {
     return (!props.tournament? <div>No Tourney to see here.</div> : 
         <div>
             <h1>{props.tournament.name}</h1>
-            <Container fluid>
+            <Container fluid className='tourney'>
                 <Row >
                     <Col ><LeftHalfContainer rounds={leftSideMatchUps}/></Col>
                     <Col md="auto"><FinalsContainer round={finalRound} champ={props.tournament.champion}/></Col>
-                    <Col ><RightHalfContainer rounds={rightSideMatchUps}/></Col>
+                    <Col  ><RightHalfContainer rounds={rightSideMatchUps}/></Col>
                 </Row>
             </Container>
         </div>
@@ -73,7 +74,6 @@ const TournamentPage = (props) => {
 }
 
 const mapStateToProps = (state, ownProps) => {
-        console.log(state.tournaments)
         return {tournament: state.tournaments.find(t => t.id === parseInt(ownProps.match.params.id))}
 }
 

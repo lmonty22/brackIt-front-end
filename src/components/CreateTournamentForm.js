@@ -4,6 +4,7 @@ import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import {connect} from 'react-redux'
 import {postTournament} from '../redux/actions'
+import { Redirect } from 'react-router'
 
 class CreateTournamentForm extends React.Component{
     constructor(){
@@ -11,12 +12,16 @@ class CreateTournamentForm extends React.Component{
         this.state = {
             name: '',
             numberOfTeams: 4,
-            teamNames: []
+            teamNames: [],
+            redirect: false
         }
     }
     onSubmit = (event) => {
         event.preventDefault()
         this.props.postTournament(this.state)
+        this.setState({
+            redirect: true
+        })
     }
     
     onChange = (event) => {
@@ -33,6 +38,9 @@ class CreateTournamentForm extends React.Component{
 
 
     render(){
+        if (this.state.redirect){
+            return <Redirect to='/'/>
+        }
     return (
         <Col> 
         <Form>
@@ -62,10 +70,13 @@ class CreateTournamentForm extends React.Component{
     }
 
 }
+const mapStateToProps = (state) => {
+    return {tournaments: state.tournaments}
+}
 
 const mapDispatchToProps = (dispatch) => {
     return {postTournament: (tournament) =>{dispatch(postTournament(tournament))}}
 }
 
 
-export default connect(null, mapDispatchToProps)(CreateTournamentForm)
+export default connect(mapStateToProps, mapDispatchToProps)(CreateTournamentForm)

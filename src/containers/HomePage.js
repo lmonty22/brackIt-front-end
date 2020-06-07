@@ -1,12 +1,10 @@
 import React from 'react';
-import { connect } from "react-redux";
+import TournamentsContainer from "./TournamentsContainer"
+
 
 const HomePage = () => {
-    return (<div> This is the homepage</div>
+    return ( <TournamentsContainer/>
     )
 }
 
-const mapStateToProps = (state) => {
-   return  {tournaments: state.tournaments}
-}
-export default connect(mapStateToProps)(HomePage)
+export default HomePage
