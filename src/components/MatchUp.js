@@ -12,16 +12,16 @@ import { SteppedLineTo} from 'react-lineto';
 const MatchUp = (props) => {
         if (props.matchUp.winner_id){
         return (<div> 
-                <Row className="teamA">
+                <Row >
                     <Button type="button" className="teamButton" style={props.matchUp.winner_id === props.matchUp.team_a_id? {color: 'green', fontWeight: 'bold'}: {textDecoration: 'line-through'}} variant={"light"} > {props.matchUp.team_a.name}</Button>  
                 </Row>
-                <Row className="teamB">
+                <Row >
                     <Button type="button" className="teamButton" style={props.matchUp.winner_id === props.matchUp.team_b_id? {color: 'green', fontWeight: 'bold'}: {textDecoration: 'line-through'}}  variant={"dark"} >{props.matchUp.team_b.name}</Button>
                 </Row>
         </div>)}
         else if (!props.matchUp.team_a_id || !props.matchUp.team_b_id){
         return (<div >
-                <Row className="teamA" >
+                <Row  >
                     {props.matchUp.team_a?  <button type="button" className="btn btn-light teamButton" onClick={() => alert("You cannot advance a team that does not have an opponent in their current matchup.")}> {props.matchUp.team_a.name}</button> : 
                         <Button type="button" className="btn btn-light teamButton" disabled>&nbsp; </Button>
                     }
@@ -34,11 +34,11 @@ const MatchUp = (props) => {
          </div>)
         }
         else{
-        return (<div >
-                <Row className="teamA" >
+        return (<div>
+                <Row >
                     <Button type="button" className="btn btn-light teamButton" onClick={() => props.matchUpWinner(props.matchUp, props.matchUp.team_a.id)}> {props.matchUp.team_a.name}</Button> 
                 </Row>
-                <Row className="teamB"> 
+                <Row > 
                     <Button  type="button" className="btn btn-dark teamButton " onClick={() => props.matchUpWinner(props.matchUp, props.matchUp.team_b.id)} > {props.matchUp.team_b.name}</Button>       
                 </Row>
         </div>)}

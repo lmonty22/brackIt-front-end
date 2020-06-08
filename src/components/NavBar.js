@@ -10,6 +10,7 @@ const NavBar = ( ) => {
             <Navbar.Brand href="/">BrackIt</Navbar.Brand>
             <Link to='/'>Home</Link>
             <Link to="/createtournament">Create Tournament</Link>
+            <Link to="/login">Login</Link>
         </Navbar>
     )
 }

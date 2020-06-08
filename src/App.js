@@ -8,6 +8,7 @@ import {fetchingTournaments} from './redux/actions'
 import HomePage from './containers/HomePage'
 import CreateTournamentForm from './components/CreateTournamentForm'
 import Spinner from 'react-bootstrap/Spinner'
+import Login from './components/Login'
 
 
 
@@ -35,6 +36,7 @@ class App extends React.Component{
           <Route exact path="/tournaments/:id" render={(props) => {return <TournamentPage {...props} />}} />
           <Route exact path="/" component={HomePage}/>
           <Route exact path="/createtournament" component={CreateTournamentForm} />
+          <Route exact path="/login" component={Login}/>
           <Route render={()=> <div>404 No Route Found</div> } />
       </Switch>
       }

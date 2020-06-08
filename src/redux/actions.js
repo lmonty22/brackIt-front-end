@@ -2,6 +2,24 @@ import { browserHistory } from 'react-router'
 
 const URL = 'http://localhost:3000/'
 
+
+function setCurrentUser(user_data){
+  return {type: "NEW_CURRENT_USER", payload: user_data}
+}
+
+function login(userInfo){
+  return (dispatch) => {
+    fetch(URL +'/login', {
+    method: "POST",
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(userInfo)
+  }).then(response => response.json())
+  .then( data => {
+    dispatch(setCurrentUser(data.user_data))
+  })
+  }
+}
+
 function matchUpWinner(matchUp, winnerId){
   let obj = {
     winner_id: winnerId
@@ -55,5 +73,5 @@ function fetchingTournaments(){
     }
   }
   
-  export { fetchingTournaments, matchUpWinner, postTournament };
+  export { fetchingTournaments, matchUpWinner, postTournament, login };
   

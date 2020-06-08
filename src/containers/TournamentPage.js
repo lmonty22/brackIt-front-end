@@ -62,10 +62,10 @@ const TournamentPage = (props) => {
     return (!props.tournament? <div>No Tourney to see here.</div> : 
         <div>
             <h1>{props.tournament.name}</h1>
-            <Container fluid className='tourney'>
-                <Row >
+            <Container fluid >
+                <Row className='tourney'>
                     <Col ><LeftHalfContainer rounds={leftSideMatchUps}/></Col>
-                    <Col md="auto"><FinalsContainer round={finalRound} champ={props.tournament.champion}/></Col>
+                    <Col md="auto" className='final' ><FinalsContainer round={finalRound} champ={props.tournament.champion}/></Col>
                     <Col  ><RightHalfContainer rounds={rightSideMatchUps}/></Col>
                 </Row>
             </Container>

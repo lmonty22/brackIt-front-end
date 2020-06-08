@@ -13,11 +13,6 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
-/* 
-.center {
-  display: flex;
-  align-items: center;
-} */
 
 .App-header {
   background-color: #282c34;
@@ -36,26 +31,34 @@
 
 .roundLeft {
   display: flex;
-  justify-content: start;
   align-items: center;
 }
 
 .roundRight {
+  /* background-color: red; */
   display: flex;
-  justify-content: end;
   align-items: center;
+  justify-content: flex-end;
 }
 
 .final {
+  margin: auto;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-content: center;
+  padding: 20 px 
 }
 
+.tourney{
+  display: flex;
+  /* flex-direction: row;
+  justify-content: space-between; */
+  margin: auto;
+}
 
 .teamButton{
-  width: 100%;
-  height: 100%;
+  width: 100px;
+  height: 50px;
 }
 
 .round1{

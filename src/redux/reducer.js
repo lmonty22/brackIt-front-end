@@ -21,9 +21,18 @@ const tournamentsReducer = (state = [], action)=> {
         }
 }
 
+const currentUserReducer= (state= {}, action) => {
+    switch(action.type){
+    case "NEW_CURRENT_USER":
+        return action.payload
+    default: 
+        return state
+    }
+}
 
 const rootReducer = combineReducers({
-    tournaments: tournamentsReducer
+    tournaments: tournamentsReducer,
+    currentUser: currentUserReducer
   });
   
   export default rootReducer;
