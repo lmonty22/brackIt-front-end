@@ -2,9 +2,12 @@ import { browserHistory } from 'react-router'
 
 const URL = 'http://localhost:3000/'
 
-
 function setCurrentUser(user_data){
   return {type: "NEW_CURRENT_USER", payload: user_data}
+}
+
+function errorMessages(errors){
+  return {type: "LOGIN_ERROR", payload: errors}
 }
 
 function login(userInfo){
@@ -15,7 +18,7 @@ function login(userInfo){
     body: JSON.stringify(userInfo)
   }).then(response => response.json())
   .then( data => {
-    dispatch(setCurrentUser(data.user_data))
+    data.error_message? dispatch(errorMessages(data.error_message)): dispatch(setCurrentUser(data.user_data))
   })
   }
 }
@@ -59,12 +62,13 @@ function fetchingTournaments(){
     return {type: "NEW_TOURNAMENT", payload: tournament}
   }
 
-  function postTournament(tournamentDetails){
+  function postTournament(tournamentDetails, userId){
     return (dispatch) => {
       fetch(URL+'tournaments', {
         method: "POST",
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(tournamentDetails)
+        body: JSON.stringify({...tournamentDetails, 
+        user_id: userId})
       })
       .then(res => res.json())
       .then(tournament => {

@@ -21,7 +21,7 @@ const tournamentsReducer = (state = [], action)=> {
         }
 }
 
-const currentUserReducer= (state= {}, action) => {
+const currentUserReducer= (state= null, action) => {
     switch(action.type){
     case "NEW_CURRENT_USER":
         return action.payload
@@ -30,9 +30,21 @@ const currentUserReducer= (state= {}, action) => {
     }
 }
 
+
+const errorsReducer = (state= [], action) => {
+    switch(action.type){
+        case "LOGIN_ERROR":
+            return action.payload
+        default:
+            return state
+    }
+}
+
+
 const rootReducer = combineReducers({
     tournaments: tournamentsReducer,
-    currentUser: currentUserReducer
+    currentUser: currentUserReducer,
+    errors: errorsReducer
   });
   
   export default rootReducer;

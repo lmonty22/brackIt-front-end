@@ -18,7 +18,7 @@ class CreateTournamentForm extends React.Component{
     }
     onSubmit = (event) => {
         event.preventDefault()
-        this.props.postTournament(this.state)
+        this.props.postTournament(this.state, this.props.currentUser.id)
         this.setState({
             redirect: true
         })
@@ -39,7 +39,7 @@ class CreateTournamentForm extends React.Component{
 
     render(){
         if (this.state.redirect){
-            return <Redirect to='/'/>
+            return <Redirect to='/mytournaments'/>
         }
     return (
         <Col> 
@@ -71,11 +71,11 @@ class CreateTournamentForm extends React.Component{
 
 }
 const mapStateToProps = (state) => {
-    return {tournaments: state.tournaments}
+    return {currentUser: state.currentUser }
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return {postTournament: (tournament) =>{dispatch(postTournament(tournament))}}
+    return {postTournament: (tournament, userId) =>{dispatch(postTournament(tournament, userId))}}
 }
 
 

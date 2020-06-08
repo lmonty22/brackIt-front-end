@@ -3,7 +3,7 @@ import TournamentsContainer from "./TournamentsContainer"
 
 
 const HomePage = () => {
-    return ( <TournamentsContainer/>
+    return ( <TournamentsContainer key={'tournamentContainer'}/>
     )
 }
 
