@@ -21,10 +21,12 @@ const tournamentsReducer = (state = [], action)=> {
         }
 }
 
-const currentUserReducer= (state= null, action) => {
+const currentUserReducer= (state = null, action) => {
     switch(action.type){
     case "NEW_CURRENT_USER":
         return action.payload
+    case "CLEAR_USER":
+        return null
     default: 
         return state
     }

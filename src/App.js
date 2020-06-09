@@ -10,6 +10,8 @@ import CreateTournamentForm from './components/CreateTournamentForm'
 import Spinner from 'react-bootstrap/Spinner'
 import Login from './components/Login'
 import UserTournamentPage from './containers/UserTournamentPage';
+import CreateUserForm from './components/CreateUserform'
+import {findUser} from './redux/actions'
 
 
 class App extends React.Component{
@@ -22,6 +24,9 @@ class App extends React.Component{
   }
    
   componentDidMount = ()=> {
+    if(localStorage.getItem("token")){
+      this.props.findUser(localStorage.getItem("token"))
+    }
     this.props.fetchingTournaments()
     this.setState({
       loading: false
@@ -38,6 +43,7 @@ class App extends React.Component{
           <Route exact path="/createtournament" render={() => this.props.currentUser? <CreateTournamentForm/>: <Redirect to="/login"/>} />
           <Route exact path="/login" render={() => !this.props.currentUser? <Login/> : <Redirect to="/mytournaments"/>}/>
           <Route exact path="/mytournaments" render={() => this.props.currentUser? <UserTournamentPage /> : <Redirect to="/login"/>}/>
+          <Route exact path='/signup' render={() => !this.props.currentUser? <CreateUserForm /> : <Redirect to="/mytournaments"/>}/>
           <Route render={()=> <div>404 No Route Found</div> } />
       </Switch>
       }
@@ -54,7 +60,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchingTournaments: () => {dispatch( fetchingTournaments() )}
+    fetchingTournaments: () => {dispatch( fetchingTournaments())},
+    findUser: (token) => {dispatch(findUser(token))}
   }
 }
 

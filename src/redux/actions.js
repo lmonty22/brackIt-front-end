@@ -6,6 +6,38 @@ function setCurrentUser(user_data){
   return {type: "NEW_CURRENT_USER", payload: user_data}
 }
 
+function logout(){
+  localStorage.clear()
+  return {type: "CLEAR_USER"}
+}
+
+function findUser(token){
+  return (dispatch) => {
+  fetch("http://localhost:3000/relogin", {
+        headers: {
+          "Authenticate": token
+        }
+      })
+      .then(res => res.json())
+      .then(userData => {
+        dispatch(setCurrentUser(userData))
+      })
+  }
+}
+
+function postUser(obj){
+  return (dispatch) => {
+    fetch(URL+'users', {
+    method: "POST",
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(obj)
+  }).then(response => response.json())
+  .then(data => {
+    localStorage.setItem("token", data.token)
+    dispatch(setCurrentUser(data.user_data))})
+  }
+}
+
 function errorMessages(errors){
   return {type: "LOGIN_ERROR", payload: errors}
 }
@@ -18,7 +50,12 @@ function login(userInfo){
     body: JSON.stringify(userInfo)
   }).then(response => response.json())
   .then( data => {
-    data.error_message? dispatch(errorMessages(data.error_message)): dispatch(setCurrentUser(data.user_data))
+     if (data.error_message){
+       dispatch(errorMessages(data.error_message))
+     }else{
+      localStorage.setItem("token", data.token)
+      dispatch(setCurrentUser(data.user_data))
+     }
   })
   }
 }
@@ -76,6 +113,8 @@ function fetchingTournaments(){
       })
     }
   }
+
   
-  export { fetchingTournaments, matchUpWinner, postTournament, login };
+  
+  export { fetchingTournaments, matchUpWinner, postTournament, login, postUser, findUser, logout };
   

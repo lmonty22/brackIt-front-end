@@ -44,10 +44,14 @@ const MatchUp = (props) => {
         </div>)}
 }
 
+// need to build in functionality so only the user who created the tournament can advance players
+const mapStateToProps = (state) => {
+    return { currentUser: state.currentUser}
+}
 const mapDispatchToProps = (dispatch) => {
     return {matchUpWinner: (matchUp, winnerId) => {dispatch(matchUpWinner(matchUp, winnerId))}}
 }
 
 
 
-export default connect(null, mapDispatchToProps)(MatchUp)
+export default connect(mapStateToProps, mapDispatchToProps)(MatchUp)

@@ -4,6 +4,8 @@ import {Container, Row, Col} from 'react-bootstrap'
 import LeftHalfContainer from './LeftHalfContainer'
 import FinalsContainer from './FinalsContainer'
 import RightHalfContainer from './RightHalfContainer'
+import Champion from '../components/Champion'
+import Spinner from 'react-bootstrap/Spinner'
 import '../App.css';
 
 
@@ -58,15 +60,17 @@ const TournamentPage = (props) => {
                 }
                 
    }
-    
-    return (!props.tournament? <div>No Tourney to see here.</div> : 
+    return (!props.tournament? <Spinner/> : 
         <div>
+            <div className='tourneyHeader'>
             <h1>{props.tournament.name}</h1>
-            <Container fluid >
+             <p>Created By: @{props.tournament.user.username}</p>
+             </div>
+            <Container fluid className='tourneyContainer'>
                 <Row className='tourney'>
                     <Col ><LeftHalfContainer rounds={leftSideMatchUps}/></Col>
-                    <Col md="auto" className='final' ><FinalsContainer round={finalRound} champ={props.tournament.champion}/></Col>
-                    <Col  ><RightHalfContainer rounds={rightSideMatchUps}/></Col>
+                    <Col md="auto" ><FinalsContainer round={finalRound} champ={props.tournament.champion}/></Col>
+                    <Col><RightHalfContainer rounds={rightSideMatchUps}/></Col>
                 </Row>
             </Container>
         </div>

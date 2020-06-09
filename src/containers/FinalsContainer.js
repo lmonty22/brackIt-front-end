@@ -8,7 +8,14 @@ import '../App.css';
 
 
 const FinalsContainer= (props) => {
-    return ( props.round.match_ups.map(m => <MatchUp key={m.id} matchUp={m} />))
+    return ( 
+        <div>
+            <Row> <Champion champ={props.champ}/></Row>
+            <Row>
+                {props.round.match_ups.map(m => <div className='finalMatchUp'><MatchUp  key={m.id} matchUp={m} /> </div>)}
+            </Row>
+         </div>
+        )
 }
 
 export default FinalsContainer
