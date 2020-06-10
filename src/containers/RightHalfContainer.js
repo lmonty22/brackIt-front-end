@@ -7,7 +7,7 @@ import '../App.css';
 const RightHalfContainer= (props) => {
         return <Row>
         {props.rounds.reverse().map(r => {
-            return  <Col className="roundRight" key={r.id}> <RoundCol key={r.id} round={r} /></Col>})}
+            return  <Col className={`roundRight Rr${r.round_numer}`}key={r.id}> <RoundCol start={'right'} end={'left'} key={r.id} round={r} /></Col>})}
         </Row>
 }
 

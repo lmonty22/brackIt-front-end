@@ -1,15 +1,14 @@
 import React from 'react'
 import { connect } from "react-redux";
-import {Container, Row, Col} from 'react-bootstrap'
+import {Row, Col, Spinner} from 'react-bootstrap'
 import LeftHalfContainer from './LeftHalfContainer'
 import FinalsContainer from './FinalsContainer'
 import RightHalfContainer from './RightHalfContainer'
-import Champion from '../components/Champion'
-import Spinner from 'react-bootstrap/Spinner'
+// import Lines from '../components/Lines'
 import '../App.css';
 
 
-let roundType, finalRound, numberOfRounds, roundsSorted, roundsNotIncludingFinal, leftSideMatchUps, rightSideMatchUps
+let finalRound, numberOfRounds, roundsSorted, roundsNotIncludingFinal, leftSideMatchUps, rightSideMatchUps
 
 
 const sortRounds = (allRounds) => {
@@ -47,10 +46,28 @@ const ReturnRightSideMatchUps = (roundsNotIncludingFinal) => {
 
 }
 
-const TournamentPage = (props) => {
-    if (props.tournament){
-        numberOfRounds = checkRoundNumber(props.tournament.number_of_teams)
-        roundsSorted = sortRounds(props.tournament.rounds)
+class TournamentPage extends React.Component{
+    constructor(){
+        super()
+        this.state={
+            loading: true
+        }
+    }
+
+    
+    componentDidUpdate(){
+        if(this.props.tournament && this.state.loading){
+            debugger
+            this.setState({
+                loading: false
+            })
+        }
+    }
+
+render (){
+    if (this.props.tournament){
+        numberOfRounds = checkRoundNumber(this.props.tournament.number_of_teams)
+        roundsSorted = sortRounds(this.props.tournament.rounds)
         //array of 1 elemenet
         finalRound = roundsSorted[numberOfRounds-1]
         roundsNotIncludingFinal = [...roundsSorted.slice(0, numberOfRounds-1)]
@@ -60,21 +77,21 @@ const TournamentPage = (props) => {
                 }
                 
    }
-    return (!props.tournament? <Spinner/> : 
+    return (!this.props.tournament? <Spinner/> : 
         <div>
             <div className='tourneyHeader'>
-            <h1>{props.tournament.name}</h1>
-             <p>Created By: @{props.tournament.user.username}</p>
+            <h1>{this.props.tournament.name}</h1>
+             <p>Created By: @{this.props.tournament.user.username}</p>
              </div>
-            <Container fluid className='tourneyContainer'>
-                <Row className='tourney'>
-                    <Col ><LeftHalfContainer rounds={leftSideMatchUps}/></Col>
-                    <Col md="auto" ><FinalsContainer round={finalRound} champ={props.tournament.champion}/></Col>
-                    <Col><RightHalfContainer rounds={rightSideMatchUps}/></Col>
-                </Row>
-            </Container>
+             <Row className='tourney' >
+                    <Col ><LeftHalfContainer rounds={leftSideMatchUps} /></Col>
+                    <Col md="auto" ><FinalsContainer round={finalRound}  champ={this.props.tournament.champion}/></Col>
+                    <Col><RightHalfContainer rounds={rightSideMatchUps} /></Col>
+             </Row>
+             {/* <Lines left={leftSideMatchUps} right={rightSideMatchUps} final={finalRound}/> */}
         </div>
-    )
+)}
+
 }
 
 const mapStateToProps = (state, ownProps) => {
