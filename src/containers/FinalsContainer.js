@@ -10,7 +10,7 @@ const FinalsContainer= (props) => {
         <div>
             <Row> <Champion champ={props.champ}/></Row>
             <Row>
-                {props.round.match_ups.map(m => <div key={m.id}className='finalMatchUp'><MatchUp  key={m.id} matchUp={m} /> </div>)}
+                {props.round.match_ups.map(m => <div key={m.id}className='finalMatchUp'><MatchUp  loading={props.loading} round_number={props.round.round_number} key={m.id} matchUp={m} /> </div>)}
             </Row>
          </div>
         )

@@ -4,7 +4,6 @@ import {Row, Col, Spinner} from 'react-bootstrap'
 import LeftHalfContainer from './LeftHalfContainer'
 import FinalsContainer from './FinalsContainer'
 import RightHalfContainer from './RightHalfContainer'
-// import Lines from '../components/Lines'
 import '../App.css';
 
 
@@ -50,14 +49,22 @@ class TournamentPage extends React.Component{
     constructor(){
         super()
         this.state={
-            loading: true
+            loading: true,
+            tournamentLoaded: false
+        }
+    }
+
+    componentDidMount(){
+        if(this.props.tournament && this.state.loading){
+            this.setState({
+                loading: false
+            })
         }
     }
 
     
     componentDidUpdate(){
         if(this.props.tournament && this.state.loading){
-            debugger
             this.setState({
                 loading: false
             })
@@ -84,11 +91,10 @@ render (){
              <p>Created By: @{this.props.tournament.user.username}</p>
              </div>
              <Row className='tourney' >
-                    <Col ><LeftHalfContainer rounds={leftSideMatchUps} /></Col>
-                    <Col md="auto" ><FinalsContainer round={finalRound}  champ={this.props.tournament.champion}/></Col>
-                    <Col><RightHalfContainer rounds={rightSideMatchUps} /></Col>
+                    <Col ><LeftHalfContainer loading={this.state.loading} rounds={leftSideMatchUps} /></Col>
+                    <Col md="auto" ><FinalsContainer  loading={this.state.loading} round={finalRound}  champ={this.props.tournament.champion}/></Col>
+                    <Col><RightHalfContainer loading={this.state.loading} rounds={rightSideMatchUps} /></Col>
              </Row>
-             {/* <Lines left={leftSideMatchUps} right={rightSideMatchUps} final={finalRound}/> */}
         </div>
 )}
 
