@@ -24,6 +24,10 @@ function findUser(token){
   }
 }
 
+function newSearchTerm(string){
+  return {type: 'NEW_SEARCH_TERM', payload: string}
+}
+
 function postUser(obj){
   return (dispatch) => {
     fetch(URL+'users', {
@@ -113,7 +117,20 @@ function fetchingTournaments(){
     }
   }
 
+  function deletedTournament(bracketID){
+    return {type:'DELETE_TOURNAMENT', payload: bracketID}
+  }
+
+  function deleteTournament(bracketID){
+    return (dispatch) => {
+      fetch(URL+`tournaments/${bracketID}`, 
+      {method: 'DELETE'
+      })
+        dispatch(deletedTournament(bracketID))
+    }
+  }
+
   
   
-  export { fetchingTournaments, matchUpWinner, postTournament, login, postUser, findUser, logout };
+  export { fetchingTournaments, matchUpWinner, postTournament, login, postUser, findUser, logout, newSearchTerm, deleteTournament };
   

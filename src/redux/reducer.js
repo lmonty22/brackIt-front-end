@@ -16,6 +16,9 @@ const tournamentsReducer = (state = null, action)=> {
         case "NEW_TOURNAMENT":
             let newStateArray = [...state, action.payload]
             return newStateArray
+        case "DELETE_TOURNAMENT":
+            let newTournamentsArray = [...state].filter(t => t.id !== action.payload)
+            return newTournamentsArray
         default: 
             return state
         }
@@ -42,11 +45,22 @@ const errorsReducer = (state= [], action) => {
     }
 }
 
+const searchTermReducer = (state= '', action) => {
+    switch(action.type){
+    case "NEW_SEARCH_TERM":
+        return action.payload
+    default:
+        return state
+    }
+
+}
+
 
 const rootReducer = combineReducers({
     tournaments: tournamentsReducer,
     currentUser: currentUserReducer,
-    errors: errorsReducer
+    errors: errorsReducer,
+    searchTerm: searchTermReducer,
   });
   
   export default rootReducer;
