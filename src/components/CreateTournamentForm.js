@@ -43,6 +43,8 @@ class CreateTournamentForm extends React.Component{
         }
     return (
         <Col> 
+        <div className='tourneyformDiv'>
+            <h1>Create a Tournament</h1>
         <Form>
         <Form.Group controlId="name">
           <Form.Label>Tournament Name</Form.Label>
@@ -66,6 +68,7 @@ class CreateTournamentForm extends React.Component{
              Submit
         </Button>
       </Form>
+      </div>
       </Col>)
     }
 

@@ -43,7 +43,7 @@ class App extends React.Component{
   return (
     <div className="App">
       <NavBar />
-      {this.state.loading?   <Spinner animation="border" variant="info" />:<Switch>
+       {this.state.loading? <Spinner animation="border" variant="info" />:<Switch>
           <Route exact path="/tournaments/:id" render={(props) => {return <TournamentPage {...props} />}} />
           <Route exact path="/" component={HomePage}/>
           <Route exact path="/createtournament" render={() => this.props.currentUser? <CreateTournamentForm/>: <Redirect to="/login"/>} />
@@ -51,7 +51,7 @@ class App extends React.Component{
           <Route exact path="/mytournaments" render={() => this.props.currentUser? <UserTournamentPage /> : <Redirect to="/login"/>}/>
           <Route exact path='/signup' render={() => !this.props.currentUser? <CreateUserForm /> : <Redirect to="/mytournaments"/>}/>
           <Route render={()=> <div>404 No Route Found</div> } />
-      </Switch>
+      </Switch> 
       }
     </div>
   );

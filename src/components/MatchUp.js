@@ -22,10 +22,10 @@ const MatchUp = (props) => {
         if (props.matchUp.winner_id){
         return (<div className={`matchup R${props.round_number}-M${props.matchUp.match_up_number}`}> 
                 <Row  >
-                    <Button type="button" className={`teamButton `} style={props.matchUp.winner_id === props.matchUp.team_a_id? {color: 'green', fontWeight: 'bold'}: {textDecoration: 'line-through'}} variant={"light"} > {props.matchUp.team_a.name}</Button>  
+                    <Button type="button" className={`teamButton `} style={props.matchUp.winner_id === props.matchUp.team_a_id? {color: '#12263A', fontWeight: 'bold'}: {textDecoration: 'line-through'}} variant={"light"} > {props.matchUp.team_a.name}</Button>  
                 </Row>
                 <Row >
-                    <Button type="button" className={`teamButton `} style={props.matchUp.winner_id === props.matchUp.team_b_id? {color: 'green', fontWeight: 'bold'}: {textDecoration: 'line-through'}}  variant={"dark"} >{props.matchUp.team_b.name}</Button>
+                    <Button type="button" className={`teamButton `} style={props.matchUp.winner_id === props.matchUp.team_b_id? {color: 'white', fontWeight: 'bold'}: {textDecoration: 'line-through'}}  variant={"dark"} >{props.matchUp.team_b.name}</Button>
                 </Row>
                 <SteppedLineTo borderColor={'grey'} from={`R${props.round_number}-M${props.matchUp.match_up_number}`} to={`R${nextRound}-M${nextMatchUp}`} toAnchor={props.start}  fromAnchor={props.end}  orientation='h' />
                 </div>)}

@@ -57,7 +57,7 @@ class NavBar extends React.Component {
             </Nav>
             <Nav >
             {this.props.currentUser? <Nav.Link as={Link} to='/createtournament'>Create Tournament</Nav.Link> :  <Link to='/login'><Button variant="light">Login</Button>  </Link>}
-            {this.props.currentUser?  <Nav.Link as={Link} to='/mytournaments'>My Tournaments</Nav.Link> :  <Link variant="info" to='/signup'><Button>Signup</Button> </Link> }
+            {this.props.currentUser?  <Nav.Link as={Link} to='/mytournaments'>My Tournaments</Nav.Link> :  <Link  to='/signup'><Button variant="info">Signup</Button> </Link> }
             {this.props.currentUser?   <Button variant="info" onClick={() => this.props.logout()}>Logout</Button> : null }
             </Nav>
         </Navbar>

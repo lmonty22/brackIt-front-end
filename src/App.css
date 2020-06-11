@@ -74,6 +74,15 @@ h1 {
   color: #06BCC1;
 }
 
+.tourneyformDiv{
+  max-width: 50%;
+  margin: auto;
+}
+
+.formDiv{
+  max-width: 500px;
+  margin: auto;
+}
 
 .tourneyHeader{
   display: flex;
@@ -81,7 +90,27 @@ h1 {
   align-items: center;
 }
 
+.btn-dark {
+  background-color: #A2D6F9 !important;
+  border-color: #A2D6F9!important;
+  color: black !important;
+}
+.btn-info {
+  background-color: #A2D6F9!important;
+  border-color: #A2D6F9!important;
+  color: black !important;
+}
 
+.btn-light{
+  background-color: #102542 !important;
+  border-color: #102542 !important;
+  color: white !important;
+}
+
+.jumbotron{
+  background-color: #FCF300 !important;
+  color: #102542 !important;
+}
 
 @keyframes App-logo-spin {
   from {

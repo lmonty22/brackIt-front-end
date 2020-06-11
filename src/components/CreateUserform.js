@@ -108,6 +108,8 @@ class CreateUserForm extends React.Component{
     render(){
       return this.props.currentUser? <Redirect to="/mytournaments"/>: 
            <Col> 
+           <div className='formDiv'>
+               <h1>SignUp</h1>
             <Form>
         <ul style={{color:'red'}}>
             {!this.state.passwordCorrrect? <li>{this.state.errors.password}</li> : null}
@@ -125,10 +127,11 @@ class CreateUserForm extends React.Component{
               <Form.Label>Password Confirmation</Form.Label>
               <Form.Control type="password" placeholder="password" onChange={this.onChange} value={this.state.passwordConfirmation}/>
             </Form.Group>
-            <Button variant="primary" type="submit" onClick={this.onSubmit}>
+            <Button variant="info" type="submit" onClick={this.onSubmit}>
                 Login
             </Button>
           </Form>
+          </div>
           </Col>
     }
   }

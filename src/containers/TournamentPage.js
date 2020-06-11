@@ -63,13 +63,13 @@ class TournamentPage extends React.Component{
     }
 
     
-    // componentDidUpdate(){
-    //     if(this.props.tournament && this.state.loading){
-    //         this.setState({
-    //             loading: false
-    //         })
-    //     }
-    // }
+    componentDidUpdate(){
+        if(this.props.tournament && this.state.loading){
+            this.setState({
+                loading: false
+            })
+        }
+    }
 
 render (){
     if (this.props.tournament){

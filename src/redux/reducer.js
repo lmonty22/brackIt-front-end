@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 
-const tournamentsReducer = (state = null, action)=> {
+const tournamentsReducer = (state = [], action)=> {
     switch(action.type){
         case "FETCHED_TOURNAMENTS":
             return action.payload

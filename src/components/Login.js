@@ -30,6 +30,8 @@ class Login extends React.Component{
     render(){
       return this.props.currentUser? <Redirect to="/mytournaments"/>: 
            <Col> 
+           <div className='formDiv'>
+             <h1>Login</h1>
             <Form>
               <div style={{color:'red'}}>{this.props.errors? this.props.errors: null} </div>
             <Form.Group controlId="username">
@@ -40,10 +42,11 @@ class Login extends React.Component{
               <Form.Label>Password</Form.Label>
               <Form.Control type="password" placeholder="password" onChange={this.onChange} value={this.state.password}/>
             </Form.Group>
-            <Button variant="primary" type="submit" onClick={this.onSubmit}>
+            <Button variant="info" type="submit" onClick={this.onSubmit}>
                 Login
             </Button>
           </Form>
+          </div>
           </Col>
     }
   }
