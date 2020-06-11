@@ -63,13 +63,13 @@ class TournamentPage extends React.Component{
     }
 
     
-    componentDidUpdate(){
-        if(this.props.tournament && this.state.loading){
-            this.setState({
-                loading: false
-            })
-        }
-    }
+    // componentDidUpdate(){
+    //     if(this.props.tournament && this.state.loading){
+    //         this.setState({
+    //             loading: false
+    //         })
+    //     }
+    // }
 
 render (){
     if (this.props.tournament){
@@ -89,11 +89,13 @@ render (){
             <div className='tourneyHeader'>
             <h1>{this.props.tournament.name}</h1>
              <p>Created By: @{this.props.tournament.user.username}</p>
+             {this.props.tournament.user_id === this.props.currentUser.id? <p>You are the tournament admin. Only you can edit this tournament. Click a team to make them advance to the next round. </p>: null }
              </div>
+           
              <Row className='tourney' >
-                    <Col ><LeftHalfContainer loading={this.state.loading} rounds={leftSideMatchUps} /></Col>
-                    <Col md="auto" ><FinalsContainer  loading={this.state.loading} round={finalRound}  champ={this.props.tournament.champion}/></Col>
-                    <Col><RightHalfContainer loading={this.state.loading} rounds={rightSideMatchUps} /></Col>
+                    <Col ><LeftHalfContainer loading={this.state.loading} tUser={this.props.tournament.user_id} rounds={leftSideMatchUps} /></Col>
+                    <Col md="auto" ><FinalsContainer  loading={this.state.loading} tUser={this.props.tournament.user_id} round={finalRound}  champ={this.props.tournament.champion}/></Col>
+                    <Col><RightHalfContainer loading={this.state.loading} tUser={this.props.tournament.user_id} rounds={rightSideMatchUps} /></Col>
              </Row>
         </div>
 )}
@@ -101,7 +103,8 @@ render (){
 }
 
 const mapStateToProps = (state, ownProps) => {
-        return {tournament: state.tournaments.find(t => t.id === parseInt(ownProps.match.params.id))}
+        return {tournament: state.tournaments.find(t => t.id === parseInt(ownProps.match.params.id)),
+                currentUser: state.currentUser}
 }
 
 export default connect(mapStateToProps)(TournamentPage)

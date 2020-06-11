@@ -2,10 +2,11 @@ import React from 'react';
 import { connect } from "react-redux";
 import TournamentListItem from '../components/TournamentListItem'
 import Row from 'react-bootstrap/Row';
+import '../App.css';
 
 
 const UsersTournamentPage = (props) => {
-    return (<div><h4>Welcome {props.currentUser.username}</h4>
+    return (<div><h1>Welcome {props.currentUser.username}</h1>
             {props.userTournaments.length > 0? <Row>{props.userTournaments.map(t => <TournamentListItem key={t.id} tournament={t}/>)}</Row> : <div>You have no tourneys</div>}
     </div>)
     }

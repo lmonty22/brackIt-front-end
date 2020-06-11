@@ -7,7 +7,7 @@ import '../App.css';
 const RightHalfContainer= (props) => {
         return <Row>
         {props.rounds.reverse().map(r => {
-            return  <Col > <RoundCol loading={props.loading} start={'right'} end={'left'} key={r.id} round={r} /></Col>})}
+            return  <Col > <RoundCol tUser={props.tUser} loading={props.loading} start={'right'} end={'left'} key={r.id} round={r} /></Col>})}
         </Row>
 }
 

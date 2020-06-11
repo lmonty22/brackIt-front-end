@@ -28,9 +28,15 @@ class App extends React.Component{
       this.props.findUser(localStorage.getItem("token"))
     }
     this.props.fetchingTournaments()
-    this.setState({
-      loading: false
-    })
+  
+  }
+
+  componentDidUpdate = () => {
+    if (this.props.tournaments && this.state.loading){
+      this.setState({
+        loading: false
+      })
+    }
   }
 
   render() {
@@ -54,7 +60,8 @@ class App extends React.Component{
 
 const mapStateToProps = (state) => {
   return {
-    currentUser: state.currentUser
+    currentUser: state.currentUser,
+    tournaments: state.tournaments
   }
 }
 

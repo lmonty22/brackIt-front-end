@@ -66,6 +66,15 @@
   height: 100px;
 }   
 
+h1 {
+  color: #12263A;
+}
+
+.nav {
+  color: #06BCC1;
+}
+
+
 .tourneyHeader{
   display: flex;
   flex-direction: column;

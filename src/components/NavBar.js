@@ -14,10 +14,10 @@ const NavBar = (props) => {
         <Navbar sticky="top" bg="light" expand="lg">
             <Nav className="mr-auto">
             <Link to='/'><Navbar.Brand>BrackIt</Navbar.Brand></Link>
-            <Form inline>
+            {/* <Form inline>
                 <FormControl type="text" placeholder="Search" className=" mr-sm-2" />
                 <Button type="submit">Submit</Button>
-            </Form>
+            </Form> */}
             </Nav>
             <Nav >
             {props.currentUser? <Nav.Link as={Link} to='/createtournament'>Create Tournament</Nav.Link> :  <Link to='/login'><Button variant="light">Login</Button>  </Link>}
