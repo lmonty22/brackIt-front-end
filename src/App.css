@@ -103,10 +103,24 @@ h1 {
 .btn-light{
   background-color: #A2D6F9 !important;
   border-color: #A2D6F9!important;
+  text-align: center !important;
 }
 
+.badge-light{
+  background-color: #A2D6F9 !important;
+  border-color: #A2D6F9!important;
+  font-size: 17px !important;
+  text-align: center !important;
+}
+
+.badge-dark{
+  background-color: #102542 !important;
+  border-color: #102542 !important;
+  font-size: 17px !important;
+  text-align: center !important;
+}
 .carousel-item {
-  height: 1000px;
+  height: 80%;
 
 }
 

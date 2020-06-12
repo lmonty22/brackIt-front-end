@@ -89,7 +89,7 @@ render (){
             <div className='tourneyHeader'>
             <h1>{this.props.tournament.name}</h1>
              <p>Created By: @{this.props.tournament.user.username}</p>
-             {this.props.currentUser && this.props.tournament.user_id === this.props.currentUser.id? <p>You are the tournament admin. Only you can edit this tournament. Click a team to make them advance to the next round. </p>: null }
+             {this.props.currentUser && this.props.tournament.user_id === this.props.currentUser.id? <p>You are the tournament admin. Only you can update this tournament. Click on team to make them advance to the next round or update their team name. </p>: null }
              </div>
            
              <Row className='tourney' >
