@@ -1,6 +1,10 @@
 
 const URL = 'http://localhost:3000/'
 
+function updatedTournament(tournament){
+  return {type: "UPDATED_TOURNAMENT", payload: tournament}
+}
+
 function setCurrentUser(user_data){
   return {type: "NEW_CURRENT_USER", payload: user_data}
 }
@@ -32,7 +36,7 @@ function updateTeamName(teamId, newTeamName, tournamentId){
       body: JSON.stringify({name: newTeamName, tournament: tournamentId})
     }).then(res => res.json())
     .then(tournament => {
-      updatedTournament(tournament)
+      dispatch(updatedTournament(tournament))
     })
   }
 }
@@ -96,9 +100,6 @@ function removeCurrentTournament(){
   return {type: "REMOVE_TOURNAMENT"}
 }
 
-function updatedTournament(tournament){
-    return {type: "UPDATED_TOURNAMENT", payload: tournament}
-}
 
 
 function setTournament(tournament){

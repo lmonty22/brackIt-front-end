@@ -39,12 +39,12 @@ class MatchUp extends React.Component{
 
     // Team name is not in state after the advance before a refresh. 
     // componentDidUpdate(prevProps){
-    //     if (prevProps.matchUp.team_a != this.props.team_a){
+    //     if (this.props.currentTournament && (prevProps.matchUp.team_a_id !== this.props.matchup.team_a_id)){
     //         this.setState({
     //             teamNameA: this.props.matchUp.team_a.name
     //         })
     //     }
-    //     if( prevProps.matchUp.team_b != this.props.matchUp.team_b){
+    //     if(this.props.currentTournament && (prevProps.matchUp.team_b_id !== this.props.matchUp.team_b_id)){
     //         this.setState({
     //             teamNameB: this.props.matchUp.team_b.name
     //         })
@@ -55,14 +55,22 @@ class MatchUp extends React.Component{
         this.setState({
             teamNameA: e.currentTarget.value}
         )
-        // lets refactor store first. 
-        // this.updateTeamName(this.matchUp.team_a_id, e.currentTarget.value, this. )
     }
     onChangeB = (e) =>{
         this.setState({
             teamNameB: e.currentTarget.value}
-        )
+            )
+        }
+        
+    submitTeamAName= () => {
+            this.props.updateTeamName(this.props.matchUp.team_a_id, this.state.teamNameA, this.props.currentTournament.id )
     }
+
+    submitTeamBName= () => {
+        this.props.updateTeamName(this.props.matchUp.team_b_id, this.state.teamNameB, this.props.currentTournament.id )
+    }
+
+
 
     render(){
         let nextRound = this.props.round_number + 1
@@ -73,10 +81,10 @@ class MatchUp extends React.Component{
         if (this.props.matchUp.winner_id){
         return (<div className={`matchup R${this.props.round_number}-M${this.props.matchUp.match_up_number}`}> 
                 <Row  >
-                    <Button type="button" className={`teamButton `} style={this.props.matchUp.winner_id === this.props.matchUp.team_a_id? {fontWeight: 'bold'}: {textDecoration: 'line-through'}} variant={"dark"} > {this.props.matchUp.team_a.name}</Button>  
+                    <Button type="button" className={`teamButton btn-dark`} style={this.props.matchUp.winner_id === this.props.matchUp.team_a_id? {fontWeight: 'bold'}: {textDecoration: 'line-through'}} > {this.props.matchUp.team_a.name}</Button>  
                 </Row>
                 <Row >
-                    <Button type="button" className={`teamButton `} style={this.props.matchUp.winner_id === this.props.matchUp.team_b_id? {fontWeight: 'bold'}: {textDecoration: 'line-through'}}  variant={"light"} >{this.props.matchUp.team_b.name}</Button>
+                    <Button type="button" className={`teamButton btn-light`} style={this.props.matchUp.winner_id === this.props.matchUp.team_b_id? {fontWeight: 'bold'}: {textDecoration: 'line-through'}} >{this.props.matchUp.team_b.name}</Button>
                 </Row>
                 <SteppedLineTo borderColor={'grey'} from={`R${this.props.round_number}-M${this.props.matchUp.match_up_number}`} to={`R${nextRound}-M${nextMatchUp}`} toAnchor={this.props.start}  fromAnchor={this.props.end}  orientation='h' />
                 </div>)}
@@ -88,7 +96,7 @@ class MatchUp extends React.Component{
                             <Popover id={`popover-positioned-${this.props.end}`}>
                             <Popover.Title as="h3">{this.props.matchUp.team_a.name}</Popover.Title>
                             <Popover.Content>
-                              <Form.Control type="input" onChange={this.onChangeA} value={this.state.teamNameA} />
+                              <Form.Control type="input" onChange={this.onChangeA} value={this.state.teamNameA} /> <Button  className={'btn-light'} onClick={this.submitTeamAName} >Update Team Name</Button>
                               <br></br>
                               You may not advance a team that does not have an opponent in their current matchup.
                             </Popover.Content>
@@ -105,7 +113,7 @@ class MatchUp extends React.Component{
                             <Popover id={`popover-positioned-${this.props.end}`}>
                             <Popover.Title as="h3">{this.props.matchUp.team_b.name}</Popover.Title>
                             <Popover.Content>
-                              <Form.Control type="input" placeholder="teamName" onChange={this.onChangeB} value={this.state.teamNameB} />
+                              <Form.Control type="input" placeholder="teamName" onChange={this.onChangeB} value={this.state.teamNameB} /> <Button className={'btn-light'} onClick={this.submitTeamBName} >Update Team Name</Button>
                               <br></br>
                               You may not advance a team that does not have an opponent in their current matchup.
                             </Popover.Content>
@@ -126,9 +134,9 @@ class MatchUp extends React.Component{
                         <Popover id={`popover-positioned-${this.props.end}`}>
                         <Popover.Title as="h3">{this.props.matchUp.team_a.name}</Popover.Title>
                         <Popover.Content>
-                          <Form.Control type="input" placeholder="teamName" onChange={this.onChangeA} value={this.state.teamNameA} />
+                          <Form.Control type="input" placeholder="teamName" onChange={this.onChangeA} value={this.state.teamNameA} /> <Button className={'btn-light'} onClick={this.submitTeamAName} >Update Team Name</Button>
                           <br></br>
-                          <Button className={'btn-dark'} onClick={() => this.props.matchUpWinner(this.props.matchUp, this.props.matchUp.team_a.id)} >Advance Team to Next Round</Button>
+                          <Button className={'btn-dark'} onClick={() => this.props.matchUpWinner(this.props.matchUp, this.props.matchUp.team_a.id)} >Advance {this.props.matchUp.team_a.name} to Next Round</Button>
                         </Popover.Content>
                       </Popover>
                  } key={'right'} placement={this.props.end} rootCloseEvent={'mousedown'} >
@@ -141,8 +149,9 @@ class MatchUp extends React.Component{
                         <Popover.Title as="h3">{this.props.matchUp.team_b.name}</Popover.Title>
                         <Popover.Content>
                           <Form.Control type="input" placeholder="teamName" onChange={this.onChangeB} value={this.state.teamNameB} />
+                           <Button className={'btn-light'} onClick={this.submitTeamBName} >Update Team Name</Button>
                           <br></br>
-                          <Button className={'btn-dark'}onClick={() => this.props.matchUpWinner(this.props.matchUp, this.props.matchUp.team_b.id)} >Advance Team to Next Round</Button>
+                          <Button className={'btn-dark'}onClick={() => this.props.matchUpWinner(this.props.matchUp, this.props.matchUp.team_b.id)} >Advance {this.props.matchUp.team_b.name}  to Next Round</Button>
                         </Popover.Content>
                       </Popover>
                  } key={'right'} placement={this.props.end} rootCloseEvent={'mousedown'} >
@@ -195,7 +204,8 @@ class MatchUp extends React.Component{
 
 // need to build in functionality so only the user who created the tournament can advance players
 const mapStateToProps = (state) => {
-    return { currentUser: state.currentUser}
+    return { currentUser: state.currentUser,
+            currentTournament: state.currentTournament}
 }
 const mapDispatchToProps = (dispatch) => {
     return {matchUpWinner: (matchUp, winnerId) => {dispatch(matchUpWinner(matchUp, winnerId))},

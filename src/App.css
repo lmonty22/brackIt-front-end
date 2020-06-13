@@ -103,7 +103,7 @@ h1 {
 .btn-light{
   background-color: #A2D6F9 !important;
   border-color: #A2D6F9!important;
-  text-align: center !important;
+  overflow: hidden;
 }
 
 .badge-light{
@@ -135,6 +135,15 @@ h1 {
   position: absolute;
   background-size: cover;
 }
+
+.popover{
+  height: 200px !important;
+  background-color: #FCF300 !important;
+}
+
+
+
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
