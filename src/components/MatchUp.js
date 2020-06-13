@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button, Row, Form, Popover, OverlayTrigger, Badge} from 'react-bootstrap'
-import {matchUpWinner} from '../redux/actions'
+import {matchUpWinner, updateTeamName} from '../redux/actions'
 import {connect} from 'react-redux'
 import LineTo, { SteppedLineTo} from 'react-lineto';
 import '../App.css'
@@ -37,6 +37,20 @@ class MatchUp extends React.Component{
         }
     }
 
+    // Team name is not in state after the advance before a refresh. 
+    // componentDidUpdate(prevProps){
+    //     if (prevProps.matchUp.team_a != this.props.team_a){
+    //         this.setState({
+    //             teamNameA: this.props.matchUp.team_a.name
+    //         })
+    //     }
+    //     if( prevProps.matchUp.team_b != this.props.matchUp.team_b){
+    //         this.setState({
+    //             teamNameB: this.props.matchUp.team_b.name
+    //         })
+    //     }
+    // }
+
     onChangeA= (e) => {
         this.setState({
             teamNameA: e.currentTarget.value}
@@ -72,7 +86,7 @@ class MatchUp extends React.Component{
                             <Popover id={`popover-positioned-${this.props.end}`}>
                             <Popover.Title as="h3">{this.props.matchUp.team_a.name}</Popover.Title>
                             <Popover.Content>
-                              <Form.Control type="input" placeholder="teamName" onChange={this.onChangeA} value={this.state.teamNameA} />
+                              <Form.Control type="input" onChange={this.onChangeA} value={this.state.teamNameA} />
                               <br></br>
                               You may not advance a team that does not have an opponent in their current matchup.
                             </Popover.Content>
@@ -182,7 +196,8 @@ const mapStateToProps = (state) => {
     return { currentUser: state.currentUser}
 }
 const mapDispatchToProps = (dispatch) => {
-    return {matchUpWinner: (matchUp, winnerId) => {dispatch(matchUpWinner(matchUp, winnerId))}}
+    return {matchUpWinner: (matchUp, winnerId) => {dispatch(matchUpWinner(matchUp, winnerId))},
+    updateTeamName: (teamId, newTeamName, tournamentId) => {dispatch(updateTeamName(teamId, newTeamName, tournamentId))}}
 }
 
 

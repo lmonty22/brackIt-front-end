@@ -24,6 +24,19 @@ function findUser(token){
   }
 }
 
+function updateTeamName(teamId, newTeamName, tournamentId){
+  return (dispatch) => {
+    fetch(URL+`/teams/${teamId}`, {
+      method: 'PATCH',
+      headers: {'Content-Type' : 'application/json'},
+      body: JSON.stringify({name: newTeamName, tournament: tournamentId})
+    }).then(res => res.json())
+    .then(tournament => {
+      updatedTournament(tournament)
+    })
+  }
+}
+
 function newSearchTerm(string){
   return {type: 'NEW_SEARCH_TERM', payload: string}
 }
@@ -132,5 +145,5 @@ function fetchingTournaments(){
 
   
   
-  export { fetchingTournaments, matchUpWinner, postTournament, login, postUser, findUser, logout, newSearchTerm, deleteTournament };
+  export { fetchingTournaments, matchUpWinner, postTournament, login, postUser, findUser, logout, newSearchTerm, deleteTournament, updateTeamName};
   

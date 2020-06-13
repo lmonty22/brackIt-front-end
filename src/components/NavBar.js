@@ -53,7 +53,6 @@ class NavBar extends React.Component {
                 <Link to='/' ><Button variant="info"type="submit">Submit</Button></Link>
                 {this.props.searchTerm.length > 0? <Button onClick={this.onReset} variant="light">Reset</Button>: null}
             </Form>
-
             </Nav>
             <Nav >
             {this.props.currentUser? <Nav.Link as={Link} to='/createtournament'>Create Tournament</Nav.Link> :  <Link to='/login'><Button variant="light">Login</Button>  </Link>}
