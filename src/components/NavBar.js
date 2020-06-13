@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button'
 import {Link} from 'react-router-dom'
 import { connect } from "react-redux";
 import {logout} from '../redux/actions'
-import logo from '../assets/BrackItLogo.png'
+import logo from '../assets/BrackIt.png'
 import {newSearchTerm} from '../redux/actions'
 import { Redirect} from "react-router-dom"
 
@@ -38,22 +38,22 @@ class NavBar extends React.Component {
     render(){
     return (
         <Navbar sticky="top" bg="light" expand="lg">
-            <Nav className="mr-auto">
-            <Link to='/'><Navbar.Brand>BrackIt
-                 {/* <img
+            <Nav>
+            <Link to='/'><Navbar.Brand>
+                 <img
                 alt="brackit logo"
                 src={logo}
-                width="150"
-                height="50"
+                width="200"
+                height="80"
                 className="d-inline-block align-top"
-            />{' '} */}
+            />{' '}
                 </Navbar.Brand></Link>
-
              <Form inline>
                 <FormControl onChange={this.onChange} value={this.state.searchTerm} type="text" placeholder="Search" className=" mr-sm-2" />
                 <Link to='/' ><Button variant="info"type="submit">Submit</Button></Link>
                 {this.props.searchTerm.length > 0? <Button onClick={this.onReset} variant="light">Reset</Button>: null}
             </Form>
+
             </Nav>
             <Nav >
             {this.props.currentUser? <Nav.Link as={Link} to='/createtournament'>Create Tournament</Nav.Link> :  <Link to='/login'><Button variant="light">Login</Button>  </Link>}

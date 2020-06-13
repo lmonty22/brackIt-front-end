@@ -32,7 +32,7 @@ class MatchUp extends React.Component{
         }
         if( this.props.matchUp.team_b){
             this.setState({
-                teamNameB: this.props.matchUp.team_a.name
+                teamNameB: this.props.matchUp.team_b.name
             })
         }
     }
