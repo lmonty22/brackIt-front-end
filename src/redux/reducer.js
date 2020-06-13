@@ -1,18 +1,31 @@
 import { combineReducers } from "redux";
 
+const currentTournamentReducer = (state= null, action) => {
+    switch(action.type){
+    case "SET_TOURNAMENT":
+        return action.payload
+    case "UPDATED_TOURNAMENT":
+        return action.payload
+    case "REMOVE_TOURNAMENT":
+        return null 
+    default:
+         return state
+    }
+}
+
 const tournamentsReducer = (state=null, action)=> {
     switch(action.type){
         case "FETCHED_TOURNAMENTS":
             return action.payload
-        case "UPDATED_TOURNAMENT":
-            let newArray = state.map(t => {
-                if (t.id === action.payload.id){
-                return action.payload
-                }
-                return t
-            }
-            )
-            return newArray
+        // case "UPDATED_TOURNAMENT":
+        //     let newArray = state.map(t => {
+        //         if (t.id === action.payload.id){
+        //         return action.payload
+        //         }
+        //         return t
+        //     }
+        //     )
+        //     return newArray
         case "NEW_TOURNAMENT":
             let newStateArray = [...state, action.payload]
             return newStateArray
@@ -59,6 +72,7 @@ const searchTermReducer = (state= '', action) => {
 const rootReducer = combineReducers({
     tournaments: tournamentsReducer,
     currentUser: currentUserReducer,
+    currentTournament: currentTournamentReducer,
     errors: errorsReducer,
     searchTerm: searchTermReducer,
   });

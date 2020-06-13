@@ -55,6 +55,8 @@ class MatchUp extends React.Component{
         this.setState({
             teamNameA: e.currentTarget.value}
         )
+        // lets refactor store first. 
+        // this.updateTeamName(this.matchUp.team_a_id, e.currentTarget.value, this. )
     }
     onChangeB = (e) =>{
         this.setState({

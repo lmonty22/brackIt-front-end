@@ -92,10 +92,28 @@ function matchUpWinner(matchUp, winnerId){
   }
 }
 
+function removeCurrentTournament(){
+  return {type: "REMOVE_TOURNAMENT"}
+}
+
 function updatedTournament(tournament){
     return {type: "UPDATED_TOURNAMENT", payload: tournament}
 }
 
+
+function setTournament(tournament){
+  return {type: "SET_TOURNAMENT", payload: tournament}
+}
+
+function fetchTournament(tournamentId){
+  return (dispatch) => {
+    fetch(URL+`/tournaments/${tournamentId}`)
+    .then(res => res.json())
+    .then(tournament => {
+      dispatch(setTournament(tournament))
+    })
+  }
+}
 
 function fetchedTournaments(torunaments){
     return {type: "FETCHED_TOURNAMENTS", payload: torunaments}
@@ -145,5 +163,5 @@ function fetchingTournaments(){
 
   
   
-  export { fetchingTournaments, matchUpWinner, postTournament, login, postUser, findUser, logout, newSearchTerm, deleteTournament, updateTeamName};
+  export { fetchingTournaments, matchUpWinner, postTournament, login, postUser, findUser, logout, newSearchTerm, deleteTournament, updateTeamName, fetchTournament, removeCurrentTournament};
   

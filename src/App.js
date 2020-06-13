@@ -44,9 +44,10 @@ class App extends React.Component{
     <div className="App">
       <NavBar />
        {this.state.loading? <Spinner animation="border" variant="info" />:<Switch>
-          <Route exact path="/tournaments/:id" render={(props) => {return <TournamentPage {...props} />}} />
+          <Route exact path="/tournaments/:id" render={(props) => {
+            return <TournamentPage {...props} />}} />
           <Route exact path="/" component={HomePage}/>
-          <Route exact path="/createtournament" render={() => this.props.currentUser? <CreateTournamentForm/>: <Redirect to="/login"/>} />
+          <Route exact path="/createtournament" render={() => !this.props.currentTournament? <CreateTournamentForm/>: <Redirect to={'/mytournaments'} />} />
           <Route exact path="/login" render={() => !this.props.currentUser? <Login/> : <Redirect to="/mytournaments"/>}/>
           <Route exact path="/mytournaments" render={() => this.props.currentUser? <UserTournamentPage /> : <Redirect to="/login"/>}/>
           <Route exact path='/signup' render={() => !this.props.currentUser? <CreateUserForm /> : <Redirect to="/mytournaments"/>}/>
@@ -61,7 +62,8 @@ class App extends React.Component{
 const mapStateToProps = (state) => {
   return {
     currentUser: state.currentUser,
-    tournaments: state.tournaments
+    tournaments: state.tournaments,
+    currentTournament: state.currentTournament
   }
 }
 

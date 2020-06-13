@@ -4,6 +4,7 @@ import {Row, Col, Spinner} from 'react-bootstrap'
 import LeftHalfContainer from './LeftHalfContainer'
 import FinalsContainer from './FinalsContainer'
 import RightHalfContainer from './RightHalfContainer'
+import {removeCurrentTournament, fetchTournament} from '../redux/actions'
 import '../App.css';
 
 
@@ -55,6 +56,9 @@ class TournamentPage extends React.Component{
     }
 
     componentDidMount(){
+        if (!this.props.tournament){
+            this.props.fetchTournament(this.props.match.params.id)
+        }
         if(this.props.tournament && this.state.loading){
             this.setState({
                 loading: false
@@ -62,14 +66,19 @@ class TournamentPage extends React.Component{
         }
     }
 
-    
-    // componentDidUpdate(){
-    //     if(this.props.tournament && this.state.loading){
-    //         this.setState({
-    //             loading: false
-    //         })
-    //     }
-    // }
+    componentWillUnmount(){
+        if (this.props.tournament){
+            this.props.removeCurrentTournament()
+        }
+    }
+
+    componentDidUpdate(){
+        if(this.props.tournament && this.state.loading){
+            this.setState({
+                loading: false
+            })
+        }
+    }
 
 render (){
     if (this.props.tournament){
@@ -103,9 +112,14 @@ render (){
 }
 
 const mapStateToProps = (state, ownProps) => {
-        return {tournament: state.tournaments.find(t => t.id === parseInt(ownProps.match.params.id)),
+        return {tournament: state.currentTournament,
                 currentUser: state.currentUser}
 }
 
-export default connect(mapStateToProps)(TournamentPage)
+const mapDispatchToProps = (dispatch) => {
+    return {removeCurrentTournament: () => dispatch(removeCurrentTournament()),
+        fetchTournament: (tournamentId) => {dispatch(fetchTournament(tournamentId))},}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TournamentPage)
 
