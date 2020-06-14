@@ -81,10 +81,10 @@ class MatchUp extends React.Component{
         if (this.props.matchUp.winner_id){
         return (<div className={`matchup R${this.props.round_number}-M${this.props.matchUp.match_up_number}`}> 
                 <Row  >
-                    <Button type="button" className={`teamButton btn-dark`} style={this.props.matchUp.winner_id === this.props.matchUp.team_a_id? {fontWeight: 'bold'}: {textDecoration: 'line-through'}} > {this.props.matchUp.team_a.name}</Button>  
+                    <Button disabled type="button" className={`teamButton btn-dark`} style={this.props.matchUp.winner_id === this.props.matchUp.team_a_id? {fontWeight: 'bold'}: {textDecoration: 'line-through'}} > {this.props.matchUp.team_a.name}</Button>  
                 </Row>
                 <Row >
-                    <Button type="button" className={`teamButton btn-light`} style={this.props.matchUp.winner_id === this.props.matchUp.team_b_id? {fontWeight: 'bold'}: {textDecoration: 'line-through'}} >{this.props.matchUp.team_b.name}</Button>
+                    <Button disabled type="button" className={`teamButton btn-light`} style={this.props.matchUp.winner_id === this.props.matchUp.team_b_id? {fontWeight: 'bold'}: {textDecoration: 'line-through'}} >{this.props.matchUp.team_b.name}</Button>
                 </Row>
                 <SteppedLineTo borderColor={'grey'} from={`R${this.props.round_number}-M${this.props.matchUp.match_up_number}`} to={`R${nextRound}-M${nextMatchUp}`} toAnchor={this.props.start}  fromAnchor={this.props.end}  orientation='h' />
                 </div>)}
