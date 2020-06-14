@@ -95,8 +95,8 @@ h1 {
   border-color: #102542 !important;
 }
 .btn-info {
-  background-color: #A2D6F9!important;
-  border-color: #A2D6F9!important;
+  background-color: #EEE1B3!important;
+  border-color: #EEE1B3!important;
   color: black !important;
 }
 
@@ -138,10 +138,12 @@ h1 {
 
 .popover{
   height: 200px !important;
-  background-color: #FCF300 !important;
+  background-color: #EEE1B3 !important;
 }
 
-
+.jumbotron{
+  background-color: #EEE1B3 !important;
+}
 
 
 @keyframes App-logo-spin {

@@ -152,8 +152,8 @@ class CreateTournamentForm extends React.Component{
         <Form.Group controlId="teamNames">
             {this.dynamicTeamNames()}   
         </Form.Group>
-        <Button variant="primary" type="submit" onClick={this.onSubmit}>
-             Submit
+        <Button variant="light" type="submit" onClick={this.onSubmit}>
+             Generate BrackIt
         </Button>
       </Form>
       </div>

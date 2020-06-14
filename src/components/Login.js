@@ -42,7 +42,7 @@ class Login extends React.Component{
               <Form.Label>Password</Form.Label>
               <Form.Control type="password" placeholder="password" onChange={this.onChange} value={this.state.password}/>
             </Form.Group>
-            <Button variant="info" type="submit" onClick={this.onSubmit}>
+            <Button variant="light" type="submit" onClick={this.onSubmit}>
                 Login
             </Button>
           </Form>

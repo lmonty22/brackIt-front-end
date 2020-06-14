@@ -37,7 +37,7 @@ class NavBar extends React.Component {
  
     render(){
     return (
-        <Navbar sticky="top" bg="light" expand="lg">
+        <Navbar sticky="top" bg="light" expand="lg" style={{justifyContent: 'space-between'}}>
             <Nav>
             <Link to='/'><Navbar.Brand>
                  <img
@@ -50,13 +50,13 @@ class NavBar extends React.Component {
                 </Navbar.Brand></Link>
              <Form inline>
                 <FormControl onChange={this.onChange} value={this.state.searchTerm} type="text" placeholder="Search" className=" mr-sm-2" />
-                <Link to='/' ><Button variant="info"type="submit">Submit</Button></Link>
+                <Link to='/' ><Button variant="info" type="submit">Submit</Button></Link>
                 {this.props.searchTerm.length > 0? <Button onClick={this.onReset} variant="light">Reset</Button>: null}
             </Form>
             </Nav>
             <Nav >
-            {this.props.currentUser? <Nav.Link as={Link} to='/createtournament'>Create Tournament</Nav.Link> :  <Link to='/login'><Button variant="light">Login</Button>  </Link>}
-            {this.props.currentUser?  <Nav.Link as={Link} to='/mytournaments'>My Tournaments</Nav.Link> :  <Link  to='/signup'><Button variant="info">Signup</Button> </Link> }
+            {this.props.currentUser? <Nav.Link as={Link} to='/createtournament'>Create Tournament</Nav.Link> :  <Link to='/login'><Button variant="info">Login</Button>  </Link>}
+            {this.props.currentUser?  <Nav.Link as={Link} to='/mytournaments'>My Tournaments</Nav.Link> :  <Link  to='/signup'><Button variant="light">Signup</Button> </Link> }
             {this.props.currentUser?   <Button variant="info" onClick={() => this.props.logout()}>Logout</Button> : null }
             </Nav>
         </Navbar>
