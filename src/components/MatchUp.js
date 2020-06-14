@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button, Row, Form, Popover, OverlayTrigger, Badge} from 'react-bootstrap'
-import {matchUpWinner, updateTeamName} from '../redux/actions'
+import {matchUpWinner, updateTeamName, removeTeamFromMatchUp} from '../redux/actions'
 import {connect} from 'react-redux'
 import LineTo, { SteppedLineTo} from 'react-lineto';
 import '../App.css'
@@ -97,6 +97,8 @@ class MatchUp extends React.Component{
                             <Popover.Title as="h3">{this.props.matchUp.team_a.name}</Popover.Title>
                             <Popover.Content>
                               <Form.Control type="input" onChange={this.onChangeA} value={this.state.teamNameA} /> <Button  className={'btn-light'} onClick={this.submitTeamAName} >Update Team Name</Button>
+                              {this.props.round_number > 1? <Button onClick={() => this.props.removeTeamFromMatchUp({team_slot: 'team_a', team_id: this.props.matchUp.team_a_id, match_up_id: this.props.matchUp.id, tournament_id: this.props.currentTournament.id})} 
+                              className={'btn-info'}  >Remove {this.props.matchUp.team_a.name} from matchup</Button>: null } 
                               <br></br>
                               You may not advance a team that does not have an opponent in their current matchup.
                             </Popover.Content>
@@ -113,7 +115,10 @@ class MatchUp extends React.Component{
                             <Popover id={`popover-positioned-${this.props.end}`}>
                             <Popover.Title as="h3">{this.props.matchUp.team_b.name}</Popover.Title>
                             <Popover.Content>
-                              <Form.Control type="input" placeholder="teamName" onChange={this.onChangeB} value={this.state.teamNameB} /> <Button className={'btn-light'} onClick={this.submitTeamBName} >Update Team Name</Button>
+                              <Form.Control type="input" placeholder="teamName" onChange={this.onChangeB} value={this.state.teamNameB} /> 
+                              <Button className={'btn-light'} onClick={this.submitTeamBName} >Update Team Name</Button>
+                              {this.props.round_number > 1? <Button onClick={() => this.props.removeTeamFromMatchUp({team_slot: 'team_b', team_id: this.props.matchUp.team_b_id, match_up_id: this.props.matchUp.id, tournament_id: this.props.currentTournament.id})} 
+                               className={'btn-info'}  >Remove {this.props.matchUp.team_b.name} from matchup</Button>: null}
                               <br></br>
                               You may not advance a team that does not have an opponent in their current matchup.
                             </Popover.Content>
@@ -135,7 +140,10 @@ class MatchUp extends React.Component{
                         <Popover.Title as="h3">{this.props.matchUp.team_a.name}</Popover.Title>
                         <Popover.Content>
                           <Form.Control type="input" placeholder="teamName" onChange={this.onChangeA} value={this.state.teamNameA} /> <Button className={'btn-light'} onClick={this.submitTeamAName} >Update Team Name</Button>
+                          {this.props.round_number > 1? <Button onClick={() => this.props.removeTeamFromMatchUp({team_slot: 'team_a', team_id: this.props.matchUp.team_a_id, match_up_id: this.props.matchUp.id, tournament_id: this.props.currentTournament.id})} 
+                               className={'btn-info'}  >Remove {this.props.matchUp.team_a.name} from matchup</Button>: null }
                           <br></br>
+                          
                           <Button className={'btn-dark'} onClick={() => this.props.matchUpWinner(this.props.matchUp, this.props.matchUp.team_a.id)} >Advance {this.props.matchUp.team_a.name} to Next Round</Button>
                         </Popover.Content>
                       </Popover>
@@ -150,6 +158,8 @@ class MatchUp extends React.Component{
                         <Popover.Content>
                           <Form.Control type="input" placeholder="teamName" onChange={this.onChangeB} value={this.state.teamNameB} />
                            <Button className={'btn-light'} onClick={this.submitTeamBName} >Update Team Name</Button>
+                           {this.props.round_number > 1? <Button onClick={() => this.props.removeTeamFromMatchUp({team_slot: 'team_b', team_id: this.props.matchUp.team_b_id, match_up_id: this.props.matchUp.id, tournament_id: this.props.currentTournament.id})} 
+                               className={'btn-info'}  >Remove {this.props.matchUp.team_b.name} from matchup</Button>: null }
                           <br></br>
                           <Button className={'btn-dark'}onClick={() => this.props.matchUpWinner(this.props.matchUp, this.props.matchUp.team_b.id)} >Advance {this.props.matchUp.team_b.name}  to Next Round</Button>
                         </Popover.Content>
@@ -209,7 +219,8 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
     return {matchUpWinner: (matchUp, winnerId) => {dispatch(matchUpWinner(matchUp, winnerId))},
-    updateTeamName: (teamId, newTeamName, tournamentId) => {dispatch(updateTeamName(teamId, newTeamName, tournamentId))}}
+    updateTeamName: (teamId, newTeamName, tournamentId) => {dispatch(updateTeamName(teamId, newTeamName, tournamentId))},
+    removeTeamFromMatchUp: (obj) => dispatch(removeTeamFromMatchUp(obj))}
 }
 
 

@@ -58,6 +58,8 @@ function postUser(obj){
   }
 }
 
+
+
 function errorMessages(errors){
   return {type: "LOGIN_ERROR", payload: errors}
 }
@@ -78,6 +80,20 @@ function login(userInfo){
      }
   })
   }
+}
+
+function removeTeamFromMatchUp(obj){
+  return (dispatch) => {
+    fetch(URL+`/match_ups/${obj.match_up_id}/remove`, {
+      method: "PATCH",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(obj)
+    }).then(res => res.json())
+    .then(uT => {
+      dispatch(updatedTournament(uT))
+    })
+  }
+
 }
 
 function matchUpWinner(matchUp, winnerId){
@@ -164,5 +180,7 @@ function fetchingTournaments(){
 
   
   
-  export { fetchingTournaments, matchUpWinner, postTournament, login, postUser, findUser, logout, newSearchTerm, deleteTournament, updateTeamName, fetchTournament, removeCurrentTournament};
+  export { fetchingTournaments, matchUpWinner, postTournament, 
+    login, postUser, findUser, logout, newSearchTerm, deleteTournament, 
+    updateTeamName, fetchTournament, removeCurrentTournament, removeTeamFromMatchUp};
   
