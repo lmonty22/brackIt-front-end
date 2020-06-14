@@ -18,13 +18,20 @@ class CreateTournamentForm extends React.Component{
             redirect: false,
             teamNames: ['Team 1', 'Team 2', 'Team 3', 'Team 4'],
             shuffle: false,
-            nameIncluded: true
+            nameIncluded: true,
+            private: false
         }
     }
 
     shuffleTeamsToggle = () => {
         this.setState({
             shuffle: !this.state.shuffle
+        })
+    }
+
+    privateToggle = () => {
+        this.setState({
+            private: !this.state.private
         })
     }
 
@@ -136,6 +143,20 @@ class CreateTournamentForm extends React.Component{
             <option>64</option>
           </Form.Control>
         </Form.Group>
+        <Form.Group >
+            <OverlayTrigger key={'top'} placement="left" overlay={
+                  <Tooltip id="shuffle-tooltip">
+                    Private Tournaments will not appear in search results for other users. You may still send a private link to friends.
+                  </Tooltip>
+            }><Form.Check
+            type="checkbox"
+            id="inlineFormCheck"
+            label="Private"
+            onChange={this.privateToggle}
+            checked={this.state.private}></Form.Check>
+            </OverlayTrigger>
+        </Form.Group>
+
         <Form.Group >
             <OverlayTrigger key={'top'} placement="left" overlay={
                   <Tooltip id="shuffle-tooltip">

@@ -76,6 +76,7 @@ class MatchUp extends React.Component{
         let nextRound = this.props.round_number + 1
         let nextMatchUp = getNextMatchUp(this.props.matchUp.match_up_number)
 
+        let lastRound = Math.log2(this.props.currentTournament.number_of_teams)
 
         if (this.props.currentUser && this.props.currentUser.id === this.props.tUser){
         if (this.props.matchUp.winner_id){
@@ -144,7 +145,7 @@ class MatchUp extends React.Component{
                                className={'btn-info'}  >Remove {this.props.matchUp.team_a.name} from matchup</Button>: null }
                           <br></br>
                           
-                          <Button className={'btn-dark'} onClick={() => this.props.matchUpWinner(this.props.matchUp, this.props.matchUp.team_a.id)} >Advance {this.props.matchUp.team_a.name} to Next Round</Button>
+                 <Button className={'btn-dark'} onClick={() => this.props.matchUpWinner(this.props.matchUp, this.props.matchUp.team_a.id)} >{this.props.round_number < lastRound? `Advance ${this.props.matchUp.team_a.name} to Next Round`: `Crown ${this.props.matchUp.team_a.name} the Champion!` }</Button>
                         </Popover.Content>
                       </Popover>
                  } key={'right'} placement={this.props.end} rootCloseEvent={'mousedown'} >
@@ -161,7 +162,8 @@ class MatchUp extends React.Component{
                            {this.props.round_number > 1? <Button onClick={() => this.props.removeTeamFromMatchUp({team_slot: 'team_b', team_id: this.props.matchUp.team_b_id, match_up_id: this.props.matchUp.id, tournament_id: this.props.currentTournament.id})} 
                                className={'btn-info'}  >Remove {this.props.matchUp.team_b.name} from matchup</Button>: null }
                           <br></br>
-                          <Button className={'btn-dark'}onClick={() => this.props.matchUpWinner(this.props.matchUp, this.props.matchUp.team_b.id)} >Advance {this.props.matchUp.team_b.name}  to Next Round</Button>
+                         <Button className={'btn-dark'} onClick={() => this.props.matchUpWinner(this.props.matchUp, this.props.matchUp.team_b.id)} >{this.props.round_number < lastRound? `Advance ${this.props.matchUp.team_b.name} to Next Round`: `Crown ${this.props.matchUp.team_b.name} the Champion!` }</Button>
+
                         </Popover.Content>
                       </Popover>
                  } key={'right'} placement={this.props.end} rootCloseEvent={'mousedown'} >

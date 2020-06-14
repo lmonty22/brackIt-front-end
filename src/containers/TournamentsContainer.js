@@ -9,7 +9,7 @@ const TournamentsContainer = (props) => {
 return (
     <div>
     {props.searchTerm.length > 0? <Row><h4>Showing results for {props.searchTerm}</h4> </Row>: null}
-    <Row>{props.tournaments.map(t => <TournamentListItem key={t.id} tournament={t}/>)} </Row>
+    <Row>{props.tournaments.filter(t => t.public).map(t => <TournamentListItem key={t.id} tournament={t}/>)} </Row>
     </div>
     )
 }

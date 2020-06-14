@@ -137,11 +137,33 @@ h1 {
 }
 
 .popover{
-  background-color: #EEE1B3 !important;
+  /* background-color: #EEE1B3 !important; */
+  /* justify-content: center !important; */
+  margin: auto !important;
 }
 
 .jumbotron{
   background-color: #EEE1B3 !important;
+}
+
+.intro-box{
+  opacity:80%;
+  position: absolute;
+  z-index: 100;
+  max-width: 50%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+.champion {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 100px;
+  max-height: 100px;
 }
 
 

@@ -49,8 +49,8 @@ class NavBar extends React.Component {
             />{' '}
                 </Navbar.Brand></Link>
              <Form inline>
-                <FormControl onChange={this.onChange} value={this.state.searchTerm} type="text" placeholder="Search" className=" mr-sm-2" />
-                <Link to='/' ><Button variant="info" type="submit">Submit</Button></Link>
+                <FormControl onChange={this.onChange} value={this.state.searchTerm} type="text" placeholder="Search Tournaments" className=" mr-sm-2" />
+                <Link to='/' ><Button variant="info" type="submit">Search</Button></Link>
                 {this.props.searchTerm.length > 0? <Button onClick={this.onReset} variant="light">Reset</Button>: null}
             </Form>
             </Nav>

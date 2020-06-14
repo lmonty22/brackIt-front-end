@@ -7,7 +7,7 @@ import {deleteTournament} from '../redux/actions'
 
 
 const TournamentListItem = (props) => (
-    <Card style={{ width: '18rem' }}>
+ <Card as={Link}  to={`/tournaments/${props.tournament.id}`} style={{ width: '18rem' }}>
         <Card.Body>
             <Card.Title>{props.tournament.name}</Card.Title>
                 <Card.Subtitle className="mb-2 text-muted">@{props.tournament.user.username}</Card.Subtitle>

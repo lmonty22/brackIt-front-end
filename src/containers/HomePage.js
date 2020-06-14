@@ -7,7 +7,10 @@ import soccer from '../assets/soccer.jpg'
 import basketball from '../assets/basketball.jpg'
 import shuffleboard from '../assets/shuffleboard.jpg'
 import {connect} from 'react-redux'
+import logo from '../assets/BrackIt.png'
 import '../App.css'
+import { Jumbotron } from 'react-bootstrap';
+import {Link} from 'react-router-dom'
 
 
 const HomePage = (props) => {
@@ -49,7 +52,18 @@ const HomePage = (props) => {
             />
         </Carousel.Item>
         </Carousel>
-        </Row> : null }
+         <Jumbotron className={'intro-box'}>
+             <img src={logo}
+                height='100px'
+                width='300px'
+            ></img>
+             <div>
+         Welcome to BrackIt, a space to generate and share your tournament BrackIt with friends. 
+         If you're having a group over for a cornhole tournament, or playing video games online, we want to be there for you. <Link to='/login'>Login</Link> or <Link to='/signup'>Sign Up</Link> to start generating BrackIts or search for tournaments to follow. 
+         Have fun! </div>
+         </Jumbotron>
+            </Row>
+        : null }
         
         <Row> 
         <TournamentsContainer key={'tournamentContainer'}/>
