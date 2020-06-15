@@ -35,21 +35,21 @@ class MatchUp extends React.Component{
                 teamNameB: this.props.matchUp.team_b.name
             })
         }
-    }
+     }
 
-    // Team name is not in state after the advance before a refresh. 
-    // componentDidUpdate(prevProps){
-    //     if (this.props.currentTournament && (prevProps.matchUp.team_a_id !== this.props.matchup.team_a_id)){
-    //         this.setState({
-    //             teamNameA: this.props.matchUp.team_a.name
-    //         })
-    //     }
-    //     if(this.props.currentTournament && (prevProps.matchUp.team_b_id !== this.props.matchUp.team_b_id)){
-    //         this.setState({
-    //             teamNameB: this.props.matchUp.team_b.name
-    //         })
-    //     }
-    // }
+    componentDidUpdate(prevProps){
+        if (this.props.currentTournament && prevProps.matchUp && prevProps.matchUp.team_a_id !== this.props.matchUp.team_a_id){
+            this.setState({
+                teamNameA: this.props.matchUp.team_a.name
+            })
+           }
+           if (this.props.currentTournament && prevProps.matchUp && prevProps.matchUp.team_b_id !== this.props.matchUp.team_b_id){
+            this.setState({
+                teamNameB: this.props.matchUp.team_b.name
+            })
+           }
+
+        }
 
     onChangeA= (e) => {
         this.setState({

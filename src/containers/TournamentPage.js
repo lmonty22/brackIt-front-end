@@ -102,7 +102,7 @@ render (){
              <p>Created By: @{this.props.tournament.user.username}</p>
              {this.props.currentUser && this.props.tournament.user_id === this.props.currentUser.id? <p>You're the tournament admin! But you should know that... you created this tournament! Only you have the power to make changes. Click on teams to make them advance to the next round, remove them from a matchup(incase you deemed an incorrect winner) or update their team name. Have fun! </p>: null }
              {this.props.currentUser && this.props.tournament.user_id !== this.props.currentUser.id && !follow? <Button className={'btn-info'} onClick={() => this.props.followTournament(this.props.tournament.id, this.props.currentUser.id)} >Follow Tournament </Button>: null}
-             {this.props.currentUser && follow? <Button className={'btn-info'} onClick={() => this.props.unfollowTournament(follow)} >Unfollow Tournament </Button>: null}
+             {this.props.currentUser && this.props.tournament.user_id !== this.props.currentUser.id && follow? <Button className={'btn-info'} onClick={() => this.props.unfollowTournament(follow)} >Unfollow Tournament </Button>: null}
             <br/>
              </div>
            
