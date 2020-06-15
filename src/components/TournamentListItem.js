@@ -10,7 +10,7 @@ const TournamentListItem = (props) => (
  <Card as={Link}  to={`/tournaments/${props.tournament.id}`} style={{ width: '18rem' }}>
         <Card.Body>
             <Card.Title>{props.tournament.name}</Card.Title>
-                <Card.Subtitle className="mb-2 text-muted">@{props.tournament.user.username}</Card.Subtitle>
+                {props.tournament.user? <Card.Subtitle className="mb-2 text-muted">@{props.tournament.user.username}</Card.Subtitle>: null }
             <Card.Text>{props.tournament.number_of_teams} team tourney</Card.Text>
             <Card.Link as={Link} to={`/tournaments/${props.tournament.id}`}>View Tournament</Card.Link>
             {props.currentUser && props.currentUser.id === props.tournament.user_id? <Card.Link as={Link} onClick={() => props.delete(props.tournament.id)}>Delete</Card.Link>: null}

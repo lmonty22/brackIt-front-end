@@ -23,7 +23,7 @@ function findUser(token){
       })
       .then(res => res.json())
       .then(data => {
-        let user_data = data.user_data
+        let user_data = {...data.user_data}
         user_data['followedTournaments'] = data.followed_tournaments
         dispatch(setCurrentUser(user_data))
       })
@@ -191,11 +191,11 @@ function fetchingTournaments(){
 
   function followTournament(tournamentId, userId){
     return(dispatch) => {
-      fetch(URL+'tournament_followers', {
+      fetch(URL+'followers', {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
-          follower_id: userId,
+          user_follower_id: userId,
           tournament_followed_id: tournamentId
         })
       }).then(res => res.json())
