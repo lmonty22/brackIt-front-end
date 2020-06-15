@@ -98,6 +98,26 @@ function removeTeamFromMatchUp(obj){
 
 }
 
+function matchUpScore(matchUpId, team_slot, score){
+  let teamObj = {}
+  if (team_slot === 'team_a'){
+    teamObj['team_a_score'] = score
+  }
+  if (team_slot === 'team_b'){
+    teamObj['team_b_score'] = score
+  }
+  return (dispatch) => {
+    fetch(`http://localhost:3000//match_ups/${matchUpId}`, {
+      method: 'PATCH',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(teamObj)
+    }).then(response => response.json())
+    .then(uT => {
+      dispatch(updatedTournament(uT))
+    })
+  }
+}
+
 function matchUpWinner(matchUp, winnerId){
   let obj = {
     winner_id: winnerId
@@ -218,5 +238,5 @@ function fetchingTournaments(){
   export { fetchingTournaments, matchUpWinner, postTournament, 
     login, postUser, findUser, logout, newSearchTerm, deleteTournament, 
     updateTeamName, fetchTournament, removeCurrentTournament, removeTeamFromMatchUp,
-    followTournament, unfollowTournament};
+    followTournament, unfollowTournament,  matchUpScore};
   

@@ -173,6 +173,12 @@ h1 {
   display: flex !important;
   justify-content: center !important;
 }
+.scoreDiv {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center !important;
+  margin: auto;
+}
 
 .card-title {
   color: #102542 !important;

@@ -1,6 +1,6 @@
 import React from 'react';
-import {Button, Row, Form, Popover, OverlayTrigger, Badge} from 'react-bootstrap'
-import {matchUpWinner, updateTeamName, removeTeamFromMatchUp} from '../redux/actions'
+import {Button, Row, Form, Popover, OverlayTrigger, Badge, Col} from 'react-bootstrap'
+import {matchUpWinner, updateTeamName, removeTeamFromMatchUp, matchUpScore} from '../redux/actions'
 import {connect} from 'react-redux'
 import LineTo, { SteppedLineTo} from 'react-lineto';
 import '../App.css'
@@ -20,19 +20,24 @@ class MatchUp extends React.Component{
         super()
         this.state={
             teamNameA: '',
-            teamNameB: ''
+            teamNameB: '',
+            teamAScore: '',
+            teamBScore: ''
         }
     }
 
     componentDidMount(){
         if (this.props.matchUp.team_a){
             this.setState({
-                teamNameA: this.props.matchUp.team_a.name
+                teamNameA: this.props.matchUp.team_a.name,
+                teamAScore: this.props.matchUp.team_a_score
+
             })
         }
         if( this.props.matchUp.team_b){
             this.setState({
-                teamNameB: this.props.matchUp.team_b.name
+                teamNameB: this.props.matchUp.team_b.name,
+                teamBScore: this.props.matchUp.team_b_score
             })
         }
      }
@@ -41,7 +46,7 @@ class MatchUp extends React.Component{
         if (this.props.currentTournament && prevProps.matchUp && prevProps.matchUp.team_a_id !== this.props.matchUp.team_a_id){
             if (this.props.matchUp.team_a){
                 this.setState({
-                    teamNameA: this.props.matchUp.team_a.name
+                    teamNameA: this.props.matchUp.team_a.name,
                 })
             }else {
                 this.setState({
@@ -63,26 +68,32 @@ class MatchUp extends React.Component{
         }
     }
 
-    onChangeA= (e) => {
+    onChangeA= (e, team_a_id) => {
         this.setState({
             teamNameA: e.currentTarget.value}
         )
+        this.props.updateTeamName(team_a_id, e.currentTarget.value, this.props.currentTournament.id )
     }
-    onChangeB = (e) =>{
+    onChangeB = (e, team_b_id) =>{
         this.setState({
             teamNameB: e.currentTarget.value}
             )
+            this.props.updateTeamName(team_b_id, e.currentTarget.value, this.props.currentTournament.id )
         }
-        
-    submitTeamAName= () => {
-            this.props.updateTeamName(this.props.matchUp.team_a_id, this.state.teamNameA, this.props.currentTournament.id )
+
+    teamAScoreChange = (e, matchUpId) => {
+        this.setState({
+            teamAScore: e.currentTarget.value
+        })
+        this.props.matchUpScore(matchUpId, 'team_a', e.currentTarget.value)
     }
 
-    submitTeamBName= () => {
-        this.props.updateTeamName(this.props.matchUp.team_b_id, this.state.teamNameB, this.props.currentTournament.id )
+    teamBScoreChange = (e, matchUpId) => {
+        this.setState({
+            teamBScore: e.currentTarget.value
+        })
+        this.props.matchUpScore(matchUpId, 'team_b', e.currentTarget.value)
     }
-
-
 
     render(){
         let nextRound = this.props.round_number + 1
@@ -109,7 +120,7 @@ class MatchUp extends React.Component{
                             <Popover id={`popover-positioned-${this.props.end}`}>
                             <Popover.Title as="h3">{this.props.matchUp.team_a.name}</Popover.Title>
                             <Popover.Content>
-                              <Form.Control type="input" onChange={this.onChangeA} value={this.state.teamNameA} /> <Button  className={'btn-light'} onClick={this.submitTeamAName} >Update Team Name</Button>
+                              <Form.Control type="input" onChange={(e) => this.onChangeA(e, this.props.matchUp.team_a_id)} value={this.state.teamNameA} />
                               {this.props.round_number > 1? <Button onClick={() => this.props.removeTeamFromMatchUp({team_slot: 'team_a', team_id: this.props.matchUp.team_a_id, match_up_id: this.props.matchUp.id, tournament_id: this.props.currentTournament.id})} 
                               className={'btn-info'}  >Remove {this.props.matchUp.team_a.name} from matchup</Button>: null } 
                               <br></br>
@@ -128,8 +139,7 @@ class MatchUp extends React.Component{
                             <Popover id={`popover-positioned-${this.props.end}`}>
                             <Popover.Title as="h3">{this.props.matchUp.team_b.name}</Popover.Title>
                             <Popover.Content>
-                              <Form.Control type="input" onChange={this.onChangeB} value={this.state.teamNameB} /> 
-                              <Button className={'btn-light'} onClick={this.submitTeamBName} >Update Team Name</Button>
+                              <Form.Control type="input" onChange={(e) => this.onChangeB(e, this.props.matchUp.team_b_id)} value={this.state.teamNameB} /> 
                               {this.props.round_number > 1? <Button onClick={() => this.props.removeTeamFromMatchUp({team_slot: 'team_b', team_id: this.props.matchUp.team_b_id, match_up_id: this.props.matchUp.id, tournament_id: this.props.currentTournament.id})} 
                                className={'btn-info'}  >Remove {this.props.matchUp.team_b.name} from matchup</Button>: null}
                               <br></br>
@@ -150,27 +160,56 @@ class MatchUp extends React.Component{
         return (<div className={`matchup R${this.props.round_number}-M${this.props.matchUp.match_up_number}`}>
                  <Row  > <OverlayTrigger  trigger="click" overlay={
                         <Popover id={`popover-positioned-${this.props.end}`}>
-                        <Popover.Title as="h3">{this.props.matchUp.team_a.name}</Popover.Title>
+                        <Popover.Title as="h3">{this.props.matchUp.team_a.name} {this.props.matchUp.team_a_score} vs. {this.props.matchUp.team_b.name} {this.props.matchUp.team_b_score}</Popover.Title>
                         <Popover.Content>
-                          <Form.Control type="input" onChange={this.onChangeA} value={this.state.teamNameA} /> <Button className={'btn-light'} onClick={this.submitTeamAName} >Update Team Name</Button>
-                          {this.props.round_number > 1? <Button onClick={() => this.props.removeTeamFromMatchUp({team_slot: 'team_a', team_id: this.props.matchUp.team_a_id, match_up_id: this.props.matchUp.id, tournament_id: this.props.currentTournament.id})} 
-                               className={'btn-info'}  >Remove {this.props.matchUp.team_a.name} from matchup</Button>: null }
-                          <br></br>
-                          
-                 <Button className={'btn-dark'} onClick={() => this.props.matchUpWinner(this.props.matchUp, this.props.matchUp.team_a.id)} >{this.props.round_number < lastRound? `Advance ${this.props.matchUp.team_a.name} to Next Round`: `Crown ${this.props.matchUp.team_a.name} the Champion!` }</Button>
+                            <Row>
+                                    <p>Edit Team Names</p>
+                            </Row>
+                            <Row>
+                                <Col>
+                                      <Form.Control type="input" onChange={(e) => this.onChangeA(e, this.props.matchUp.team_a_id)} value={this.state.teamNameA} /> 
+                                      {this.props.round_number > 1? <Button style={{fontSize: '10px'}} onClick={() => this.props.removeTeamFromMatchUp({team_slot: 'team_a', team_id: this.props.matchUp.team_a_id, match_up_id: this.props.matchUp.id, tournament_id: this.props.currentTournament.id})} 
+                            className={'btn-info'}  >Remove {this.props.matchUp.team_a.name} from matchup</Button>: null }
+                                </Col>
+                                <Col>
+                                      <Form.Control type="input"  onChange={(e) => this.onChangeB(e, this.props.matchUp.team_b_id)} value={this.state.teamNameB} />
+                                      {this.props.round_number > 1? <Button style={{fontSize: '10px'}} onClick={() => this.props.removeTeamFromMatchUp({team_slot: 'team_b', team_id: this.props.matchUp.team_b_id, match_up_id: this.props.matchUp.id, tournament_id: this.props.currentTournament.id})} 
+                            className={'btn-info'}  >Remove {this.props.matchUp.team_b.name} from matchup</Button>: null }
+                                </Col>
+                            </Row>
+                            <Row> <p>Scores</p></Row>
+                            <Row>
+                                <Col>
+                                    <div className='scoreDiv'>
+                                     <p>{this.props.matchUp.team_a.name}</p>
+                                     <Form.Control onChange={(e) => this.teamAScoreChange(e, this.props.matchUp.id) } value={this.state.teamAScore} type="input"  />
+                                    <Button  style={{fontSize: '10px'}} className={'btn-dark'} onClick={() => this.props.matchUpWinner(this.props.matchUp, this.props.matchUp.team_a.id)} >{this.props.round_number < lastRound? `Advance ${this.props.matchUp.team_a.name} to Next Round`: `Crown ${this.props.matchUp.team_a.name} the Champion!` }</Button>
+                                    </div>
+                                </Col>
+                                <Col>
+                                    <div>
+                                     <p>{this.props.matchUp.team_b.name}</p>
+                                     <Form.Control onChange={(e) => this.teamBScoreChange(e, this.props.matchUp.id) } value={this.state.teamBScore} type="input"  />
+                                     <Button style={{fontSize: '10px'}} className={'btn-dark'} onClick={() => this.props.matchUpWinner(this.props.matchUp, this.props.matchUp.team_b.id)} >{this.props.round_number < lastRound? `Advance ${this.props.matchUp.team_b.name} to Next Round`: `Crown ${this.props.matchUp.team_b.name} the Champion!` }</Button>
+                                    </div>
+                                </Col>
+                            </Row>
                         </Popover.Content>
-                      </Popover>
+                        </Popover>
                  } key={'right'} placement={this.props.end} rootCloseEvent={'mousedown'} >
                     <Button type="button" className={`btn btn-dark teamButton `}> {this.props.matchUp.team_a.name}</Button> 
                    </OverlayTrigger>
                 </Row>
+
+
+
+
                 <Row  >
                 <OverlayTrigger  trigger="click" overlay={
                         <Popover id={`popover-positioned-${this.props.end}`}>
                         <Popover.Title as="h3">{this.props.matchUp.team_b.name}</Popover.Title>
                         <Popover.Content>
-                          <Form.Control type="input" onChange={this.onChangeB} value={this.state.teamNameB} />
-                           <Button className={'btn-light'} onClick={this.submitTeamBName} >Update Team Name</Button>
+                          <Form.Control type="input"  onChange={(e) => this.onChangeB(e, this.props.matchUp.team_b_id)} value={this.state.teamNameB} />
                            {this.props.round_number > 1? <Button onClick={() => this.props.removeTeamFromMatchUp({team_slot: 'team_b', team_id: this.props.matchUp.team_b_id, match_up_id: this.props.matchUp.id, tournament_id: this.props.currentTournament.id})} 
                                className={'btn-info'}  >Remove {this.props.matchUp.team_b.name} from matchup</Button>: null }
                           <br></br>
@@ -234,7 +273,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {matchUpWinner: (matchUp, winnerId) => {dispatch(matchUpWinner(matchUp, winnerId))},
     updateTeamName: (teamId, newTeamName, tournamentId) => {dispatch(updateTeamName(teamId, newTeamName, tournamentId))},
-    removeTeamFromMatchUp: (obj) => dispatch(removeTeamFromMatchUp(obj))}
+    removeTeamFromMatchUp: (obj) => dispatch(removeTeamFromMatchUp(obj)),
+    matchUpScore: (matchUp, team_slot, score) => dispatch(matchUpScore(matchUp, team_slot, score))}
 }
 
 
