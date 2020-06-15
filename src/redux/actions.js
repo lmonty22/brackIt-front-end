@@ -22,8 +22,10 @@ function findUser(token){
         }
       })
       .then(res => res.json())
-      .then(userData => {
-        dispatch(setCurrentUser(userData))
+      .then(data => {
+        let user_data = data.user_data
+        user_data['followedTournaments'] = data.followed_tournaments
+        dispatch(setCurrentUser(user_data))
       })
   }
 }
@@ -54,7 +56,10 @@ function postUser(obj){
   }).then(response => response.json())
   .then(data => {
     localStorage.setItem("token", data.token)
-    dispatch(setCurrentUser(data.user_data))})
+    let user_data = data.user_data
+    user_data['followedTournaments'] = data.followed_tournaments
+    dispatch(setCurrentUser(user_data))
+    })
   }
 }
 
@@ -76,7 +81,9 @@ function login(userInfo){
        dispatch(errorMessages(data.error_message))
      }else{
       localStorage.setItem("token", data.token)
-      dispatch(setCurrentUser(data.user_data))
+      let user_data = data.user_data
+      user_data['followedTournaments'] = data.followed_tournaments
+      dispatch(setCurrentUser(user_data))
      }
   })
   }
@@ -178,9 +185,30 @@ function fetchingTournaments(){
     }
   }
 
+  function addFollowedTournament(tournament){
+    return {type:'ADD_TOURNAMENT_TO_FOLLOWS', payload: tournament}
+  }
+
+  function followTournament(tournamentId, userId){
+    return(dispatch) => {
+      fetch(URL+'tournament_followers', {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          follower_id: userId,
+          tournament_followed_id: tournamentId
+        })
+      }).then(res => res.json())
+      .then(tournament_followed => 
+        dispatch(addFollowedTournament(tournament_followed))
+        )
+    }
+  }
+
   
   
   export { fetchingTournaments, matchUpWinner, postTournament, 
     login, postUser, findUser, logout, newSearchTerm, deleteTournament, 
-    updateTeamName, fetchTournament, removeCurrentTournament, removeTeamFromMatchUp};
+    updateTeamName, fetchTournament, removeCurrentTournament, removeTeamFromMatchUp,
+    followTournament};
   
