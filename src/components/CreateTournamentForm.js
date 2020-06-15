@@ -143,9 +143,10 @@ class CreateTournamentForm extends React.Component{
             <option>64</option>
           </Form.Control>
         </Form.Group>
+
         <Form.Group >
-            <OverlayTrigger key={'top'} placement="left" overlay={
-                  <Tooltip id="shuffle-tooltip">
+            <OverlayTrigger key={'private'} placement="left" overlay={
+                  <Tooltip id="private-tooltip">
                     Private Tournaments will not appear in search results for other users. You may still send a private link to friends.
                   </Tooltip>
             }><Form.Check
@@ -153,12 +154,14 @@ class CreateTournamentForm extends React.Component{
             id="inlineFormCheck"
             label="Private"
             onChange={this.privateToggle}
-            checked={this.state.private}></Form.Check>
+            checked={this.state.private}>
+                
+            </Form.Check>
             </OverlayTrigger>
         </Form.Group>
 
         <Form.Group >
-            <OverlayTrigger key={'top'} placement="left" overlay={
+            <OverlayTrigger key={'shuffle'} placement="left" overlay={
                   <Tooltip id="shuffle-tooltip">
                       Shuffle teams will randomize first round matchups. Leaving this unchecked will allow you to choose first round matchups below. (Team 1 will play Team 2, Team 3 will play Team 4 etc.)
                   </Tooltip>
@@ -167,9 +170,12 @@ class CreateTournamentForm extends React.Component{
             id="inlineFormCheck"
             label="Shuffle Teams"
             onChange={this.shuffleTeamsToggle}
-            checked={this.state.shuffle}></Form.Check>
+            checked={this.state.shuffle}>
+            </Form.Check>
             </OverlayTrigger>
         </Form.Group>
+
+
         <Form.Group controlId="teamNames">
             {this.dynamicTeamNames()}   
         </Form.Group>

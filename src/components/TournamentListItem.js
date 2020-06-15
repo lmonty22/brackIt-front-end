@@ -1,19 +1,23 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
-import {Card, Button} from 'react-bootstrap'
+import {Card, Button, ButtonGroup} from 'react-bootstrap'
 import { connect } from "react-redux";
-import {deleteTournament} from '../redux/actions'
-
-
+import {deleteTournament, followTournament, unfollowTournament} from '../redux/actions'
+import '../App.css'
 
 const TournamentListItem = (props) => (
- <Card as={Link}  to={`/tournaments/${props.tournament.id}`} style={{ width: '18rem' }}>
-        <Card.Body>
+    <Card>
+        <Card.Body >
             <Card.Title>{props.tournament.name}</Card.Title>
-                {props.tournament.user? <Card.Subtitle className="mb-2 text-muted">@{props.tournament.user.username}</Card.Subtitle>: null }
+             <Card.Subtitle className="mb-2 text-muted">@{props.tournament.user.username}</Card.Subtitle>
+            {props.tournament.champion_id? <Card.Subtitle>{props.tournament.champion.name}🏆</Card.Subtitle>: null}
             <Card.Text>{props.tournament.number_of_teams} team tourney</Card.Text>
-            <Card.Link as={Link} to={`/tournaments/${props.tournament.id}`}>View Tournament</Card.Link>
-            {props.currentUser && props.currentUser.id === props.tournament.user_id? <Card.Link as={Link} onClick={() => props.delete(props.tournament.id)}>Delete</Card.Link>: null}
+             <ButtonGroup aria-label="Basic example">
+                <Button className='btn-light' as={Link} to={`/tournaments/${props.tournament.id}`}>View Tournament</Button>
+                {props.currentUser && props.tournament.user_id !== props.currentUser.id && !props.currentUser.followers.find(f => f.tournament_followed_id === props.tournament.id)? <Button className={'btn-dark'} onClick={() => props.followTournament(props.tournament.id, props.currentUser.id)} >Follow Tournament </Button>: null}
+             {props.currentUser && props.tournament.user_id !== props.currentUser.id && props.currentUser.followers.find(f => f.tournament_followed_id === props.tournament.id)? <Button className={'btn-dark'} onClick={() => props.unfollowTournament(props.currentUser.followers.find(f => f.tournament_followed_id === props.tournament.id))} >Unfollow Tournament </Button>: null}
+            {props.currentUser && props.currentUser.id === props.tournament.user_id? <Button  className={'btn-dark'}onClick={() => props.delete(props.tournament.id)}>Delete</Button>: null}
+            </ButtonGroup>
         </Card.Body>
     </Card>
 )
@@ -23,7 +27,9 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return {delete: (tournamentID) => {dispatch(deleteTournament(tournamentID))}}
+    return {delete: (tournamentID) => {dispatch(deleteTournament(tournamentID))},
+            followTournament: (tournamentId, userId) => {dispatch(followTournament(tournamentId, userId))},
+            unfollowTournament: (follow) => {dispatch(unfollowTournament(follow))}}
 }
 
 

@@ -18,7 +18,7 @@ const HomePage = (props) => {
         <div>
         {props.searchTerm.length === 0? 
         <Row>
-         <Carousel interval={3000}>
+         <Carousel interval={5000}>
          <Carousel.Item>
             <img
             className="d-block w-100"

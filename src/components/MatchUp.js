@@ -39,17 +39,29 @@ class MatchUp extends React.Component{
 
     componentDidUpdate(prevProps){
         if (this.props.currentTournament && prevProps.matchUp && prevProps.matchUp.team_a_id !== this.props.matchUp.team_a_id){
-            this.setState({
-                teamNameA: this.props.matchUp.team_a.name
-            })
+            if (this.props.matchUp.team_a){
+                this.setState({
+                    teamNameA: this.props.matchUp.team_a.name
+                })
+            }else {
+                this.setState({
+                    teamNameA: ''
+                })
+            }
            }
-           if (this.props.currentTournament && prevProps.matchUp && prevProps.matchUp.team_b_id !== this.props.matchUp.team_b_id){
-            this.setState({
-                teamNameB: this.props.matchUp.team_b.name
-            })
-           }
+        if (this.props.currentTournament && prevProps.matchUp && prevProps.matchUp.team_b_id !== this.props.matchUp.team_b_id){
+            if (this.props.matchUp.team_b){
+                this.setState({
+                    teamNameB: this.props.matchUp.team_b.name
+                })
+            }else {
+                this.setState({
+                    teamNameB: ''
+                })
+            }
 
         }
+    }
 
     onChangeA= (e) => {
         this.setState({
@@ -116,7 +128,7 @@ class MatchUp extends React.Component{
                             <Popover id={`popover-positioned-${this.props.end}`}>
                             <Popover.Title as="h3">{this.props.matchUp.team_b.name}</Popover.Title>
                             <Popover.Content>
-                              <Form.Control type="input" placeholder="teamName" onChange={this.onChangeB} value={this.state.teamNameB} /> 
+                              <Form.Control type="input" onChange={this.onChangeB} value={this.state.teamNameB} /> 
                               <Button className={'btn-light'} onClick={this.submitTeamBName} >Update Team Name</Button>
                               {this.props.round_number > 1? <Button onClick={() => this.props.removeTeamFromMatchUp({team_slot: 'team_b', team_id: this.props.matchUp.team_b_id, match_up_id: this.props.matchUp.id, tournament_id: this.props.currentTournament.id})} 
                                className={'btn-info'}  >Remove {this.props.matchUp.team_b.name} from matchup</Button>: null}
@@ -140,7 +152,7 @@ class MatchUp extends React.Component{
                         <Popover id={`popover-positioned-${this.props.end}`}>
                         <Popover.Title as="h3">{this.props.matchUp.team_a.name}</Popover.Title>
                         <Popover.Content>
-                          <Form.Control type="input" placeholder="teamName" onChange={this.onChangeA} value={this.state.teamNameA} /> <Button className={'btn-light'} onClick={this.submitTeamAName} >Update Team Name</Button>
+                          <Form.Control type="input" onChange={this.onChangeA} value={this.state.teamNameA} /> <Button className={'btn-light'} onClick={this.submitTeamAName} >Update Team Name</Button>
                           {this.props.round_number > 1? <Button onClick={() => this.props.removeTeamFromMatchUp({team_slot: 'team_a', team_id: this.props.matchUp.team_a_id, match_up_id: this.props.matchUp.id, tournament_id: this.props.currentTournament.id})} 
                                className={'btn-info'}  >Remove {this.props.matchUp.team_a.name} from matchup</Button>: null }
                           <br></br>
@@ -157,7 +169,7 @@ class MatchUp extends React.Component{
                         <Popover id={`popover-positioned-${this.props.end}`}>
                         <Popover.Title as="h3">{this.props.matchUp.team_b.name}</Popover.Title>
                         <Popover.Content>
-                          <Form.Control type="input" placeholder="teamName" onChange={this.onChangeB} value={this.state.teamNameB} />
+                          <Form.Control type="input" onChange={this.onChangeB} value={this.state.teamNameB} />
                            <Button className={'btn-light'} onClick={this.submitTeamBName} >Update Team Name</Button>
                            {this.props.round_number > 1? <Button onClick={() => this.props.removeTeamFromMatchUp({team_slot: 'team_b', team_id: this.props.matchUp.team_b_id, match_up_id: this.props.matchUp.id, tournament_id: this.props.currentTournament.id})} 
                                className={'btn-info'}  >Remove {this.props.matchUp.team_b.name} from matchup</Button>: null }
@@ -210,9 +222,9 @@ class MatchUp extends React.Component{
                 </div>)}
 
 
-        }
+     } }
     }
-}
+
 
 // need to build in functionality so only the user who created the tournament can advance players
 const mapStateToProps = (state) => {
