@@ -23,11 +23,10 @@ function findUser(token){
       })
       .then(res => res.json())
       .then(data => {
-        let user_data = {...data.user_data}
-        user_data['followedTournaments'] = data.followed_tournaments
-        dispatch(setCurrentUser(user_data))
+        dispatch(setCurrentUser(data))
       })
   }
+
 }
 
 function updateTeamName(teamId, newTeamName, tournamentId){
@@ -56,9 +55,7 @@ function postUser(obj){
   }).then(response => response.json())
   .then(data => {
     localStorage.setItem("token", data.token)
-    let user_data = data.user_data
-    user_data['followedTournaments'] = data.followed_tournaments
-    dispatch(setCurrentUser(user_data))
+    dispatch(setCurrentUser(data.user_data))
     })
   }
 }
@@ -81,9 +78,7 @@ function login(userInfo){
        dispatch(errorMessages(data.error_message))
      }else{
       localStorage.setItem("token", data.token)
-      let user_data = data.user_data
-      user_data['followedTournaments'] = data.followed_tournaments
-      dispatch(setCurrentUser(user_data))
+      dispatch(setCurrentUser(data.user_data))
      }
   })
   }
@@ -185,8 +180,12 @@ function fetchingTournaments(){
     }
   }
 
-  function addFollowedTournament(tournament){
-    return {type:'ADD_TOURNAMENT_TO_FOLLOWS', payload: tournament}
+  function addFollowedTournament(follow){
+    return {type:'ADD_TOURNAMENT_TO_FOLLOWS', payload: follow}
+  }
+
+  function removeFollowedTournament(follow){
+    return {type:"REMOVE_TOURNAMENT_FROM_FOLLOWS", payload: follow}
   }
 
   function followTournament(tournamentId, userId){
@@ -199,9 +198,18 @@ function fetchingTournaments(){
           tournament_followed_id: tournamentId
         })
       }).then(res => res.json())
-      .then(tournament_followed => 
-        dispatch(addFollowedTournament(tournament_followed))
+      .then(follow => 
+        dispatch(addFollowedTournament(follow))
         )
+    }
+  }
+
+  function unfollowTournament(follow){
+    return (dispatch) => {
+      fetch(URL+`followers/${follow.id}`, {
+        method: "DELETE"
+      })
+      dispatch(removeFollowedTournament(follow))
     }
   }
 
@@ -210,5 +218,5 @@ function fetchingTournaments(){
   export { fetchingTournaments, matchUpWinner, postTournament, 
     login, postUser, findUser, logout, newSearchTerm, deleteTournament, 
     updateTeamName, fetchTournament, removeCurrentTournament, removeTeamFromMatchUp,
-    followTournament};
+    followTournament, unfollowTournament};
   

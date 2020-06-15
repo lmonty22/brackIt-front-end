@@ -10,7 +10,7 @@ const UsersTournamentPage = (props) => {
     return (<div className='usersTournamentsPage'><h1>Welcome {props.currentUser.username}</h1>
             {props.userTournaments.length > 0? <Row>{props.userTournaments.map(t => <TournamentListItem key={t.id} tournament={t}/>)}</Row> : <div>You have no tourneys</div>}
             <h4>Following</h4>
-            {props.currentUser.followedTournaments.length > 0? <Row>{props.currentUser.followedTournaments.map(t => <TournamentListItem key={t.id} tournament={t}/>)}</Row>: <div>You are not following any tournaments</div>}
+            {props.currentUser.followers.length > 0? <Row>{props.currentUser.followers.map(f=> <TournamentListItem key={f.tournament_followed.id} tournament={f.tournament_followed}/>)}</Row>: <div>You are not following any tournaments</div>}
     </div>)
     }
 

@@ -44,9 +44,13 @@ const currentUserReducer= (state = null, action) => {
     case "CLEAR_USER":
         return null
     case "ADD_TOURNAMENT_TO_FOLLOWS":
-        let followedTournaments = [...state.followedTournaments, action.payload]
-        let currentUser = {...state, followedTournaments: followedTournaments}
+        let follows = [...state.followers, action.payload]
+        let currentUser = {...state, followers: follows}
         return currentUser
+    case "REMOVE_TOURNAMENT_FROM_FOLLOWS":
+        let newFollows = [...state.followers].filter(f => f.id !== action.payload.id)
+        let newCurrentUser = {...state, followers: newFollows}
+        return newCurrentUser
     default: 
         return state
     }
