@@ -47,21 +47,29 @@ class MatchUp extends React.Component{
             if (this.props.matchUp.team_a){
                 this.setState({
                     teamNameA: this.props.matchUp.team_a.name,
+                    teamAScore: this.props.matchUp.team_a_score,
+                    teamBScore: this.props.matchUp.team_b_score,
                 })
             }else {
                 this.setState({
-                    teamNameA: ''
+                    teamNameA: '',
+                    teamAScore: '',
+                    teamBScore: ''
                 })
             }
            }
         if (this.props.currentTournament && prevProps.matchUp && prevProps.matchUp.team_b_id !== this.props.matchUp.team_b_id){
             if (this.props.matchUp.team_b){
                 this.setState({
-                    teamNameB: this.props.matchUp.team_b.name
+                    teamNameB: this.props.matchUp.team_b.name,
+                    teamAScore: this.props.matchUp.team_a_score,
+                    teamBScore: this.props.matchUp.team_a_score,
                 })
             }else {
                 this.setState({
-                    teamNameB: ''
+                    teamNameB: '',
+                    teamAScore: '',
+                    teamBScore: ''
                 })
             }
 

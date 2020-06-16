@@ -13,6 +13,7 @@ const UsersTournamentPage = (props) => {
     </div>)
     }
 
+
 const mapStateToProps = (state) => {
    return  {currentUser: state.currentUser, userTournaments: state.tournaments.filter( t => t.user_id === state.currentUser.id) }
 }
