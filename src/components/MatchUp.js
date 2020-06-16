@@ -111,22 +111,26 @@ class MatchUp extends React.Component{
         let nextMatchUp = getNextMatchUp(match_up_number)
         let lastRound = Math.log2(currentTournament.number_of_teams)
 
-        //if the current user owns the tournament 
-        if (currentUser && currentUser.id === tUser){
-            // tournament and winnder if determined
-            if (winner_id){
-        return (<div className={`matchup R${round_number}-M${match_up_number}`}> 
-                <Row  >
-                    <Button disabled className={`teamButton btn-dark`} style={winner_id === team_a_id? {fontWeight: 'bold'}: {textDecoration: 'line-through'}} > {team_a_score? <Badge>{team_a_score}</Badge> : null }{team_a.name}</Button>  
-                </Row>
-                <Row >
-                    <Button disabled className={`teamButton btn-light`} style={winner_id === team_b_id? {fontWeight: 'bold'}: {textDecoration: 'line-through'}} >{team_b_score? <Badge>{team_b_score}</Badge> : null }{team_b.name}</Button>
-                </Row>
-                <SteppedLineTo borderColor={'grey'} from={`R${round_number}-M${match_up_number}`} to={`R${nextRound}-M${nextMatchUp}`} toAnchor={start}  fromAnchor={end}  orientation='h' />
-                </div>)}
-                // owner of tournament and only one team is in the matchUp
+        if(winner_id){
+            // if winner exists. 
+            return (<div className={`matchup R${round_number}-M${match_up_number}`}> 
+            <Row >
+               {currentUser && currentUser.id === tUser?  
+                <Button disabled className={`teamButton btn-dark`} style={winner_id === team_a_id? {fontWeight: 'bold'}: {textDecoration: 'line-through'}} > {team_a_score >= 0? <Badge>{team_a_score}</Badge> : null }{team_a.name}</Button>:
+               <Badge  className={`teamButton badge-dark`} style={winner_id === team_a_id? {fontWeight: 'bold'} : {textDecoration: 'line-through'}} > {team_a_score >= 0? <Badge>{team_a_score}</Badge> : null }{team_a.name}</Badge>  } 
+            </Row>
+            <Row >
+            {currentUser && currentUser.id === tUser? 
+                <Button disabled className={`teamButton btn-light`} style={winner_id === team_b_id? {fontWeight: 'bold'}: {textDecoration: 'line-through'}} >{team_b_score >= 0? <Badge >{team_b_score}</Badge> : null }{team_b.name}</Button>
+            :  <Badge  className={`badge-light teamButton `} style={winner_id === team_b_id? {fontWeight: 'bold'} : {textDecoration: 'line-through'}} > {team_b_score >= 0? <Badge>{team_b_score}</Badge> : null } {team_b.name}</Badge>       }
+            </Row>
+            <SteppedLineTo borderColor={'grey'} from={`R${round_number}-M${match_up_number}`} to={`R${nextRound}-M${nextMatchUp}`} toAnchor={start}  fromAnchor={end}  orientation='h' />
+            </div>)
+        }
         else if (!team_a_id || !team_b_id){
-        return (<div className={`matchup R${round_number}-M${match_up_number}`}>
+            return (<div className={`matchup R${round_number}-M${match_up_number}`}>
+                {currentUser && currentUser.id === tUser?
+                 <div>
                  <Row >
                     {team_a?  
                         <OverlayTrigger  trigger="click" overlay={
@@ -166,20 +170,33 @@ class MatchUp extends React.Component{
                         <Button className={` btn-light teamButton` } disabled> &nbsp;  </Button>
                     }
                 </Row>
+                </div>
+                : <div >
+                <Row >
+                   {team_a?  <Badge  className={`badge-dark teamButton `}> {team_a.name}</Badge> : 
+                       <Badge className={'badge-dark teamButton'}>&nbsp; </Badge>
+                   }
+               </Row>
+               <Row  >
+                   {team_b?  <Badge className={`badge-light teamButton `}  > {team_b.name}</Badge> : 
+                       <Badge className={`badge-light teamButton`}> &nbsp; </Badge>
+                   }
+               </Row> 
+               </div>}
                 <SteppedLineTo  borderColor={'grey'} from={`R${round_number}-M${match_up_number}`} to={`R${nextRound}-M${nextMatchUp}`} toAnchor={start}  fromAnchor={end}  orientation='h' />
          </div>)
         }
         else{
-            // If owner of the tournament and both teams are included in the match Up..but no winner allow entry of scores and advancing. 
-        return (
-            <div className={`matchup R${round_number}-M${match_up_number}`}>
-                 <Row  > <OverlayTrigger  trigger="click" overlay={
+            return (
+                <div className={`matchup R${round_number}-M${match_up_number}`}>
+                     {currentUser && currentUser.id === tUser?
+                     // I wanted to make the code from 193 - 278 half the size, just put the bottons in one div with one popover but it made the divs jump around on clicks. 
+                        <div> 
+                            <Row  > <OverlayTrigger  trigger="click" overlay={
                         <Popover id={`popover-positioned-${end}`}>
-                        <Popover.Title as="h3">{team_a.name} {team_a_score} vs. {team_b.name} {team_b_score}</Popover.Title>
+                        <Popover.Title as="h3">{team_a.name} vs. {team_b_score}</Popover.Title>
                         <Popover.Content>
-                            <Row>
-                                    <p>Edit Team Names</p>
-                            </Row>
+                            <Row><p>Edit Team Names</p> </Row>
                             <Row>
                                 <Col>
                                       <Form.Control type="input" onChange={(e) => this.onChangeA(e, team_a_id)} value={this.state.teamNameA} /> 
@@ -197,32 +214,37 @@ class MatchUp extends React.Component{
                                 <Col>
                                     <div className='scoreDiv'>
                                      <p>{team_a.name}</p>
-                                     <Form.Control onChange={(e) => this.teamAScoreChange(e, id) } value={this.state.teamAScore} type="input"  />
-                                    <Button  style={{fontSize: '10px'}} className={'btn-dark'} onClick={() => this.props.matchUpWinner(this.props.matchUp, team_a.id)} >{round_number < lastRound? `Advance ${team_a.name} to Next Round`: `Crown ${team_a.name} the Champion!` }</Button>
+                                     <Form.Control onChange={(e) => this.teamAScoreChange(e, id) } value={this.state.teamAScore} type="number"  />
                                     </div>
                                 </Col>
                                 <Col>
                                     <div>
                                      <p>{team_b.name}</p>
-                                     <Form.Control onChange={(e) => this.teamBScoreChange(e, id) } value={this.state.teamBScore} type="input"  />
-                                     <Button style={{fontSize: '10px'}} className={'btn-dark'} onClick={() => this.props.matchUpWinner(this.props.matchUp, team_b.id)} >{round_number < lastRound? `Advance ${team_b.name} to Next Round`: `Crown ${team_b.name} the Champion!` }</Button>
+                                     <Form.Control onChange={(e) => this.teamBScoreChange(e, id) } value={this.state.teamBScore} type="number"  />
                                     </div>
+                                </Col>
+                            </Row>
+                        
+                            <Row> 
+                                <Col>
+                                     < Button  style={{fontSize: '10px'}} className={'btn-dark'} onClick={() => this.props.matchUpWinner(this.props.matchUp, team_a.id)} >{round_number < lastRound? `Advance ${team_a.name} to Next Round`: `Crown ${team_a.name} the Champion!` }</Button>
+                                </Col>
+                                <Col>
+                                <Button style={{fontSize: '10px'}} className={'btn-light'} onClick={() => this.props.matchUpWinner(this.props.matchUp, team_b.id)} >{round_number < lastRound? `Advance ${team_b.name} to Next Round`: `Crown ${team_b.name} the Champion!` }</Button>
                                 </Col>
                             </Row>
                         </Popover.Content>
                         </Popover>
                  } key={'right'} placement={end} rootCloseEvent={'mousedown'} >
-                    <Button type="button" className={`btn btn-dark teamButton `}> {team_a_score? <Badge>{team_a_score}</Badge>: null}{team_a.name} </Button> 
+                    <Button type="button" className={`btn btn-dark teamButton `}> {team_a_score >= 0?<Badge >{team_a_score}</Badge>: null}{team_a.name} </Button> 
                    </OverlayTrigger>
                 </Row>
 
-                <Row  > <OverlayTrigger  trigger="click" overlay={
+                <Row > <OverlayTrigger  trigger="click" overlay={
                         <Popover id={`popover-positioned-${end}`}>
-                        <Popover.Title as="h3">{team_a.name} {team_a_score} vs. {team_b.name} {team_b_score}</Popover.Title>
+                        <Popover.Title as="h3">{team_a.name}  vs. {team_b.name}</Popover.Title>
                         <Popover.Content>
-                            <Row>
-                                    <p>Edit Team Names</p>
-                            </Row>
+                            <Row><p>Edit Team Names</p> </Row>
                             <Row>
                                 <Col>
                                       <Form.Control type="input" onChange={(e) => this.onChangeA(e, team_a_id)} value={this.state.teamNameA} /> 
@@ -230,7 +252,7 @@ class MatchUp extends React.Component{
                             className={'btn-info'}  >Remove {team_a.name} from matchup</Button>: null }
                                 </Col>
                                 <Col>
-                                      <Form.Control type="input"  onChange={(e) => this.onChangeB(e, team_b_id)} value={this.state.teamNameB} />
+                                      <Form.Control type="input"  onChange={(e) => this.onChangeB(e, this.props.matchUp.team_b_id)} value={this.state.teamNameB} />
                                       {round_number > 1? <Button style={{fontSize: '10px'}} onClick={() => this.props.removeTeamFromMatchUp({team_slot: 'team_b', team_id: team_b_id, match_up_id: id, tournament_id: currentTournament.id})} 
                             className={'btn-info'}  >Remove {team_b.name} from matchup</Button>: null }
                                 </Col>
@@ -240,76 +262,48 @@ class MatchUp extends React.Component{
                                 <Col>
                                     <div className='scoreDiv'>
                                      <p>{team_a.name}</p>
-                                     <Form.Control onChange={(e) => this.teamAScoreChange(e, id) } value={this.state.teamAScore} type="input"  />
-                                    <Button  style={{fontSize: '10px'}} className={'btn-dark'} onClick={() => this.props.matchUpWinner(this.props.matchUp, team_a.id)} >{round_number < lastRound? `Advance ${team_a.name} to Next Round`: `Crown ${team_a.name} the Champion!` }</Button>
+                                     <Form.Control onChange={(e) => this.teamAScoreChange(e, id) } value={this.state.teamAScore} type="number"  />
                                     </div>
                                 </Col>
                                 <Col>
                                     <div>
                                      <p>{team_b.name}</p>
-                                     <Form.Control onChange={(e) => this.teamBScoreChange(e, id) } value={this.state.teamBScore} type="input"  />
-                                     <Button style={{fontSize: '10px'}} className={'btn-dark'} onClick={() => this.props.matchUpWinner(this.props.matchUp, team_b.id)} >{round_number < lastRound? `Advance ${team_b.name} to Next Round`: `Crown ${team_b.name} the Champion!` }</Button>
+                                     <Form.Control onChange={(e) => this.teamBScoreChange(e, id) } value={this.state.teamBScore} type="number"  />
                                     </div>
+                                </Col>
+                            </Row>
+                        
+                            <Row> 
+                                <Col>
+                                     < Button  style={{fontSize: '10px'}} className={'btn-dark'} onClick={() => this.props.matchUpWinner(this.props.matchUp, team_a.id)} >{round_number < lastRound? `Advance ${team_a.name} to Next Round`: `Crown ${team_a.name} the Champion!` }</Button>
+                                </Col>
+                                <Col>
+                                <Button style={{fontSize: '10px'}} className={'btn-light'} onClick={() => this.props.matchUpWinner(this.props.matchUp, team_b.id)} >{round_number < lastRound? `Advance ${team_b.name} to Next Round`: `Crown ${team_b.name} the Champion!` }</Button>
                                 </Col>
                             </Row>
                         </Popover.Content>
                         </Popover>
                  } key={'right'} placement={end} rootCloseEvent={'mousedown'} >
-                    <Button type="button" className={`btn btn-light teamButton `}> {team_b_score? <Badge>{team_b_score}</Badge>: null}{team_b.name} </Button> 
+                    <Button type="button" className={`btn btn-light teamButton `}> {team_b_score >= 0? <Badge>{team_b_score}</Badge>: null}{team_b.name} </Button> 
                    </OverlayTrigger>
                 </Row>
-
-
-                <SteppedLineTo borderColor={'grey'} from={`R${round_number}-M${match_up_number}`} to={`R${nextRound}-M${nextMatchUp}`} toAnchor={start}  fromAnchor={end}  orientation='h' />
-        </div>)}
-                    // if not owner of the tournament 
-        }else {
-                     // not owner of tournament and winner is determined. 
-            if (winner_id){
-                return (<div className={`matchup R${round_number}-M${match_up_number}`}> 
-                        <Row  > 
-            <Badge  className={`teamButton badge-dark`} style={winner_id === team_a_id? {fontWeight: 'bold'}: {textDecoration: 'line-through'}} > {team_a_score? <Badge>{team_a_score}</Badge> : null }{team_a.name}</Badge>  
-                        </Row>
-                        <Row >
-            <Badge  className={`teamButton badge-light`} style={winner_id === team_b_id? {fontWeight: 'bold'}: {textDecoration: 'line-through'}}>{team_b_score? <Badge> {team_b_score}</Badge>: null}{team_b.name}</Badge>
-                        </Row>
-                        <SteppedLineTo borderColor={'grey'} from={`R${round_number}-M${match_up_number}`} to={`R${nextRound}-M${nextMatchUp}`} toAnchor={start}  fromAnchor={end}  orientation='h' />
-                        </div>)}
-
-                        // only one team is in the match up. 
-                else if (!team_a_id || !team_b_id){
-                return (<div className={`matchup R${round_number}-M${match_up_number}`}>
-                         <Row >
-                            {team_a?  <Badge  className={`badge-dark teamButton `}> {team_a.name}</Badge> : 
-                                <Badge className={'badge-dark teamButton'}>&nbsp; </Badge>
-                            }
-                        </Row>
-                        <Row  >
-                            {team_b?  <Badge className={`badge-light teamButton `}  > {team_b.name}</Badge> : 
-                                <Badge className={`badge-light teamButton`}> &nbsp; </Badge>
-                            }
-                        </Row>
-                        <SteppedLineTo  borderColor={'grey'} from={`R${round_number}-M${match_up_number}`} to={`R${nextRound}-M${nextMatchUp}`} toAnchor={start}  fromAnchor={end}  orientation='h' />
-                 </div>)
-                }
-                else{
-                        // both teams are in the match up but no winnter. 
-                return (<div className={`matchup R${round_number}-M${match_up_number}`}>
-                         <Row  >
-                            <Badge  className={`badge-dark teamButton `} >  {team_a_score? <Badge>{team_a_score}</Badge> : null }{team_a.name}</Badge> 
-                        </Row>
-                        <Row  >
-                            <Badge  className={`badge-light teamButton `} > {team_b_score? <Badge>{team_b_score}</Badge> : null } {team_b.name}</Badge>       
-                        </Row>
-                        <SteppedLineTo borderColor={'grey'} from={`R${round_number}-M${match_up_number}`} to={`R${nextRound}-M${nextMatchUp}`} toAnchor={start}  fromAnchor={end}  orientation='h' />
-                </div>)}
-
-
-     } }
+                    </div>
+                        : <div> 
+                    <Row >
+                        <Badge  className={`badge-dark teamButton `} >  {team_a_score >= 0? <Badge>{team_a_score}</Badge> : null }{team_a.name}</Badge> 
+                    </Row>
+                    <Row >
+                        <Badge  className={`badge-light teamButton `} > {team_b_score >= 0? <Badge>{team_b_score}</Badge> : null } {team_b.name}</Badge>       
+                    </Row>
+                    </div> }
+                    <SteppedLineTo borderColor={'grey'} from={`R${round_number}-M${match_up_number}`} to={`R${nextRound}-M${nextMatchUp}`} toAnchor={start}  fromAnchor={end}  orientation='h' />
+                </div>
+            )
+        }
     }
+}
 
 
-// need to build in functionality so only the user who created the tournament can advance players
 const mapStateToProps = (state) => {
     return { currentUser: state.currentUser,
             currentTournament: state.currentTournament}

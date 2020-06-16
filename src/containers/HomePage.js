@@ -3,9 +3,9 @@ import TournamentsContainer from "./TournamentsContainer"
 import Carousel from 'react-bootstrap/Carousel'
 import Row from 'react-bootstrap/row'
 import skiball from '../assets/skiball.jpg'
-import soccer from '../assets/soccer.jpg'
+import pingpong from '../assets/pingpong.jpg'
 import basketball from '../assets/basketball.jpg'
-import shuffleboard from '../assets/shuffleboard.jpg'
+import chess from '../assets/chess.jpg'
 import {connect} from 'react-redux'
 import logo from '../assets/BrackIt.png'
 import '../App.css'
@@ -22,6 +22,14 @@ const HomePage = (props) => {
          <Carousel.Item>
             <img
             className="d-block w-100"
+            src={basketball}
+            alt="basketball"
+            height="700"
+            />
+        </Carousel.Item>
+         <Carousel.Item>
+            <img
+            className="d-block w-100"
             src={skiball}
             alt="skiball"
             height="700"
@@ -30,24 +38,17 @@ const HomePage = (props) => {
         <Carousel.Item>
             <img
             className="d-block w-100"
-            src={shuffleboard}
-            alt="shuffleboard"
+            src={chess}
+            alt="chess"
             height="700"
             />
         </Carousel.Item>
-         <Carousel.Item>
-            <img
-            className="d-block w-100"
-            src={basketball}
-            alt="basketball"
-            height="700"
-            />
-        </Carousel.Item>
+        
         <Carousel.Item>
             <img
             className="d-block w-100"
-            src={soccer}
-            alt="soccer"
+            src={pingpong}
+            alt="pingpong"
             height="700"
             />
         </Carousel.Item>

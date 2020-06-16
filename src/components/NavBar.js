@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 import {logout} from '../redux/actions'
 import logo from '../assets/BrackIt.png'
 import {newSearchTerm} from '../redux/actions'
-import { Redirect} from "react-router-dom"
+import {Redirect} from 'react-router-dom'
 
 import '../App.css'
 
@@ -37,7 +37,7 @@ class NavBar extends React.Component {
  
     render(){
     return (
-        <Navbar sticky="top" bg="light" expand="lg" style={{justifyContent: 'space-between'}}>
+        <Navbar sticky="top" bg="light" expand="lg" style={{justifyContent: 'space-between', maxHeight:'57px'}}>
             <Nav>
             <Link to='/'><Navbar.Brand>
                  <img
@@ -57,7 +57,7 @@ class NavBar extends React.Component {
             <Nav >
             {this.props.currentUser? <Nav.Link as={Link} to='/createtournament'>Create Tournament</Nav.Link> :  <Link to='/login'><Button variant="info">Login</Button>  </Link>}
             {this.props.currentUser?  <Nav.Link as={Link} to='/mytournaments'>My Tournaments</Nav.Link> :  <Link  to='/signup'><Button variant="light">Signup</Button> </Link> }
-            {this.props.currentUser?   <Button variant="info" onClick={() => this.props.logout()}>Logout</Button> : null }
+            {this.props.currentUser?   <Link to='/'><Button variant="info" onClick={() => this.props.logout()}>Logout</Button></Link>: null }
             </Nav>
         </Navbar>
     )

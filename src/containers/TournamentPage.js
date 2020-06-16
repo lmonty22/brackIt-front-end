@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from "react-redux";
-import {Row, Col, Spinner, Button} from 'react-bootstrap'
+import {Row, Col, Spinner, Button, Badge } from 'react-bootstrap'
 import LeftHalfContainer from './LeftHalfContainer'
 import FinalsContainer from './FinalsContainer'
 import RightHalfContainer from './RightHalfContainer'
@@ -95,12 +95,12 @@ render (){
                 follow = this.props.currentUser.followers.find(f => f.tournament_followed_id === this.props.tournament.id)
             }
         }
-    return (!this.props.tournament? <Spinner/> : 
+    return (!this.props.tournament?  <div className='spinnerDiv'><Spinner animation="border" className='spinner-info' /></div> : 
         <div>
             <div className='tourneyHeader'>
             <h1>{this.props.tournament.name}</h1>
              <p>Created By: @{this.props.tournament.user.username}</p>
-             {this.props.currentUser && this.props.tournament.user_id === this.props.currentUser.id? <p>You're the tournament admin! But you should know that... you created this tournament! Only you have the power to make changes. Click on teams to make them advance to the next round, remove them from a matchup(incase you deemed an incorrect winner) or update their team name. Have fun! </p>: null }
+    {this.props.currentUser && this.props.tournament.user_id === this.props.currentUser.id? <h4><Badge className='badge-info'>You're the tournament admin! Only you have the power to make changes. Click on matchups to record scores, advance teams, and edit team names. Have fun!</Badge></h4>: null }
              {this.props.currentUser && this.props.tournament.user_id !== this.props.currentUser.id && !follow? <Button className={'btn-info'} onClick={() => this.props.followTournament(this.props.tournament.id, this.props.currentUser.id)} >Follow Tournament </Button>: null}
              {this.props.currentUser && this.props.tournament.user_id !== this.props.currentUser.id && follow? <Button className={'btn-info'} onClick={() => this.props.unfollowTournament(follow)} >Unfollow Tournament </Button>: null}
             <br/>

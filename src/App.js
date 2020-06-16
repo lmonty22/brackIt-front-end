@@ -43,7 +43,7 @@ class App extends React.Component{
   return (
     <div className="App">
       <NavBar />
-       {this.state.loading? <Spinner animation="border" variant="info" />:<Switch>
+       {this.state.loading? <div className='spinnerDiv'><Spinner animation="border" className='spinner-info' /></div>:<Switch>
           <Route exact path="/tournaments/:id" render={(props) => {
             return <TournamentPage {...props} />}} />
           <Route exact path="/" component={HomePage}/>

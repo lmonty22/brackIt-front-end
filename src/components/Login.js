@@ -1,5 +1,5 @@
 import React from 'react'
-import {Col, Form, Button} from 'react-bootstrap'
+import {Col, Form, Button, Modal} from 'react-bootstrap'
 import {login} from '../redux/actions'
 import { connect } from "react-redux";
 import {Redirect} from 'react-router-dom'
@@ -12,6 +12,7 @@ class Login extends React.Component{
             password: ''
         }
     }
+
     onSubmit = (event) => {
         event.preventDefault()
         this.props.login(this.state)
@@ -29,14 +30,18 @@ class Login extends React.Component{
 
     render(){
       return this.props.currentUser? <Redirect to="/mytournaments"/>: 
-           <Col> 
-           <div className='formDiv'>
-             <h1>Login</h1>
-            <Form>
-              <div style={{color:'red'}}>{this.props.errors? this.props.errors: null} </div>
+      <div className='loginBackground'>
+      <Modal.Dialog>
+      <Modal.Header >
+        <Modal.Title>Login</Modal.Title>
+      </Modal.Header>
+    
+      <Modal.Body>
+           <Form>
+            <div style={{color:'red'}}>{this.props.errors? this.props.errors: null} </div>
             <Form.Group controlId="username">
               <Form.Label>Username</Form.Label>
-              <Form.Control type="username" placeholder="username!" onChange={this.onChange} value={this.state.username}/>
+              <Form.Control type="username" placeholder="username" onChange={this.onChange} value={this.state.username}/>
             </Form.Group>
             <Form.Group controlId="password">
               <Form.Label>Password</Form.Label>
@@ -46,8 +51,9 @@ class Login extends React.Component{
                 Login
             </Button>
           </Form>
-          </div>
-          </Col>
+      </Modal.Body>
+    </Modal.Dialog>
+    </div>
     }
   }
 
