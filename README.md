@@ -1,68 +1,31 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# BrackIt - Front End
 
-## Available Scripts
+## Summary
 
-In the project directory, you can run:
+This is a tournament bracket generater designed to allow users to login and generate a bracket to share with their friends. Users create BrackIts with 4, 8, 16, 32 or 64 teams. You may make tournaments private or public. Shuffle teams to make first round matchups random, or manually decide first round match ups when you enter your team names. You may record scores, advance teams and edit team names throughout the Torurnament and finally crown a champion. 
 
-### `yarn start`
+Additional features allow you to search for tournaments (that are public) and follow tournaments. 
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Instructions
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+1. Make sure to clone down the [Backend Repo] (https://github.com/lmonty22/brackIt-backend) and follow the backend Readme instructions first!
 
-### `yarn test`
+2. Run 
+###`npm install`
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+3.
+###`npm start`
 
-### `yarn build`
+4. Allow Port to run on 3001
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+5. Have fun! 
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
+Code your procedural solution into the lib/smallest_multiple.rb file.
+Code your object-oriented solution into the lib/oo_smallest_multiple.rb file.
+Run learn until you get all of the RSpec tests to pass.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+##Resource
+Project Euler - Problem 5
+View Project Euler on Learn.co and start learning to code for free.
