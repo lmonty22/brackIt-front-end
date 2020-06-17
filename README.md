@@ -8,24 +8,16 @@ Additional features allow you to search for tournaments (that are public) and fo
 
 ## Instructions
 
-1. Make sure to clone down the [Backend Repo] (https://github.com/lmonty22/brackIt-backend) and follow the backend Readme instructions first!
+1. Make sure to clone down the [Backend Repo](https://github.com/lmonty22/brackIt-backend) and follow the backend Readme instructions first!
 
 2. Run 
 ###`npm install`
 
-3.
+3. Run
 ###`npm start`
 
-4. Allow Port to run on 3001
+4. Allow React to run on port 3001 (the backend repo should be running on port:3000).
 
-5. Have fun! 
+5. Open http://localhost:3001
 
 
-
-Code your procedural solution into the lib/smallest_multiple.rb file.
-Code your object-oriented solution into the lib/oo_smallest_multiple.rb file.
-Run learn until you get all of the RSpec tests to pass.
-
-##Resource
-Project Euler - Problem 5
-View Project Euler on Learn.co and start learning to code for free.
