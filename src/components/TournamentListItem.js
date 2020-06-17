@@ -16,7 +16,7 @@ const TournamentListItem = (props) => (
                 <Button className='btn-light' as={Link} to={`/tournaments/${props.tournament.id}`}>View Tournament</Button>
                 {props.currentUser && props.tournament.user_id !== props.currentUser.id && !props.currentUser.followers.find(f => f.tournament_followed_id === props.tournament.id)? <Button className={'btn-dark'} onClick={() => props.followTournament(props.tournament.id, props.currentUser.id)} >Follow Tournament </Button>: null}
              {props.currentUser && props.tournament.user_id !== props.currentUser.id && props.currentUser.followers.find(f => f.tournament_followed_id === props.tournament.id)? <Button className={'btn-dark'} onClick={() => props.unfollowTournament(props.currentUser.followers.find(f => f.tournament_followed_id === props.tournament.id))} >Unfollow Tournament </Button>: null}
-            {props.currentUser && props.currentUser.id === props.tournament.user_id? <Button  className={'btn-dark'}onClick={() => props.delete(props.tournament.id)}>Delete</Button>: null}
+            {props.currentUser && props.currentUser.id === props.tournament.user_id? <Button  className={'btn-dark'}onClick={() => props.handleDelete(props.tournament.id)}>Delete</Button>: null}
             </ButtonGroup>
         </Card.Body>
     </Card>

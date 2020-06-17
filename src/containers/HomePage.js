@@ -59,11 +59,19 @@ const HomePage = (props) => {
                 width='300px'
                 alit='brackit logo'
             ></img>
-             <div style={{fontWeight: 'bold'}}>
-         Welcome to BrackIt, a platform designed to help your tournament run smoothly.
-         Whether you're hosting a cornhole tournament, or playing video games online, we want to be there for you. <Link onClick={props.handleLoginShow}>Login</Link> or <Link to='/signup'>Sign Up</Link> to start generating BrackIts 
-         and sharing your BrackIts with friends.
-         Have fun! </div>
+            {!props.currentUser? 
+            <div style={{fontWeight: 'bold'}}>
+            Welcome to BrackIt, a platform designed to help your tournament run smoothly.
+            Whether you're hosting a cornhole tournament, or playing video games online, we want to be there for you. <Link onClick={props.handleLoginShow}>Login</Link> or <Link onClick={props.handleCreateShow}>Sign Up</Link> to start generating BrackIts 
+            and sharing your BrackIts with friends.
+            Have fun! </div>
+            
+            :   <div style={{fontWeight: 'bold'}}>
+            Welcome to BrackIt, a platform designed to help your tournament run smoothly.
+            Whether you're hosting a cornhole tournament, or playing video games online, we want to be there for you. <Link >Login</Link> or <Link >Sign Up</Link> to start generating BrackIts 
+            and sharing your BrackIts with friends.
+            Have fun! </div>
+            }
          </Jumbotron>
             </Row>
         : null }
@@ -77,6 +85,7 @@ const HomePage = (props) => {
 
 
 const mapStateToProps = (state) => {
-    return  {searchTerm: state.searchTerm}
+    return  {searchTerm: state.searchTerm,
+            currentUser: state.currentUser}
  }
  export default connect(mapStateToProps)(HomePage)

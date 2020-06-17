@@ -77,7 +77,7 @@ this.setState({
        {this.state.loading? <div className='spinnerDiv'><Spinner animation="border" className='spinner-info' /></div>:<Switch>
           <Route exact path="/tournaments/:id" render={(props) => {
             return <TournamentPage {...props} />}} />
-          <Route exact path="/" render={() => <HomePage handleLoginShow={this.handleShow} />}/>
+          <Route exact path="/" render={() => <HomePage handleLoginShow={this.handleShow} handleCreateShow={this.handleCreateShow} />}/>
           <Route exact path="/createtournament" render={() => this.props.currentUser? <CreateTournamentForm/>:  <Redirect to='/' /> } />
           <Route exact path="/mytournaments" render={() => this.props.currentUser? <UserTournamentPage /> : <Redirect to='/' /> } />
           <Route render={()=> <div>404 No Route Found</div> } />
