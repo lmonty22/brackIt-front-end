@@ -21,7 +21,7 @@ class App extends React.Component{
     this.state = { 
       loading: true,
       showLogin: false,
-      showCreateUser: false 
+      showCreateUser: false,
     }
   }
    
@@ -30,7 +30,6 @@ class App extends React.Component{
       this.props.findUser(localStorage.getItem("token"))
     }
     this.props.fetchingTournaments()
-  
   }
 
   componentDidUpdate = () => {
@@ -39,9 +38,13 @@ class App extends React.Component{
         loading: false
       })
     }
+    if (this.state.activeLogin){
+      this.setState({ activeLogin: false})
+      this.props.history.push('/mytournaments')
+    }
   }
 
-  handleClose = () => {
+handleClose = () => {
     this.setState({
         showLogin: false
     })
@@ -65,18 +68,16 @@ this.setState({
 })
 }
 
-
-  render() {
+  render(props) {
   return (
     <div className="App">
       <NavBar handleShowLogin={this.handleShow} handleCreateShow={this.handleCreateShow}/>
-      <Login show={this.state.showLogin} handleClose={this.handleClose}/>
+      <Login  show={this.state.showLogin} handleClose={this.handleClose} /> 
       <CreateUserForm show={this.state.showCreateUser} handleClose={this.handleCreateClose}/> 
-
        {this.state.loading? <div className='spinnerDiv'><Spinner animation="border" className='spinner-info' /></div>:<Switch>
           <Route exact path="/tournaments/:id" render={(props) => {
             return <TournamentPage {...props} />}} />
-          <Route exact path="/" component={HomePage}/>
+          <Route exact path="/" render={() => <HomePage handleLoginShow={this.handleShow} />}/>
           <Route exact path="/createtournament" render={() => this.props.currentUser? <CreateTournamentForm/>:  <Redirect to='/' /> } />
           <Route exact path="/mytournaments" render={() => this.props.currentUser? <UserTournamentPage /> : <Redirect to='/' /> } />
           <Route render={()=> <div>404 No Route Found</div> } />

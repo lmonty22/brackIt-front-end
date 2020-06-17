@@ -182,6 +182,7 @@ p,div, h1, h2, h3, h4{
   /* background-color: #EEE1B3 !important; */
   /* justify-content: center !important; */
   margin: auto !important;
+  max-width: 25% !important;
 }
 
 .jumbotron{

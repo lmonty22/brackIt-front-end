@@ -194,18 +194,18 @@ class MatchUp extends React.Component{
                         <div> 
                             <Row  > <OverlayTrigger  trigger="click" overlay={
                         <Popover id={`popover-positioned-${end}`}>
-                        <Popover.Title as="h3">{team_a.name} vs. {team_b_score}</Popover.Title>
+                        <Popover.Title as="h3">{team_a.name} vs. {team_a.name}</Popover.Title>
                         <Popover.Content>
                             <Row><p>Edit Team Names</p> </Row>
                             <Row>
                                 <Col>
                                       <Form.Control type="input" onChange={(e) => this.onChangeA(e, team_a_id)} value={this.state.teamNameA} /> 
-                                      {round_number > 1? <Button style={{fontSize: '10px'}} onClick={() => this.props.removeTeamFromMatchUp({team_slot: 'team_a', team_id: team_a_id, match_up_id: id, tournament_id: currentTournament.id})} 
+                                      {round_number > 1? <Button style={{fontSize: '12px'}} onClick={() => this.props.removeTeamFromMatchUp({team_slot: 'team_a', team_id: team_a_id, match_up_id: id, tournament_id: currentTournament.id})} 
                             className={'btn-info'}  >Remove {team_a.name} from matchup</Button>: null }
                                 </Col>
                                 <Col>
                                       <Form.Control type="input"  onChange={(e) => this.onChangeB(e, this.props.matchUp.team_b_id)} value={this.state.teamNameB} />
-                                      {round_number > 1? <Button style={{fontSize: '10px'}} onClick={() => this.props.removeTeamFromMatchUp({team_slot: 'team_b', team_id: team_b_id, match_up_id: id, tournament_id: currentTournament.id})} 
+                                      {round_number > 1? <Button style={{fontSize: '12px'}} onClick={() => this.props.removeTeamFromMatchUp({team_slot: 'team_b', team_id: team_b_id, match_up_id: id, tournament_id: currentTournament.id})} 
                             className={'btn-info'}  >Remove {team_b.name} from matchup</Button>: null }
                                 </Col>
                             </Row>
@@ -227,10 +227,10 @@ class MatchUp extends React.Component{
                         
                             <Row> 
                                 <Col>
-                                     < Button  style={{fontSize: '10px'}} className={'btn-dark'} onClick={() => this.props.matchUpWinner(this.props.matchUp, team_a.id)} >{round_number < lastRound? `Advance ${team_a.name} to Next Round`: `Crown ${team_a.name} the Champion!` }</Button>
+                                     < Button  style={{fontSize: '12px'}} className={'btn-dark'} onClick={() => this.props.matchUpWinner(this.props.matchUp, team_a.id)} >{round_number < lastRound? `Advance ${team_a.name} to Next Round`: `Crown ${team_a.name} the Champion!` }</Button>
                                 </Col>
                                 <Col>
-                                <Button style={{fontSize: '10px'}} className={'btn-light'} onClick={() => this.props.matchUpWinner(this.props.matchUp, team_b.id)} >{round_number < lastRound? `Advance ${team_b.name} to Next Round`: `Crown ${team_b.name} the Champion!` }</Button>
+                                <Button style={{fontSize: '12px'}} className={'btn-light'} onClick={() => this.props.matchUpWinner(this.props.matchUp, team_b.id)} >{round_number < lastRound? `Advance ${team_b.name} to Next Round`: `Crown ${team_b.name} the Champion!` }</Button>
                                 </Col>
                             </Row>
                         </Popover.Content>
@@ -248,12 +248,12 @@ class MatchUp extends React.Component{
                             <Row>
                                 <Col>
                                       <Form.Control type="input" onChange={(e) => this.onChangeA(e, team_a_id)} value={this.state.teamNameA} /> 
-                                      {round_number > 1? <Button style={{fontSize: '10px'}} onClick={() => this.props.removeTeamFromMatchUp({team_slot: 'team_a', team_id: team_a_id, match_up_id: id, tournament_id: currentTournament.id})} 
+                                      {round_number > 1? <Button style={{fontSize: '12px'}} onClick={() => this.props.removeTeamFromMatchUp({team_slot: 'team_a', team_id: team_a_id, match_up_id: id, tournament_id: currentTournament.id})} 
                             className={'btn-info'}  >Remove {team_a.name} from matchup</Button>: null }
                                 </Col>
                                 <Col>
                                       <Form.Control type="input"  onChange={(e) => this.onChangeB(e, this.props.matchUp.team_b_id)} value={this.state.teamNameB} />
-                                      {round_number > 1? <Button style={{fontSize: '10px'}} onClick={() => this.props.removeTeamFromMatchUp({team_slot: 'team_b', team_id: team_b_id, match_up_id: id, tournament_id: currentTournament.id})} 
+                                      {round_number > 1? <Button style={{fontSize: '12px'}} onClick={() => this.props.removeTeamFromMatchUp({team_slot: 'team_b', team_id: team_b_id, match_up_id: id, tournament_id: currentTournament.id})} 
                             className={'btn-info'}  >Remove {team_b.name} from matchup</Button>: null }
                                 </Col>
                             </Row>
@@ -275,10 +275,10 @@ class MatchUp extends React.Component{
                         
                             <Row> 
                                 <Col>
-                                     < Button  style={{fontSize: '10px'}} className={'btn-dark'} onClick={() => this.props.matchUpWinner(this.props.matchUp, team_a.id)} >{round_number < lastRound? `Advance ${team_a.name} to Next Round`: `Crown ${team_a.name} the Champion!` }</Button>
+                                     < Button  style={{fontSize: '12px'}} className={'btn-dark'} onClick={() => this.props.matchUpWinner(this.props.matchUp, team_a.id)} >{round_number < lastRound? `Advance ${team_a.name} to Next Round`: `Crown ${team_a.name} the Champion!` }</Button>
                                 </Col>
                                 <Col>
-                                <Button style={{fontSize: '10px'}} className={'btn-light'} onClick={() => this.props.matchUpWinner(this.props.matchUp, team_b.id)} >{round_number < lastRound? `Advance ${team_b.name} to Next Round`: `Crown ${team_b.name} the Champion!` }</Button>
+                                <Button style={{fontSize: '12px'}} className={'btn-light'} onClick={() => this.props.matchUpWinner(this.props.matchUp, team_b.id)} >{round_number < lastRound? `Advance ${team_b.name} to Next Round`: `Crown ${team_b.name} the Champion!` }</Button>
                                 </Col>
                             </Row>
                         </Popover.Content>

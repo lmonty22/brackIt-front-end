@@ -61,7 +61,7 @@ const HomePage = (props) => {
             ></img>
              <div style={{fontWeight: 'bold'}}>
          Welcome to BrackIt, a platform designed to help your tournament run smoothly.
-         Whether you're hosting a cornhole tournament, or playing video games online, we want to be there for you. <Link to='/login'>Login</Link> or <Link to='/signup'>Sign Up</Link> to start generating BrackIts 
+         Whether you're hosting a cornhole tournament, or playing video games online, we want to be there for you. <Link onClick={props.handleLoginShow}>Login</Link> or <Link to='/signup'>Sign Up</Link> to start generating BrackIts 
          and sharing your BrackIts with friends.
          Have fun! </div>
          </Jumbotron>

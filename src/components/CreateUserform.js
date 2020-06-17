@@ -23,6 +23,17 @@ class CreateUserForm extends React.Component{
         event.preventDefault()
         if (this.state.usernameAvailable && this.state.passwordCorrrect){
             this.props.handleClose()
+            this.setState({
+            username: '',
+            password: '',
+            passwordConfirmation: '',
+            passwordCorrrect: true,
+            errors: {
+                passowrd: '',
+                username: ''
+            },
+            usernameAvailable: true
+        })
             // send fetch call with {username: this.state.username, password: this.state.password}
             this.props.postUser({username: this.state.username, password: this.state.password})
 
@@ -107,7 +118,6 @@ class CreateUserForm extends React.Component{
     }
 
     render(){
-    //   return this.props.currentUser? <Redirect to="/mytournaments"/>: 
     return(
       <Modal show={this.props.show} onHide={this.props.handleClose}l>
       <Modal.Header closeButton >

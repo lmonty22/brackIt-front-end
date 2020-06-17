@@ -2,16 +2,17 @@ import React from 'react'
 import {Col, Form, Button, Modal} from 'react-bootstrap'
 import {login} from '../redux/actions'
 import { connect } from "react-redux";
-import {Redirect} from 'react-router-dom'
+import { Redirect, Link, withRouter} from 'react-router-dom'
+
 
 class Login extends React.Component{
-    constructor(){
-        super()
-        this.state = {
-            username: '',
-            password: ''
-        }
+  constructor(){
+    super()
+    this.state = {
+      username: '',
+      password: '',
     }
+  }
 
     onSubmit = (event) => {
         event.preventDefault()
@@ -27,7 +28,6 @@ class Login extends React.Component{
             [event.currentTarget.id]: event.currentTarget.value
         })
     }
-
       // need to change login show component to false if the user logs in...
     componentDidUpdate = (prevProps) => {
       if (prevProps.currentUser !== this.props.currentUser){
@@ -36,7 +36,6 @@ class Login extends React.Component{
     }
 
     render(){
-      // return this.props.currentUser? <Redirect to="/mytournaments"/>: 
       return(
       <Modal show={this.props.show} onHide={this.props.handleClose}l>
       <Modal.Header closeButton >
@@ -53,13 +52,13 @@ class Login extends React.Component{
               <Form.Label>Password</Form.Label>
               <Form.Control type="password" placeholder="password" onChange={this.onChange} value={this.state.password}/>
             </Form.Group>
-            <Button variant="info" type="submit" onClick={this.onSubmit}>
+           <Button variant="info" type="submit" onClick={this.onSubmit}>
                 Login
             </Button>
           </Form>
       </Modal.Body>
-    </Modal>)
-    }
+    </Modal>
+      )}
   }
 
 
