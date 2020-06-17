@@ -169,6 +169,10 @@ h1 {
   display: flex !important;
   justify-content: center !important;
 }
+p,div, h1, h2, h3, h4{
+  font-family: 'Play', sans-serif;
+}
+ 
 
 .popover{
   /* background-color: #EEE1B3 !important; */
@@ -204,6 +208,8 @@ h1 {
   background-color:#EEE1B3 !important;
   display: flex !important;
   justify-content: center !important;
+  max-width: 300px;
+  height: auto;
 }
 .scoreDiv {
   display: flex !important;

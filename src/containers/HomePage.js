@@ -58,9 +58,10 @@ const HomePage = (props) => {
                 height='100px'
                 width='300px'
             ></img>
-             <div>
-         Welcome to BrackIt, a space to generate and share your tournament BrackIt with friends. 
-         If you're having a group over for a cornhole tournament, or playing video games online, we want to be there for you. <Link to='/login'>Login</Link> or <Link to='/signup'>Sign Up</Link> to start generating BrackIts or search for tournaments to follow. 
+             <div style={{fontWeight: 'bold'}}>
+         Welcome to BrackIt, a platform designed to help your tournament run smoothly.
+         Whether you're hosting a cornhole tournament, or playing video games online, we want to be there for you. <Link to='/login'>Login</Link> or <Link to='/signup'>Sign Up</Link> to start generating BrackIts 
+         and sharing your BrackIts with friends.
          Have fun! </div>
          </Jumbotron>
             </Row>
