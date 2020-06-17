@@ -60,8 +60,6 @@ function postUser(obj){
   }
 }
 
-
-
 function errorMessages(errors){
   return {type: "LOGIN_ERROR", payload: errors}
 }
@@ -79,6 +77,7 @@ function login(userInfo){
      }else{
       localStorage.setItem("token", data.token)
       dispatch(setCurrentUser(data.user_data))
+      dispatch(errorMessages([]))
      }
   })
   }

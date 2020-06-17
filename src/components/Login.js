@@ -28,14 +28,20 @@ class Login extends React.Component{
         })
     }
 
+      // need to change login show component to false if the user logs in...
+    componentDidUpdate = (prevProps) => {
+      if (prevProps.currentUser !== this.props.currentUser){
+        this.props.handleClose()
+      }
+    }
+
     render(){
-      return this.props.currentUser? <Redirect to="/mytournaments"/>: 
-      <div className='loginBackground'>
-      <Modal.Dialog>
-      <Modal.Header >
+      // return this.props.currentUser? <Redirect to="/mytournaments"/>: 
+      return(
+      <Modal show={this.props.show} onHide={this.props.handleClose}l>
+      <Modal.Header closeButton >
         <Modal.Title>Login</Modal.Title>
       </Modal.Header>
-    
       <Modal.Body>
            <Form>
             <div style={{color:'red'}}>{this.props.errors? this.props.errors: null} </div>
@@ -47,38 +53,13 @@ class Login extends React.Component{
               <Form.Label>Password</Form.Label>
               <Form.Control type="password" placeholder="password" onChange={this.onChange} value={this.state.password}/>
             </Form.Group>
-            <Button variant="light" type="submit" onClick={this.onSubmit}>
+            <Button variant="info" type="submit" onClick={this.onSubmit}>
                 Login
             </Button>
           </Form>
       </Modal.Body>
-    </Modal.Dialog>
-    </div>
+    </Modal>)
     }
-
-
-    // render(){
-    //   return this.props.currentUser? <Redirect to="/mytournaments"/>: 
-    //        <Col> 
-    //        <div className='formDiv'>
-    //          <h1>Login</h1>
-    //         <Form>
-    //           <div style={{color:'red'}}>{this.props.errors? this.props.errors: null} </div>
-    //         <Form.Group controlId="username">
-    //           <Form.Label>Username</Form.Label>
-    //           <Form.Control type="username" placeholder="username!" onChange={this.onChange} value={this.state.username}/>
-    //         </Form.Group>
-    //         <Form.Group controlId="password">
-    //           <Form.Label>Password</Form.Label>
-    //           <Form.Control type="password" placeholder="password" onChange={this.onChange} value={this.state.password}/>
-    //         </Form.Group>
-    //         <Button variant="light" type="submit" onClick={this.onSubmit}>
-    //             Login
-    //         </Button>
-    //       </Form>
-    //       </div>
-    //       </Col>
-    // }
   }
 
 
@@ -90,6 +71,5 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {login: (userInfo) =>{dispatch(login(userInfo))}}
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)

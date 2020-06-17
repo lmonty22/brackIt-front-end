@@ -28,9 +28,12 @@ class NavBar extends React.Component {
             searchTerm: ''
         })
     }
+
+  
  
     render(){
     return (
+        <div>
         <Navbar sticky="top" bg="light" expand="lg" style={{justifyContent: 'space-between', maxHeight:'57px'}}>
             <Nav>
             <Link to='/'><Navbar.Brand>
@@ -49,11 +52,13 @@ class NavBar extends React.Component {
             </Form>
             </Nav>
             <Nav >
-            {this.props.currentUser? <Nav.Link as={Link} to='/createtournament'>Create BrackIt</Nav.Link> :  <Link to='/login'><Button variant="info">Login</Button>  </Link>}
-            {this.props.currentUser?  <Nav.Link as={Link} to='/mytournaments'>My Tournaments</Nav.Link> :  <Link  to='/signup'><Button variant="light">Signup</Button> </Link> }
+            {/* {this.props.currentUser? <Nav.Link as={Link} to='/createtournament'>Create BrackIt</Nav.Link> :  <Link to='/login'><Button variant="info">Login</Button>  </Link>} */}
+    {this.props.currentUser? <Nav.Link as={Link} to='/createtournament'>Create BrackIt</Nav.Link> :  <Button variant="info" onClick={this.props.handleShowLogin}>Login</Button> } 
+            {this.props.currentUser?  <Nav.Link as={Link} to='/mytournaments'>My Tournaments</Nav.Link> :  <Button variant="light" onClick={this.props.handleCreateShow}> Signup </Button>  }
             {this.props.currentUser?   <Link to='/'><Button variant="info" onClick={() => this.props.logout()}>Logout</Button></Link>: null }
             </Nav>
         </Navbar>
+        </div>
     )
      }
 }

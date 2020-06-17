@@ -1,5 +1,5 @@
 import React from 'react'
-import {Col, Form, Button} from 'react-bootstrap'
+import {Col, Form, Button, Modal} from 'react-bootstrap'
 import { connect } from "react-redux";
 import {Redirect} from 'react-router-dom'
 import {postUser} from '../redux/actions'
@@ -22,6 +22,7 @@ class CreateUserForm extends React.Component{
     onSubmit = (event) => {
         event.preventDefault()
         if (this.state.usernameAvailable && this.state.passwordCorrrect){
+            this.props.handleClose()
             // send fetch call with {username: this.state.username, password: this.state.password}
             this.props.postUser({username: this.state.username, password: this.state.password})
 
@@ -106,11 +107,14 @@ class CreateUserForm extends React.Component{
     }
 
     render(){
-      return this.props.currentUser? <Redirect to="/mytournaments"/>: 
-           <Col> 
-           <div className='formDiv'>
-               <h1>SignUp</h1>
-            <Form>
+    //   return this.props.currentUser? <Redirect to="/mytournaments"/>: 
+    return(
+      <Modal show={this.props.show} onHide={this.props.handleClose}l>
+      <Modal.Header closeButton >
+        <Modal.Title>SignUp</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+           <Form>
         <ul style={{color:'red'}}>
             {!this.state.passwordCorrrect? <li>{this.state.errors.password}</li> : null}
             {!this.state.usernameAvailable? <li>{this.state.errors.username}</li>: null }
@@ -128,13 +132,16 @@ class CreateUserForm extends React.Component{
               <Form.Control type="password" placeholder="password" onChange={this.onChange} value={this.state.passwordConfirmation}/>
             </Form.Group>
             <Button variant="light" type="submit" onClick={this.onSubmit}>
-                Login
+                SignUp
             </Button>
           </Form>
-          </div>
-          </Col>
+      </Modal.Body>
+    </Modal>)
     }
   }
+ 
+
+
 
 
 const mapStateToProps = (state) => {
