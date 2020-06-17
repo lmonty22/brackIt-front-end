@@ -1,16 +1,10 @@
 import React from 'react';
-import Navbar from 'react-bootstrap/NavBar'
-import Nav from 'react-bootstrap/Nav'
-import Form from 'react-bootstrap/Form'
-import {FormControl} from 'react-bootstrap'
-import Button from 'react-bootstrap/Button'
+import {FormControl, Form, Navbar, Nav, Button} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import { connect } from "react-redux";
 import {logout} from '../redux/actions'
 import logo from '../assets/BrackIt.png'
 import {newSearchTerm} from '../redux/actions'
-import {Redirect} from 'react-router-dom'
-
 import '../App.css'
 
 class NavBar extends React.Component {
@@ -55,7 +49,7 @@ class NavBar extends React.Component {
             </Form>
             </Nav>
             <Nav >
-            {this.props.currentUser? <Nav.Link as={Link} to='/createtournament'>Create Tournament</Nav.Link> :  <Link to='/login'><Button variant="info">Login</Button>  </Link>}
+            {this.props.currentUser? <Nav.Link as={Link} to='/createtournament'>Create BrackIt</Nav.Link> :  <Link to='/login'><Button variant="info">Login</Button>  </Link>}
             {this.props.currentUser?  <Nav.Link as={Link} to='/mytournaments'>My Tournaments</Nav.Link> :  <Link  to='/signup'><Button variant="light">Signup</Button> </Link> }
             {this.props.currentUser?   <Link to='/'><Button variant="info" onClick={() => this.props.logout()}>Logout</Button></Link>: null }
             </Nav>

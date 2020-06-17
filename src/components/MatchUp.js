@@ -2,7 +2,7 @@ import React from 'react';
 import {Button, Row, Form, Popover, OverlayTrigger, Badge, Col} from 'react-bootstrap'
 import {matchUpWinner, updateTeamName, removeTeamFromMatchUp, matchUpScore} from '../redux/actions'
 import {connect} from 'react-redux'
-import LineTo, { SteppedLineTo} from 'react-lineto';
+import { SteppedLineTo} from 'react-lineto';
 import '../App.css'
 
 const getNextMatchUp = (currentMatchUp) => {
@@ -117,12 +117,12 @@ class MatchUp extends React.Component{
             <Row >
                {currentUser && currentUser.id === tUser?  
                 <Button disabled className={`teamButton btn-dark`} style={winner_id === team_a_id? {fontWeight: 'bold'}: {textDecoration: 'line-through'}} > {team_a_score >= 0? <Badge>{team_a_score}</Badge> : null }{team_a.name}</Button>:
-               <Badge  className={`teamButton badge-dark`} style={winner_id === team_a_id? {fontWeight: 'bold'} : {textDecoration: 'line-through'}} > {team_a_score >= 0? <Badge>{team_a_score}</Badge> : null }{team_a.name}</Badge>  } 
-            </Row>
-            <Row >
+                <Badge  className={`teamBadge badge-dark align-middle`} style={winner_id === team_a_id? {fontWeight: 'bold'} : {textDecoration: 'line-through'}} > {team_a_score >= 0? <Badge>{team_a_score}</Badge> : null }{team_a.name}</Badge> } 
+            {/* </Row>
+            <Row > */}
             {currentUser && currentUser.id === tUser? 
                 <Button disabled className={`teamButton btn-light`} style={winner_id === team_b_id? {fontWeight: 'bold'}: {textDecoration: 'line-through'}} >{team_b_score >= 0? <Badge >{team_b_score}</Badge> : null }{team_b.name}</Button>
-            :  <Badge  className={`badge-light teamButton `} style={winner_id === team_b_id? {fontWeight: 'bold'} : {textDecoration: 'line-through'}} > {team_b_score >= 0? <Badge>{team_b_score}</Badge> : null } {team_b.name}</Badge>       }
+            :  <Badge  className={`badge-light teamBadge align-middle`} style={winner_id === team_b_id? {fontWeight: 'bold'} : {textDecoration: 'line-through'}} > {team_b_score >= 0? <Badge>{team_b_score}</Badge> : null } {team_b.name}</Badge>       }
             </Row>
             <SteppedLineTo borderColor={'grey'} from={`R${round_number}-M${match_up_number}`} to={`R${nextRound}-M${nextMatchUp}`} toAnchor={start}  fromAnchor={end}  orientation='h' />
             </div>)
@@ -173,13 +173,13 @@ class MatchUp extends React.Component{
                 </div>
                 : <div >
                 <Row >
-                   {team_a?  <Badge  className={`badge-dark teamButton `}> {team_a.name}</Badge> : 
-                       <Badge className={'badge-dark teamButton'}>&nbsp; </Badge>
+                   {team_a?  <Badge  className={`badge-dark teamBadge `}> {team_a.name}</Badge> : 
+                       <Badge className={'badge-dark teamBadge'}>&nbsp; </Badge>
                    }
                </Row>
                <Row  >
-                   {team_b?  <Badge className={`badge-light teamButton `}  > {team_b.name}</Badge> : 
-                       <Badge className={`badge-light teamButton`}> &nbsp; </Badge>
+                   {team_b?  <Badge className={`badge-light teamBadge `}  > {team_b.name}</Badge> : 
+                       <Badge className={`badge-light teamBadge`}> &nbsp; </Badge>
                    }
                </Row> 
                </div>}
@@ -290,10 +290,10 @@ class MatchUp extends React.Component{
                     </div>
                         : <div> 
                     <Row >
-                        <Badge  className={`badge-dark teamButton `} >  {team_a_score >= 0? <Badge>{team_a_score}</Badge> : null }{team_a.name}</Badge> 
+                        <Badge  className={`badge-dark teamBadge `} >  {team_a_score >= 0? <Badge>{team_a_score}</Badge> : null }{team_a.name}</Badge> 
                     </Row>
                     <Row >
-                        <Badge  className={`badge-light teamButton `} > {team_b_score >= 0? <Badge>{team_b_score}</Badge> : null } {team_b.name}</Badge>       
+                        <Badge  className={`badge-light teamBadge`} > {team_b_score >= 0? <Badge>{team_b_score}</Badge> : null } {team_b.name}</Badge>       
                     </Row>
                     </div> }
                     <SteppedLineTo borderColor={'grey'} from={`R${round_number}-M${match_up_number}`} to={`R${nextRound}-M${nextMatchUp}`} toAnchor={start}  fromAnchor={end}  orientation='h' />

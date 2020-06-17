@@ -7,7 +7,7 @@ import '../App.css';
 const LeftHalfContainer= (props) => {
         return <Row >
         {props.rounds.map(r => {
-            return   <Col ><RoundCol tUser={props.tUser}  loading={props.loading} start={'left'} end={'right'} key={r.id} round={r} /></Col>})}
+            return   <Col key={r.id}><RoundCol tUser={props.tUser}  loading={props.loading} start={'left'} end={'right'} key={r.id} round={r} /></Col>})}
         </Row>
 }
 

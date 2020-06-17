@@ -23,7 +23,7 @@ const HomePage = (props) => {
             <img
             className="d-block w-100"
             src={basketball}
-            alt="basketball"
+            alt="basketball hoop at sunset"
             height="700"
             />
         </Carousel.Item>
@@ -31,7 +31,7 @@ const HomePage = (props) => {
             <img
             className="d-block w-100"
             src={skiball}
-            alt="skiball"
+            alt="skiball machines"
             height="700"
             />
         </Carousel.Item>
@@ -39,7 +39,7 @@ const HomePage = (props) => {
             <img
             className="d-block w-100"
             src={chess}
-            alt="chess"
+            alt="chess board"
             height="700"
             />
         </Carousel.Item>
@@ -48,7 +48,7 @@ const HomePage = (props) => {
             <img
             className="d-block w-100"
             src={pingpong}
-            alt="pingpong"
+            alt="pingpong table"
             height="700"
             />
         </Carousel.Item>
@@ -57,6 +57,7 @@ const HomePage = (props) => {
              <img src={logo}
                 height='100px'
                 width='300px'
+                alit='brackit logo'
             ></img>
              <div style={{fontWeight: 'bold'}}>
          Welcome to BrackIt, a platform designed to help your tournament run smoothly.

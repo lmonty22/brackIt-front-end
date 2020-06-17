@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import TournamentListItem from '../components/TournamentListItem'
 import Row from 'react-bootstrap/Row'
 import '../App.css';
-import Button from 'react-bootstrap/button'
+
 
 const TournamentsContainer = (props) => {
 return (

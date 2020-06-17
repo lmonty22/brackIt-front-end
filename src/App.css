@@ -41,6 +41,10 @@
   width: 100px;
   height: 50px;
 }
+.teamBadge{
+  width: 100px;
+  height: 50px;
+}
 
 .score .btn-dark {
   font-size: 10px !important;
@@ -80,7 +84,7 @@ h1 {
 }
 
 .tourneyformDiv{
-  max-width: 50%;
+  max-width: 60%;
   margin: auto;
 }
 
@@ -206,8 +210,8 @@ p,div, h1, h2, h3, h4{
 
 .card {
   background-color:#EEE1B3 !important;
-  display: flex !important;
-  justify-content: center !important;
+  /* display: flex !important; */
+  /* justify-content: center !important; */
   max-width: 300px;
   height: auto;
 }

@@ -1,11 +1,11 @@
 import React from 'react';
-import Jumbotron from 'react-bootstrap/Jumbotron'
-import { Container } from 'react-bootstrap';
+import { Jumbotron } from 'react-bootstrap';
 
 const Champion = (props) => {
     return (
         <Jumbotron fluid className='champion' >
-                {props.champ? <h1> 🏆 {props.champ.name} 🏆 </h1> : <h1>🏆</h1>}
+                {props.champ? <h1> <span role='img' alt='trophy'>🏆</span> {props.champ.name}<span role='img' alt='trophy'>🏆</span> </h1> : 
+                <h1><span role='img' alt='trophy'>🏆</span></h1>}
         </Jumbotron>)
 }
 

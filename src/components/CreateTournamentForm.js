@@ -1,12 +1,8 @@
 import React from 'react';
-import Form from 'react-bootstrap/Form'
-import Col from 'react-bootstrap/Col'
-import Row from 'react-bootstrap/Row'
-import Button from 'react-bootstrap/Button'
 import {connect} from 'react-redux'
 import {postTournament} from '../redux/actions'
 import { Redirect } from 'react-router'
-import { Tooltip, OverlayTrigger } from 'react-bootstrap';
+import { Tooltip, OverlayTrigger, Form, Col,  Button } from 'react-bootstrap';
 
 
 class CreateTournamentForm extends React.Component{
@@ -86,7 +82,7 @@ class CreateTournamentForm extends React.Component{
     }
 
     onTeamNumberChange = (event) => {
-        this. validateNameRequired()
+        this.validateNameRequired()
         this.setNewTeamsArray(event.currentTarget.value)
         this.setState({
             [event.currentTarget.id]: event.currentTarget.value
@@ -126,13 +122,15 @@ class CreateTournamentForm extends React.Component{
     return (
         <Col> 
         <div className='tourneyformDiv'>
-            <h1>Create a Tournament</h1>
+            <h1>Create a BrackIt</h1>
         <Form>
         <Form.Group controlId="name">
           <Form.Label>Tournament Name</Form.Label>
           {!this.state.nameIncluded? <div style={{color: 'red'}}>Tournament Name is Required</div>: null}
-          <Form.Control type="name" required={true} placeholder="Your Tourney Name!" onChange={this.onChange} value={this.state.name}/>
+          <Form.Control type="name" required={true} placeholder="Your Tourney Name" onChange={this.onChange} value={this.state.name}/>
         </Form.Group>
+
+
         <Form.Group controlId="numberOfTeams">
              <Form.Label>Number of Teams </Form.Label>
           <Form.Control as="select" onChange={this.onTeamNumberChange} value={this.state.numberOfTeams}>
@@ -143,7 +141,6 @@ class CreateTournamentForm extends React.Component{
             <option>64</option>
           </Form.Control>
         </Form.Group>
-
         <Form.Group >
             <OverlayTrigger key={'private'} placement="left" overlay={
                   <Tooltip id="private-tooltip">
@@ -151,7 +148,7 @@ class CreateTournamentForm extends React.Component{
                   </Tooltip>
             }><Form.Check
             type="checkbox"
-            id="inlineFormCheck"
+            id="private-checkbox"
             label="Private"
             onChange={this.privateToggle}
             checked={this.state.private}>
@@ -160,6 +157,7 @@ class CreateTournamentForm extends React.Component{
             </OverlayTrigger>
         </Form.Group>
 
+
         <Form.Group >
             <OverlayTrigger key={'shuffle'} placement="left" overlay={
                   <Tooltip id="shuffle-tooltip">
@@ -167,7 +165,7 @@ class CreateTournamentForm extends React.Component{
                   </Tooltip>
             }><Form.Check
             type="checkbox"
-            id="inlineFormCheck"
+            id="shuffle-checkbox"
             label="Shuffle Teams"
             onChange={this.shuffleTeamsToggle}
             checked={this.state.shuffle}>

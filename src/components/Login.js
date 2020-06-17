@@ -55,6 +55,30 @@ class Login extends React.Component{
     </Modal.Dialog>
     </div>
     }
+
+
+    // render(){
+    //   return this.props.currentUser? <Redirect to="/mytournaments"/>: 
+    //        <Col> 
+    //        <div className='formDiv'>
+    //          <h1>Login</h1>
+    //         <Form>
+    //           <div style={{color:'red'}}>{this.props.errors? this.props.errors: null} </div>
+    //         <Form.Group controlId="username">
+    //           <Form.Label>Username</Form.Label>
+    //           <Form.Control type="username" placeholder="username!" onChange={this.onChange} value={this.state.username}/>
+    //         </Form.Group>
+    //         <Form.Group controlId="password">
+    //           <Form.Label>Password</Form.Label>
+    //           <Form.Control type="password" placeholder="password" onChange={this.onChange} value={this.state.password}/>
+    //         </Form.Group>
+    //         <Button variant="light" type="submit" onClick={this.onSubmit}>
+    //             Login
+    //         </Button>
+    //       </Form>
+    //       </div>
+    //       </Col>
+    // }
   }
 
 
