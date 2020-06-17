@@ -5,6 +5,7 @@ import Row from 'react-bootstrap/Row';
 import '../App.css';
 import { Redirect } from 'react-router';
 import DeleteModal from '../components/Delete'
+import husky from '../assets/husky.jpg'
 
 
 
@@ -38,8 +39,18 @@ class UsersTournamentPage extends React.Component{
         return(
             <div className='usersTournamentsPage'><h1 style={{color: '#102542'}}>Welcome @{this.props.currentUser.username}</h1>
             <DeleteModal tournamentDelete={this.state.tournamentDelete} show={this.state.showDeleteModal} handleClose={this.handleClose} />
-            {this.props.userTournaments.length > 0? <Row>{this.props.userTournaments.map(t => <TournamentListItem handleDelete={this.handleShow} key={t.id} tournament={t}/>)}</Row> : <div>You have no tourneys</div>}
-            {this.props.currentUser.followers.length > 0? <Row>{this.props.currentUser.followers.map(f=> <TournamentListItem key={f.tournament_followed.id} tournament={f.tournament_followed}/>)}</Row>: <div>You are not following any tournaments</div>}
+            {this.props.userTournaments.length > 0? <Row>{this.props.userTournaments.map(t => <TournamentListItem handleDelete={this.handleShow} key={t.id} tournament={t}/>)}</Row> : null}
+            {this.props.currentUser.followers.length > 0? <Row>{this.props.currentUser.followers.map(f=> <TournamentListItem key={f.tournament_followed.id} tournament={f.tournament_followed}/>)}</Row>: null}
+            {this.props.userTournaments.length === 0 && this.props.currentUser.followers.length === 0 ? <div>
+                <img
+                alt="husky"
+                src={husky}
+                width="400"
+                height="300"
+                className="d-inline-block align-top"
+            />
+            <h4>You haven't created or followed any tournaments.</h4>
+            </div>: null}
             </div>
             )
         }

@@ -194,7 +194,7 @@ class MatchUp extends React.Component{
                         <div> 
                             <Row  > <OverlayTrigger  trigger="click" overlay={
                         <Popover id={`popover-positioned-${end}`}>
-                        <Popover.Title as="h3">{team_a.name} vs. {team_a.name}</Popover.Title>
+                        <Popover.Title as="h3">{team_a.name} vs. {team_b.name}</Popover.Title>
                         <Popover.Content>
                             <Row><p>Edit Team Names</p> </Row>
                             <Row>
