@@ -39,8 +39,8 @@ class UsersTournamentPage extends React.Component{
         return(
             <div className='usersTournamentsPage'><h1 style={{color: '#102542'}}>Welcome @{this.props.currentUser.username}</h1>
             <DeleteModal tournamentDelete={this.state.tournamentDelete} show={this.state.showDeleteModal} handleClose={this.handleClose} />
-            {this.props.userTournaments.length > 0? <Row>{this.props.userTournaments.map(t => <TournamentListItem handleDelete={this.handleShow} key={t.id} tournament={t}/>)}</Row> : null}
-            {this.props.currentUser.followers.length > 0? <Row>{this.props.currentUser.followers.map(f=> <TournamentListItem key={f.tournament_followed.id} tournament={f.tournament_followed}/>)}</Row>: null}
+            {this.props.userTournaments.length > 0? <div><h3>Your Tournaments</h3><Row>{this.props.userTournaments.map(t => <TournamentListItem handleDelete={this.handleShow} key={t.id} tournament={t}/>)}</Row></div> : null}
+            {this.props.currentUser.followers.length > 0? <div><h3>Tournaments You Follow</h3><Row>{this.props.currentUser.followers.map(f=> <TournamentListItem key={f.tournament_followed.id} tournament={f.tournament_followed}/>)}</Row></div>: null}
             {this.props.userTournaments.length === 0 && this.props.currentUser.followers.length === 0 ? <div>
                 <img
                 alt="husky"
