@@ -16,12 +16,13 @@ class CreateUserForm extends React.Component{
                 passowrd: '',
                 username: ''
             },
-            usernameAvailable: true
+            usernameAvailable: true,
+            usernameRequired: false
         }
     }
     onSubmit = (event) => {
         event.preventDefault()
-        if (this.state.usernameAvailable && this.state.passwordCorrrect){
+        if (this.state.usernameAvailable && this.state.passwordCorrrect && this.state.usernameRequired){
             this.props.handleClose()
             this.setState({
             username: '',
@@ -32,7 +33,8 @@ class CreateUserForm extends React.Component{
                 passowrd: '',
                 username: ''
             },
-            usernameAvailable: true
+            usernameAvailable: true,
+            usernameRequired: false
         })
             // send fetch call with {username: this.state.username, password: this.state.password}
             this.props.postUser({username: this.state.username, password: this.state.password})
@@ -114,7 +116,22 @@ class CreateUserForm extends React.Component{
         if (event.currentTarget.id === 'username'){
             this.checkUsername(event.currentTarget.value)
         }
+        if (event.currentTarget.id === 'username' && event.currentTarget.value.length > 0){
+            this.setState({
+                usernameRequired: true
+            })
+        }
+        if (event.currentTarget.id === 'username' && event.currentTarget.value.length === 0){
+            this.setState({
+                usernameRequired: false
+            })
+        }
 
+    }
+
+    switchLoginIn = () => {
+        this.props.handleClose()
+        this.props.handleLoginShow()
     }
 
     render(){
@@ -144,6 +161,7 @@ class CreateUserForm extends React.Component{
             <Button variant="light" type="submit" onClick={this.onSubmit}>
                 SignUp
             </Button>
+            <Button variant='info' onClick={this.switchLoginIn}>Login</Button>
           </Form>
       </Modal.Body>
     </Modal>)

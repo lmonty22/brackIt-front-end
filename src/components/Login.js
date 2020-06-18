@@ -28,6 +28,11 @@ class Login extends React.Component{
             [event.currentTarget.id]: event.currentTarget.value
         })
     }
+
+    switchCreateUser = () => {
+      this.props.handleClose()
+      this.props.handleCreateShow()
+    }
       // need to change login show component to false if the user logs in...
     componentDidUpdate = (prevProps) => {
       if (prevProps.currentUser !== this.props.currentUser){
@@ -54,6 +59,9 @@ class Login extends React.Component{
             </Form.Group>
            <Button variant="info" type="submit" onClick={this.onSubmit}>
                 Login
+            </Button>
+            <Button variant='light' onClick={this.switchCreateUser}>
+                SignUp
             </Button>
           </Form>
       </Modal.Body>

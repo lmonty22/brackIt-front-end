@@ -117,12 +117,10 @@ class MatchUp extends React.Component{
             <Row >
                {currentUser && currentUser.id === tUser?  
                 <Button disabled className={`teamButton btn-dark`} style={winner_id === team_a_id? {fontWeight: 'bold'}: {textDecoration: 'line-through'}} > {team_a_score >= 0? <Badge>{team_a_score}</Badge> : null }{team_a.name}</Button>:
-                <Badge  className={`teamBadge badge-dark align-middle`} style={winner_id === team_a_id? {fontWeight: 'bold'} : {textDecoration: 'line-through'}} > {team_a_score >= 0? <Badge>{team_a_score}</Badge> : null }{team_a.name}</Badge> } 
-            {/* </Row>
-            <Row > */}
+                <h2 className='teamh2'><Badge  className={`teamBadge badge-dark align-middle`} style={winner_id === team_a_id? {fontWeight: 'bold'} : {textDecoration: 'line-through'}} > {team_a_score >= 0? <Badge>{team_a_score}</Badge> : null }{team_a.name}</Badge></h2> } 
             {currentUser && currentUser.id === tUser? 
                 <Button disabled className={`teamButton btn-light`} style={winner_id === team_b_id? {fontWeight: 'bold'}: {textDecoration: 'line-through'}} >{team_b_score >= 0? <Badge >{team_b_score}</Badge> : null }{team_b.name}</Button>
-            :  <Badge  className={`badge-light teamBadge align-middle`} style={winner_id === team_b_id? {fontWeight: 'bold'} : {textDecoration: 'line-through'}} > {team_b_score >= 0? <Badge>{team_b_score}</Badge> : null } {team_b.name}</Badge>       }
+            : <h2 className='teamh2'><Badge className={`badge-light teamBadge align-middle`} style={winner_id === team_b_id? {fontWeight: 'bold'} : {textDecoration: 'line-through'}} > {team_b_score >= 0? <Badge>{team_b_score}</Badge> : null } {team_b.name}</Badge> </h2> }
             </Row>
             <SteppedLineTo borderColor={'grey'} from={`R${round_number}-M${match_up_number}`} to={`R${nextRound}-M${nextMatchUp}`} toAnchor={start}  fromAnchor={end}  orientation='h' />
             </div>)

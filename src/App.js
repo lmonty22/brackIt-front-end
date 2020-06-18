@@ -72,8 +72,8 @@ this.setState({
   return (
     <div className="App">
       <NavBar handleShowLogin={this.handleShow} handleCreateShow={this.handleCreateShow}/>
-      <Login  show={this.state.showLogin} handleClose={this.handleClose} /> 
-      <CreateUserForm show={this.state.showCreateUser} handleClose={this.handleCreateClose}/> 
+      <Login handleCreateShow={this.handleCreateShow} show={this.state.showLogin} handleClose={this.handleClose} /> 
+      <CreateUserForm handleLoginShow={this.handleShow} show={this.state.showCreateUser} handleClose={this.handleCreateClose}/> 
        {this.state.loading? <div className='spinnerDiv'><Spinner animation="border" className='spinner-info' /></div>:<Switch>
           <Route exact path="/tournaments/:id" render={(props) => {
             return <TournamentPage {...props} />}} />
