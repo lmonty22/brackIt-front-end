@@ -21,3 +21,7 @@ Additional features allow you to search for tournaments (that are public) and fo
 5. Open http://localhost:3001
 
 
+## Tests
+
+https://enzymejs.github.io/enzyme/docs/installation/react-16.html
+
