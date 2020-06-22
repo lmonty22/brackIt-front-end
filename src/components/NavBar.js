@@ -37,7 +37,7 @@ class NavBar extends React.Component {
     render(){
     return (
         <div>
-        <Navbar sticky="top" bg="light" expand="lg" style={{justifyContent: 'space-between', maxHeight:'57px'}}>
+        <Navbar sticky="top" bg="light" expand="lg" style={{justifyContent: 'space-between'}}>
             <Nav>
             <Link to='/'><Navbar.Brand>
                  <img

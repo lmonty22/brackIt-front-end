@@ -190,12 +190,20 @@ function fetchingTournaments(){
 
   // Post new tournament to the backend, get back basic details to add to tournaments list 
   function postTournament(tournamentDetails, userId){
+    let tournamentObj = {
+      name: tournamentDetails.name,
+      user_id: userId, 
+      number_of_teams: tournamentDetails.numberOfTeams,
+      team_names: [...tournamentDetails.teamNames],
+      public: !tournamentDetails.private, 
+      shuffle: tournamentDetails.shuffle
+    }
+
     return (dispatch) => {
       fetch(URL+'tournaments', {
         method: "POST",
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({...tournamentDetails, 
-        user_id: userId})
+        body: JSON.stringify(tournamentObj)
       })
       .then(res => res.json())
       .then(tournament => {
