@@ -21,7 +21,10 @@ Additional features allow you to search for tournaments (that are public) and fo
 5. Open http://localhost:3001
 
 
-## Tests
+## Reducer Tests
 
-https://enzymejs.github.io/enzyme/docs/installation/react-16.html
+1. Run reducers tests by running npm test. 
+
+2. If you do not have enzyme test suite installed. Run 
+`npm i --save-dev enzyme enzyme-adapter-react-16`
 
