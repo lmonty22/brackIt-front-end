@@ -1,20 +1,24 @@
-import {withRouter} from 'react-router-dom'
+
 
 const URL = 'http://localhost:3000/'
 
+// takes an updated tournament and replaces it as the current tournament in store
 function updatedTournament(tournament){
   return {type: "UPDATED_TOURNAMENT", payload: tournament}
 }
 
+// sets current user in store
 function setCurrentUser(user_data){
   return {type: "NEW_CURRENT_USER", payload: user_data}
 }
 
+// removes current user from store and clears localstorage
 function logout(){
   localStorage.clear()
   return {type: "CLEAR_USER"}
 }
 
+// finds user based on local storage token
 function findUser(token){
   return (dispatch) => {
   fetch("http://localhost:3000/relogin", {
@@ -30,6 +34,7 @@ function findUser(token){
 
 }
 
+// sends patch request to update a team name, returns the whole tournament to replace current tournament
 function updateTeamName(teamId, newTeamName, tournamentId){
   return (dispatch) => {
     fetch(URL+`/teams/${teamId}`, {
@@ -43,10 +48,12 @@ function updateTeamName(teamId, newTeamName, tournamentId){
   }
 }
 
+// update searchTerm in store to display search results 
 function newSearchTerm(string){
   return {type: 'NEW_SEARCH_TERM', payload: string}
 }
 
+// Post new user to the backend
 function postUser(obj){
   return (dispatch) => {
     fetch(URL+'users', {
@@ -60,11 +67,12 @@ function postUser(obj){
     })
   }
 }
-
+// login error (password and username do not match )
 function errorMessages(errors){
   return {type: "LOGIN_ERROR", payload: errors}
 }
 
+// login user, post new login to the backend, if error, call errorMessages, if successful, setCurrentUser
 function login(userInfo){
   return (dispatch) => {
     fetch(URL +'/login', {
@@ -84,6 +92,7 @@ function login(userInfo){
   }
 }
 
+// remove a team from a matchup, sends back the whole tournament, update current tournament
 function removeTeamFromMatchUp(obj){
   return (dispatch) => {
     fetch(URL+`/match_ups/${obj.match_up_id}/remove`, {
@@ -98,6 +107,7 @@ function removeTeamFromMatchUp(obj){
 
 }
 
+// update a matchup score, sents back whole tournament, update current tournament 
 function matchUpScore(matchUpId, team_slot, score){
   let teamObj = {}
   if (team_slot === 'team_a'){
@@ -118,6 +128,7 @@ function matchUpScore(matchUpId, team_slot, score){
   }
 }
 
+// match up winner determined, sends back the whole tournament, update tournament 
 function matchUpWinner(matchUp, winnerId){
   let obj = {
     winner_id: winnerId
@@ -134,16 +145,18 @@ function matchUpWinner(matchUp, winnerId){
   }
 }
 
+// remove current tournament, on unmount 
 function removeCurrentTournament(){
   return {type: "REMOVE_TOURNAMENT"}
 }
 
 
-
+// set a current tournament on the tournament page 
 function setTournament(tournament){
   return {type: "SET_TOURNAMENT", payload: tournament}
 }
 
+// fetch a tournament upon going to a tournament page
 function fetchTournament(tournamentId){
   return (dispatch) => {
     fetch(URL+`/tournaments/${tournamentId}`)
@@ -154,10 +167,12 @@ function fetchTournament(tournamentId){
   }
 }
 
+// set tournaments array in store, only tournament level data, nothing nested expect user and champion
 function fetchedTournaments(torunaments){
     return {type: "FETCHED_TOURNAMENTS", payload: torunaments}
   }
-  
+
+  // fetch a tournaments list (not all nested data, just tournament level) to display list items 
 function fetchingTournaments(){
     return (dispatch) => {
       fetch(URL+'tournaments')
@@ -168,10 +183,12 @@ function fetchingTournaments(){
     }
   }
 
+  // add new tournament to the tournaments list
   function newTournament(tournament){
     return {type: "NEW_TOURNAMENT", payload: tournament}
   }
 
+  // Post new tournament to the backend, get back basic details to add to tournaments list 
   function postTournament(tournamentDetails, userId){
     return (dispatch) => {
       fetch(URL+'tournaments', {
@@ -187,10 +204,12 @@ function fetchingTournaments(){
     }
   }
 
+  // remove tournament from tournaments array in store 
   function deletedTournament(bracketID){
     return {type:'DELETE_TOURNAMENT', payload: bracketID}
   }
 
+  // delete a tournament 
   function deleteTournament(bracketID){
     return (dispatch) => {
       fetch(URL+`tournaments/${bracketID}`, 
@@ -200,14 +219,17 @@ function fetchingTournaments(){
     }
   }
 
+  // add a tournament followed to the user's tournament followeds
   function addFollowedTournament(follow){
     return {type:'ADD_TOURNAMENT_TO_FOLLOWS', payload: follow}
   }
 
+  // remove a torunament from the user's tournament followeds 
   function removeFollowedTournament(follow){
     return {type:"REMOVE_TOURNAMENT_FROM_FOLLOWS", payload: follow}
   }
 
+  // add a new follow to the backend, then add to followeds in store
   function followTournament(tournamentId, userId){
     return(dispatch) => {
       fetch(URL+'followers', {
@@ -224,6 +246,7 @@ function fetchingTournaments(){
     }
   }
 
+  // delete follow on backend, then remove followed in store
   function unfollowTournament(follow){
     return (dispatch) => {
       fetch(URL+`followers/${follow.id}`, {

@@ -5,7 +5,7 @@ import Row from 'react-bootstrap/Row'
 import '../App.css';
 import DeleteModal from '../components/Delete'
 
-
+// Main tournaments container on home page. This interacts with the search term in the nav bar 
 class TournamentsContainer extends React.Component{
 
     constructor(){
@@ -16,13 +16,14 @@ class TournamentsContainer extends React.Component{
         }
     }
 
+    // open delete modal 
     handleShow = (tournament) => {
         this.setState({
             showDeleteModal: true,
             tournamentDelete: tournament
         })
     }
-
+    // close delete modal 
     handleClose = () => {
         this.setState({
             showDeleteModal: false,

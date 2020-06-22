@@ -5,6 +5,7 @@ import {connect} from 'react-redux'
 import { SteppedLineTo} from 'react-lineto';
 import '../App.css'
 
+// get next matchup allows LineTo to draw a line to the next matchUp
 const getNextMatchUp = (currentMatchUp) => {
     if (currentMatchUp % 2 === 0){
         return (currentMatchUp/2)
@@ -25,7 +26,7 @@ class MatchUp extends React.Component{
         }
     }
 
-    // when a component mounts, we need to set state. 
+    // when a component mounts, we need to set state with matchup info 
     componentDidMount(){
         if (this.props.matchUp.team_a){
             this.setState({
@@ -42,8 +43,10 @@ class MatchUp extends React.Component{
         }
      }
 
-    // when a matchup updates... by adding a team_a or team_b.. we need to update state for the form field to work. 
+    // when a matchup updates... by adding a team_a or team_b.. 
+    // we need to update state for the form field to populate with teamName or score
     componentDidUpdate(prevProps){
+        // if team_a is updated
         if (this.props.currentTournament && prevProps.matchUp && prevProps.matchUp.team_a_id !== this.props.matchUp.team_a_id){
             if (this.props.matchUp.team_a){
                 this.setState({
@@ -59,6 +62,7 @@ class MatchUp extends React.Component{
                 })
             }
            }
+        // if team_b is updated
         if (this.props.currentTournament && prevProps.matchUp && prevProps.matchUp.team_b_id !== this.props.matchUp.team_b_id){
             if (this.props.matchUp.team_b){
                 this.setState({
@@ -77,12 +81,14 @@ class MatchUp extends React.Component{
         }
     }
 
+    // change teamA name
     onChangeA= (e, team_a_id) => {
         this.setState({
             teamNameA: e.currentTarget.value}
         )
         this.props.updateTeamName(team_a_id, e.currentTarget.value, this.props.currentTournament.id )
     }
+    // change teamB name
     onChangeB = (e, team_b_id) =>{
         this.setState({
             teamNameB: e.currentTarget.value}
@@ -90,6 +96,7 @@ class MatchUp extends React.Component{
             this.props.updateTeamName(team_b_id, e.currentTarget.value, this.props.currentTournament.id )
         }
 
+    // change teamA score
     teamAScoreChange = (e, matchUpId) => {
         this.setState({
             teamAScore: e.currentTarget.value
@@ -97,6 +104,7 @@ class MatchUp extends React.Component{
         this.props.matchUpScore(matchUpId, 'team_a', e.currentTarget.value)
     }
 
+    // change teamB score
     teamBScoreChange = (e, matchUpId) => {
         this.setState({
             teamBScore: e.currentTarget.value
@@ -105,8 +113,10 @@ class MatchUp extends React.Component{
     }
 
     render(){
+        // deconstruct
         const {team_a, team_a_id, id, team_b_id, team_b, team_a_score, team_b_score, match_up_number, winner_id} = this.props.matchUp
         const {round_number, currentTournament, currentUser, tUser, start, end} = this.props
+        // need next round and next match up info for lines 
         let nextRound = round_number + 1
         let nextMatchUp = getNextMatchUp(match_up_number)
         let lastRound = Math.log2(currentTournament.number_of_teams)
@@ -125,6 +135,7 @@ class MatchUp extends React.Component{
             <SteppedLineTo borderColor={'grey'} from={`R${round_number}-M${match_up_number}`} to={`R${nextRound}-M${nextMatchUp}`} toAnchor={start}  fromAnchor={end}  orientation='h' />
             </div>)
         }
+        // if the matchup only includes one team
         else if (!team_a_id || !team_b_id){
             return (<div className={`matchup R${round_number}-M${match_up_number}`}>
                 {currentUser && currentUser.id === tUser?
@@ -185,10 +196,11 @@ class MatchUp extends React.Component{
          </div>)
         }
         else{
+            // if the matchup includes both teams
             return (
                 <div className={`matchup R${round_number}-M${match_up_number}`}>
                      {currentUser && currentUser.id === tUser?
-                     // I wanted to make the code from 193 - 278 half the size, just put the bottons in one div with one popover but it made the divs jump around on clicks. 
+                     // I wanted to make the code from 193 - 278 half the size, by putting the buttons in one div with one popover but it made the divs jump around on clicks. 
                         <div> 
                             <Row  > <OverlayTrigger  trigger="click" overlay={
                         <Popover id={`popover-positioned-${end}`}>

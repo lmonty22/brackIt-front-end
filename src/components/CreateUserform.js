@@ -1,7 +1,6 @@
 import React from 'react'
-import {Col, Form, Button, Modal} from 'react-bootstrap'
+import {Form, Button, Modal} from 'react-bootstrap'
 import { connect } from "react-redux";
-import {Redirect} from 'react-router-dom'
 import {postUser} from '../redux/actions'
 
 class CreateUserForm extends React.Component{
@@ -20,10 +19,14 @@ class CreateUserForm extends React.Component{
             usernameRequired: false
         }
     }
+
+    // On Submit, check validation, close modal, postUser and reset state.
     onSubmit = (event) => {
         event.preventDefault()
         if (this.state.usernameAvailable && this.state.passwordCorrrect && this.state.usernameRequired){
             this.props.handleClose()
+            // send fetch call with {username: this.state.username, password: this.state.password}
+            this.props.postUser({username: this.state.username, password: this.state.password})
             this.setState({
             username: '',
             password: '',
@@ -36,12 +39,11 @@ class CreateUserForm extends React.Component{
             usernameAvailable: true,
             usernameRequired: false
         })
-            // send fetch call with {username: this.state.username, password: this.state.password}
-            this.props.postUser({username: this.state.username, password: this.state.password})
 
         }
     }
 
+    // called by checkUsername is username is not taken, set valid to true. 
     validUsername = () => {
         this.setState({
             usernameAvailable: true,
@@ -52,6 +54,7 @@ class CreateUserForm extends React.Component{
         })
     }
 
+    // called by checkUsername is username is taken, set valid to false and add error. 
     invalidUsername = ()=> {
         this.setState({
             usernameAvailable: false,
@@ -63,7 +66,7 @@ class CreateUserForm extends React.Component{
     }
 
 
-
+    // Checks if username is unqiue, called by OnChange
     checkUsername = (username) => {
         fetch('http://localhost:3000/users')
         .then(respone => respone.json())
@@ -75,6 +78,7 @@ class CreateUserForm extends React.Component{
         })
     }
 
+    // Called by OnChange if passwords don't match
     passwordError = () => {
         this.setState({
             passwordCorrrect: false,
@@ -85,6 +89,7 @@ class CreateUserForm extends React.Component{
         })
     }
 
+    // Called by OnChange if passwords do match 
     passwordCorrrect = () => {
         this.setState({
             passwordCorrrect: true,
@@ -99,6 +104,7 @@ class CreateUserForm extends React.Component{
         this.setState({
             [event.currentTarget.id]: event.currentTarget.value
         })
+        // Check if password matches passwordConfirmation
         if (event.currentTarget.id === 'password'){
             if (event.currentTarget.value === this.state.passwordConfirmation) {
                this.passwordCorrrect()
@@ -106,6 +112,7 @@ class CreateUserForm extends React.Component{
                 this.passwordError()
             }
         }
+        // Check if passwordConfirmation matches password
         if (event.currentTarget.id === 'passwordConfirmation'){
             if (event.currentTarget.value === this.state.password) {
                this.passwordCorrrect()
@@ -113,9 +120,11 @@ class CreateUserForm extends React.Component{
                 this.passwordError()
             }
         }
+        // check if username is unique 
         if (event.currentTarget.id === 'username'){
             this.checkUsername(event.currentTarget.value)
         }
+         //check if usname is present 
         if (event.currentTarget.id === 'username' && event.currentTarget.value.length > 0){
             this.setState({
                 usernameRequired: true
@@ -129,6 +138,7 @@ class CreateUserForm extends React.Component{
 
     }
 
+    // called when a user selects "signup" from Modal 
     switchLoginIn = () => {
         this.props.handleClose()
         this.props.handleLoginShow()
@@ -168,9 +178,6 @@ class CreateUserForm extends React.Component{
     }
   }
  
-
-
-
 
 const mapStateToProps = (state) => {
     return {currentUser: state.currentUser}

@@ -3,9 +3,10 @@ import { Modal, Button} from 'react-bootstrap'
 import {connect} from 'react-redux'
 import {deleteTournament} from '../redux/actions'
 
-const handleDelete = (close, func, tournamentId) =>{
+// if a user confirms delete, close the Modal, call deleteToruanemnt in action stack and pass through Tournament ID. 
+const handleDelete = (close, deleteFunc, tournamentId) =>{
     close()
-    func(tournamentId)
+    deleteFunc(tournamentId)
 }
 
 const Delete = (props) => {

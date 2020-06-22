@@ -3,6 +3,8 @@ import MatchUp from './MatchUp'
 import '../App.css';
 import Container from 'react-bootstrap/Container'
 
+// A Round Col is more like a container for each matchup.. mapping through each matchup in a round and putting it in
+// a div with a specific class name. The specific class name is what allows the lines to be drawn between them. 
 const RoundCol = (props ) => {
     return (<Container >
         {props.round.match_ups.map(m =>

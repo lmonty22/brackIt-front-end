@@ -11,6 +11,9 @@ import '../App.css';
 let finalRound, numberOfRounds, roundsSorted, roundsNotIncludingFinal, leftSideMatchUps, rightSideMatchUps, follow
 
 
+// sort rounds before spliting them into left side and right side
+// after patching a tournament, the rounds and matchups are sent back in a different order
+// they need to be sorted by round and by matchup number before being split
 const sortRounds = (allRounds) => {
     let sr = allRounds.sort((a, b) => {return a.id - b.id})
     return sr.map( r => {
@@ -18,11 +21,12 @@ const sortRounds = (allRounds) => {
         })
 }
 
-// determines that round has 2, 4, 8, 12, 32, 64 teams 
+// returns how many rounds should be in the tournament based on number of teams
 const checkRoundNumber = (numberOfTeams) => {   
    return (Math.log2(numberOfTeams))
 }
 
+// returns the matchups that will be on the left side (the first half of each round)
 const ReturnLetSideMatchUps = (roundsNotIncludingFinal) =>{
     return roundsNotIncludingFinal.map(r => {
         let matchHalf = r.match_ups.length/2
@@ -34,6 +38,7 @@ const ReturnLetSideMatchUps = (roundsNotIncludingFinal) =>{
     })
 }
 
+// returns the matchups that will be on the right side (second half of each round)
 const ReturnRightSideMatchUps = (roundsNotIncludingFinal) => {
     return roundsNotIncludingFinal.map(r => {
         let startElement = r.match_ups.length/2
@@ -55,6 +60,8 @@ class TournamentPage extends React.Component{
         }
     }
 
+    // fetch the tournament based on the tournament id (chose to do this instead of storing all  tournaments data 
+    // in store because the nested data is heavy )
     componentDidMount(){
         if (!this.props.tournament){
             this.props.fetchTournament(this.props.match.params.id)
@@ -66,12 +73,14 @@ class TournamentPage extends React.Component{
         }
     }
 
+    // remove current tournament from store when unmounting(this may be help for redirects after creating a new tournament)
     componentWillUnmount(){
         if (this.props.tournament){
             this.props.removeCurrentTournament()
         }
     }
 
+    // set loading to false if tournament is fetched 
     componentDidUpdate(){
         if(this.props.tournament && this.state.loading){
             this.setState({
@@ -81,6 +90,7 @@ class TournamentPage extends React.Component{
     }
 
 render (){
+    // if tournament exists, split up matchups by left side, right side and final 
     if (this.props.tournament){
         numberOfRounds = checkRoundNumber(this.props.tournament.number_of_teams)
         roundsSorted = sortRounds(this.props.tournament.rounds)
@@ -95,6 +105,7 @@ render (){
                 follow = this.props.currentUser.followers.find(f => f.tournament_followed_id === this.props.tournament.id)
             }
         }
+    // if no tournament / loading, display spinner, otherside display tournament page
     return (!this.props.tournament?  <div className='spinnerDiv'><Spinner animation="border" className='spinner-info' /></div> : 
         <div>
             <div className='tourneyHeader'>

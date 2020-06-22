@@ -1,7 +1,5 @@
 import React from 'react';
 import TournamentsContainer from "./TournamentsContainer"
-import Carousel from 'react-bootstrap/Carousel'
-import Row from 'react-bootstrap/row'
 import skiball from '../assets/skiball.jpg'
 import pingpong from '../assets/pingpong.jpg'
 import basketball from '../assets/basketball.jpg'
@@ -9,8 +7,7 @@ import chess from '../assets/chess.jpg'
 import {connect} from 'react-redux'
 import logo from '../assets/BrackIt.png'
 import '../App.css'
-import { Jumbotron } from 'react-bootstrap';
-import {Link} from 'react-router-dom'
+import { Jumbotron, Button, Carousel, Row } from 'react-bootstrap';
 
 
 const HomePage = (props) => {
@@ -57,18 +54,17 @@ const HomePage = (props) => {
              <img src={logo}
                 height='100px'
                 width='300px'
-                alit='brackit logo'
+                alt='brackit logo'
             ></img>
             {!props.currentUser? 
             <div style={{fontWeight: 'bold'}}>
             Welcome to BrackIt, a platform designed to help your tournament run smoothly.
-            Whether you're hosting a cornhole tournament, or playing video games online, we want to be there for you. <Link onClick={props.handleLoginShow}>Login</Link> or <Link onClick={props.handleCreateShow}>Sign Up</Link> to start generating BrackIts 
+            Whether you're hosting a cornhole tournament, or playing video games online, we want to be there for you. <Button variant='light' onClick={props.handleLoginShow}> Login </Button> or <Button variant='dark' onClick={props.handleCreateShow}>Sign Up</Button> to start generating BrackIts 
             and sharing your BrackIts with friends.
             Have fun! </div>
-            
             :   <div style={{fontWeight: 'bold'}}>
             Welcome to BrackIt, a platform designed to help your tournament run smoothly.
-            Whether you're hosting a cornhole tournament, or playing video games online, we want to be there for you. <Link >Login</Link> or <Link >Sign Up</Link> to start generating BrackIts 
+            Whether you're hosting a cornhole tournament, or playing video games online, we want to be there for you. Login or Sign Up to start generating BrackIts 
             and sharing your BrackIts with friends.
             Have fun! </div>
             }

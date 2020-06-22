@@ -3,15 +3,14 @@ import { connect } from "react-redux";
 import TournamentListItem from '../components/TournamentListItem'
 import Row from 'react-bootstrap/Row';
 import '../App.css';
-import { Redirect } from 'react-router';
 import DeleteModal from '../components/Delete'
 import husky from '../assets/husky.jpg'
 
 
-
+// Differnet than Tournaments Container because it is maping only the user's tournaments and tournaments followed
+// could restructure these components and resue tournaments container to make code more dry. 
 class UsersTournamentPage extends React.Component{
-        // return(props.currentTournament? <Redirect to={`/tournaments/${props.currentTournament.id}`}/> :   
-        
+
         constructor(){
             super()
             this.state={
@@ -20,6 +19,7 @@ class UsersTournamentPage extends React.Component{
             }
         }
 
+        // show delete modal 
         handleShow = (tournament) => {
             this.setState({
                 showDeleteModal: true,
@@ -27,6 +27,7 @@ class UsersTournamentPage extends React.Component{
             })
         }
 
+        // close delete modal 
         handleClose = () => {
             this.setState({
                 showDeleteModal: false,

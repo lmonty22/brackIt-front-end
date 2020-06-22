@@ -15,6 +15,8 @@ class NavBar extends React.Component {
             searchTerm: ''
         }
     }
+    
+    // change search term 
     onChange = (e) => {
         this.props.search(e.currentTarget.value)
         this.setState({
@@ -22,6 +24,7 @@ class NavBar extends React.Component {
         })
     }
 
+    // reset search bar 
     onReset = () => {
         this.props.search('')
         this.setState({

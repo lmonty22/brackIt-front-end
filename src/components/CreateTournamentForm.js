@@ -19,18 +19,24 @@ class CreateTournamentForm extends React.Component{
         }
     }
 
+    // Changes the state of team names being shuffled... not manual matchups 
     shuffleTeamsToggle = () => {
         this.setState({
             shuffle: !this.state.shuffle
         })
     }
 
+    // Toggles new tournament being private (unsearchable) or public 
     privateToggle = () => {
         this.setState({
             private: !this.state.private
         })
     }
 
+
+    // On Submit of the form.. check if the Tournament name is included, call post tournament in the action statck 
+    // and change redirect state to true 
+    // If name is not included, do not submit (nameIncluded State starts at True to not display the error til after)
     onSubmit = (event) => {
         event.preventDefault()
         if (this.state.nameIncluded && this.state.name.length > 0 ){
@@ -44,30 +50,27 @@ class CreateTournamentForm extends React.Component{
             })
         }
     }
-    
 
-    validateNameRequired = () => {
-        if (this.state.nameIncluded && this.state.name.length === 0){
-            this.setState({
-                nameIncluded: false 
-            })
-        }
-    }
+
+    // Changing the tournament name 
     onChange = (event) => {
         if (event.currentTarget.value.length === 0){
             this.setState({nameIncluded: false})
         }
-        if (event.currentTarget.value.length > 0){
+        else {
             this.setState({nameIncluded: true})
         }
         this.setState({
-            [event.currentTarget.id]: event.currentTarget.value
+            name: event.currentTarget.value
         })
     }
 
+    // onTeamNumberChange calls this function, we want to preserve the current teamNames in state in case
+    // the user changes the number of teams but had already begun writing team names.
     setNewTeamsArray = (numberOfTeams) => {
         let newArray = [...this.state.teamNames]
         let secondArray = []
+        // After the length of the newArray, start pushing on new teams ex 'Team 9'
         for(let i = 0; i < parseInt(numberOfTeams); i ++){
             if (!newArray[i]){
             secondArray.push(`Team ${i+1}`)
@@ -81,16 +84,16 @@ class CreateTournamentForm extends React.Component{
         })
     }
 
+    // Change number of teams
     onTeamNumberChange = (event) => {
-        this.validateNameRequired()
         this.setNewTeamsArray(event.currentTarget.value)
         this.setState({
             [event.currentTarget.id]: event.currentTarget.value
         })
     }
 
+    // Change Team names
     onTeamNameChange = (event) => {
-        this.validateNameRequired()
         let teamsArray = [...this.state.teamNames]
         teamsArray.splice([parseInt(event.currentTarget.id)], 1, event.currentTarget.value)
         this.setState({
@@ -99,6 +102,7 @@ class CreateTournamentForm extends React.Component{
 
     }
 
+    // Dynamic Form based on number of teams
     dynamicTeamNames= () => {
         let array = []
         for(let i = 0; i < parseInt(this.state.numberOfTeams); i++){
@@ -116,6 +120,7 @@ class CreateTournamentForm extends React.Component{
 
 
     render(){
+        // Redirect if new tournament was just submitted. 
         if (this.state.redirect){
             return <Redirect to='/mytournaments'/>
         }
@@ -129,7 +134,6 @@ class CreateTournamentForm extends React.Component{
           {!this.state.nameIncluded? <div style={{color: 'red'}}>Tournament Name is Required</div>: null}
           <Form.Control type="name" required={true} placeholder="Your Tourney Name" onChange={this.onChange} value={this.state.name}/>
         </Form.Group>
-
 
         <Form.Group controlId="numberOfTeams">
              <Form.Label>Number of Teams </Form.Label>

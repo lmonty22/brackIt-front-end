@@ -1,8 +1,8 @@
 import React from 'react'
-import {Col, Form, Button, Modal} from 'react-bootstrap'
+import { Form, Button, Modal} from 'react-bootstrap'
 import {login} from '../redux/actions'
 import { connect } from "react-redux";
-import { Redirect, Link, withRouter} from 'react-router-dom'
+
 
 
 class Login extends React.Component{
@@ -14,6 +14,7 @@ class Login extends React.Component{
     }
   }
 
+  // OnSubmit, call login from action stack, reset state. 
     onSubmit = (event) => {
         event.preventDefault()
         this.props.login(this.state)
@@ -23,17 +24,20 @@ class Login extends React.Component{
         })
     }
     
+    // change username or password in state 
     onChange = (event) => {
         this.setState({
             [event.currentTarget.id]: event.currentTarget.value
         })
     }
 
+    // Switch to Signup instead, close login modal, open signup modal
     switchCreateUser = () => {
       this.props.handleClose()
       this.props.handleCreateShow()
     }
-      // need to change login show component to false if the user logs in...
+
+    // if current user, close modal
     componentDidUpdate = (prevProps) => {
       if (prevProps.currentUser !== this.props.currentUser){
         this.props.handleClose()

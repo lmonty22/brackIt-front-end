@@ -4,6 +4,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import '../App.css';
 
+// matchups on the right side
 const RightHalfContainer= (props) => {
         return <Row>
         {props.rounds.reverse().map(r => {

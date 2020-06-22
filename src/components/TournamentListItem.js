@@ -5,12 +5,13 @@ import { connect } from "react-redux";
 import {deleteTournament, followTournament, unfollowTournament} from '../redux/actions'
 import '../App.css'
 
+// Tournament card, appears on home page, main tournament list and on My tournaments page. 
 const TournamentListItem = (props) => (
     <Card >
         <Card.Body>
             <Card.Title>{props.tournament.name}</Card.Title>
              <Card.Subtitle className="mb-2 text-muted">@{props.tournament.user.username}</Card.Subtitle>
-            {props.tournament.champion_id? <Card.Subtitle>{props.tournament.champion.name}🏆</Card.Subtitle>: null}
+            {props.tournament.champion_id? <Card.Subtitle>{props.tournament.champion.name}<span role='img' aria-label='tophy'>🏆</span></Card.Subtitle>: null}
             <Card.Text>{props.tournament.number_of_teams} teams</Card.Text>
              <ButtonGroup aria-label="Basic example">
                 <Button className='btn-light' as={Link} to={`/tournaments/${props.tournament.id}`}>View Tournament</Button>
