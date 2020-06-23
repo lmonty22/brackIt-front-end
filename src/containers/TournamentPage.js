@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from "react-redux";
-import {Row, Col, Spinner, Button, Badge, Popover, OverlayTrigger } from 'react-bootstrap'
+import {Row, Col, Spinner, Button, Badge, Popover, OverlayTrigger, Form, FormControl } from 'react-bootstrap'
 import LeftHalfContainer from './LeftHalfContainer'
 import FinalsContainer from './FinalsContainer'
 import RightHalfContainer from './RightHalfContainer'
@@ -56,10 +56,18 @@ class TournamentPage extends React.Component{
         super()
         this.state={
             loading: true,
-            tournamentLoaded: false
+            tournamentLoaded: false,
+            tournamentName: ''
         }
     }
 
+    // change tournament name in state and update on backend 
+    onTournamentNameChange = (e) => {
+        this.setState({
+            tournamentName: e.currentTarget.value
+        })
+        this.props.patchTournament(this.props.tournament.id, {name: e.currentTarget.value})
+    }
     // fetch the tournament based on the tournament id (chose to do this instead of storing all  tournaments data 
     // in store because the nested data is heavy )
     componentDidMount(){
@@ -68,7 +76,8 @@ class TournamentPage extends React.Component{
         }
         if(this.props.tournament && this.state.loading){
             this.setState({
-                loading: false
+                loading: false,
+                tournamentName: this.props.tournament.name
             })
         }
     }
@@ -84,7 +93,8 @@ class TournamentPage extends React.Component{
     componentDidUpdate(){
         if(this.props.tournament && this.state.loading){
             this.setState({
-                loading: false
+                loading: false,
+                tournamentName: this.props.tournament.name
             })
         }
     }
@@ -112,32 +122,34 @@ render (){
             <div className='tourneyHeader'>
             <h1>{tournament.name}</h1>
              <p>Created By: @{tournament.user.username}</p>
-            {currentUser? tournament.public? 
+            {currentUser && tournament.user_id === currentUser.id? 
             <OverlayTrigger trigger='click' placement='right' overlay={
-                <Popover id='popover-positioned-left'>
-                    <Popover.Title>Public Tournament</Popover.Title>
+                <Popover>
+                    <Popover.Title>Edit {tournament.name}</Popover.Title>
                     <Popover.Content>
-                        <div>This tournament is public. Public BrackIts appear in search results and on the home page. 
-                        Private tournaments are not searchable but are still accessible via their url.</div>
-                        <Button variant='info' onClick={() => this.props.patchTournament(tournament.id, {public: false})}>Make Private</Button>
+                    <Form >
+                            <Form.Label >Tournament Name</Form.Label>
+                          <FormControl onChange={this.onTournamentNameChange} value={this.state.tournamentName} type="text" className=" mr-sm-2" />
+                    </Form>
+                    {tournament.public? 
+                    <div>
+                        <p>This tournament is public. Public BrackIts appear in search results and on the home page. 
+                    Private tournaments are not searchable but are still accessible via their url.</p>
+                    <Button variant='info' onClick={() => this.props.patchTournament(tournament.id, {public: false})}>Make Private </Button>
+                     </div>:
+                     <div>
+                         <p>This tournament is private. Private BrackIts do not appear in search results and on the home page, but are 
+                    still accessible via their url.</p>
+                    <Button variant='info' onClick={() => this.props.patchTournament(tournament.id, {public: true})}>Make Public</Button>
+                    </div>
+                    }
                     </Popover.Content>
                 </Popover>
-            } >
-               <Button variant='light'>Public</Button>
-            </OverlayTrigger> 
-            
-            : <OverlayTrigger trigger='click' placement='right' overlay={
-                <Popover id='popover-positioned-left'>
-                    <Popover.Title>Private Tournament</Popover.Title>
-                    <Popover.Content>
-                        <div>This tournament is private. Private BrackIts do not appear in search results and on the home page, but are 
-                            still accessible via their url.</div>
-                        <Button variant='info' onClick={() => this.props.patchTournament(tournament.id, {public: true})} >Make Public</Button>
-                    </Popover.Content>
-                </Popover>
-            } >
-               <Button variant='light'>Private</Button>
-            </OverlayTrigger> : null }
+            }>
+            <Button variant='light'>Edit Tournament</Button>
+            </OverlayTrigger>
+            : null }
+
             {currentUser && tournament.user_id === currentUser.id? <h4><Badge className='badge-info'>You're the tournament admin! Only you have the power to make changes. Click on matchups to record scores, advance teams, and edit team names. Have fun!</Badge></h4>: null }
              {currentUser && tournament.user_id !== currentUser.id && !follow? <Button className={'btn-info'} onClick={() => this.props.followTournament(tournament.id, currentUser.id)} >Follow Tournament </Button>: null}
              {currentUser && tournament.user_id !== currentUser.id && follow? <Button className={'btn-info'} onClick={() => this.props.unfollowTournament(follow)} >Unfollow Tournament </Button>: null}

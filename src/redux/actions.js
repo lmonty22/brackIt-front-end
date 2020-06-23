@@ -141,6 +141,7 @@ function matchUpWinner(matchUp, winnerId){
     }).then(response => response.json())
     .then(uT => {
       dispatch(updatedTournament(uT))
+      dispatch(updateTournaments(uT))
     })
   }
 }
@@ -212,7 +213,12 @@ function fetchingTournaments(){
     }
   }
 
-  // update tournaemnt from private to public
+  //update tournament in tournament list 
+  function updateTournaments(tournament){
+    return {type: 'UPDATE_TOURNAMENTS', payload: tournament}
+  }
+
+  // update tournaemnt from private to public or change tournament name
   function patchTournament(tournamentId, obj){
     return (dispatch) => {
     fetch(URL+`tournaments/${tournamentId}`,{ 
@@ -222,7 +228,9 @@ function fetchingTournaments(){
     })
     .then(res => res.json())
     .then(tournament => {
-      dispatch(updatedTournament(tournament))})
+      dispatch(updatedTournament(tournament))
+      dispatch(updateTournaments(tournament))
+    })
   }
 }
   
