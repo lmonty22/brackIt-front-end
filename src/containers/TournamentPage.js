@@ -1,10 +1,10 @@
 import React from 'react'
 import { connect } from "react-redux";
-import {Row, Col, Spinner, Button, Badge } from 'react-bootstrap'
+import {Row, Col, Spinner, Button, Badge, Popover, OverlayTrigger } from 'react-bootstrap'
 import LeftHalfContainer from './LeftHalfContainer'
 import FinalsContainer from './FinalsContainer'
 import RightHalfContainer from './RightHalfContainer'
-import {removeCurrentTournament, fetchTournament, followTournament, unfollowTournament} from '../redux/actions'
+import {removeCurrentTournament, fetchTournament, followTournament, unfollowTournament, patchTournament} from '../redux/actions'
 import '../App.css';
 
 
@@ -91,9 +91,10 @@ class TournamentPage extends React.Component{
 
 render (){
     // if tournament exists, split up matchups by left side, right side and final 
-    if (this.props.tournament){
-        numberOfRounds = checkRoundNumber(this.props.tournament.number_of_teams)
-        roundsSorted = sortRounds(this.props.tournament.rounds)
+    const {tournament, currentUser} = this.props
+    if (tournament){
+        numberOfRounds = checkRoundNumber(tournament.number_of_teams)
+        roundsSorted = sortRounds(tournament.rounds)
         //array of 1 elemenet
         finalRound = roundsSorted[numberOfRounds-1]
         roundsNotIncludingFinal = [...roundsSorted.slice(0, numberOfRounds-1)]
@@ -101,26 +102,52 @@ render (){
                 leftSideMatchUps = ReturnLetSideMatchUps(roundsNotIncludingFinal)
                 rightSideMatchUps = ReturnRightSideMatchUps(roundsNotIncludingFinal)
             } 
-            if(this.props.currentUser && this.props.tournament.user_id !== this.props.currentUser.id){
-                follow = this.props.currentUser.followers.find(f => f.tournament_followed_id === this.props.tournament.id)
+            if(currentUser && tournament.user_id !== currentUser.id){
+                follow = currentUser.followers.find(f => f.tournament_followed_id === tournament.id)
             }
         }
     // if no tournament / loading, display spinner, otherside display tournament page
-    return (!this.props.tournament?  <div className='spinnerDiv'><Spinner animation="border" className='spinner-info' /></div> : 
+    return (!tournament?  <div className='spinnerDiv'><Spinner animation="border" className='spinner-info' /></div> : 
         <div>
             <div className='tourneyHeader'>
-            <h1>{this.props.tournament.name}</h1>
-             <p>Created By: @{this.props.tournament.user.username}</p>
-    {this.props.currentUser && this.props.tournament.user_id === this.props.currentUser.id? <h4><Badge className='badge-info'>You're the tournament admin! Only you have the power to make changes. Click on matchups to record scores, advance teams, and edit team names. Have fun!</Badge></h4>: null }
-             {this.props.currentUser && this.props.tournament.user_id !== this.props.currentUser.id && !follow? <Button className={'btn-info'} onClick={() => this.props.followTournament(this.props.tournament.id, this.props.currentUser.id)} >Follow Tournament </Button>: null}
-             {this.props.currentUser && this.props.tournament.user_id !== this.props.currentUser.id && follow? <Button className={'btn-info'} onClick={() => this.props.unfollowTournament(follow)} >Unfollow Tournament </Button>: null}
+            <h1>{tournament.name}</h1>
+             <p>Created By: @{tournament.user.username}</p>
+            {currentUser? tournament.public? 
+            <OverlayTrigger trigger='click' placement='right' overlay={
+                <Popover id='popover-positioned-left'>
+                    <Popover.Title>Public Tournament</Popover.Title>
+                    <Popover.Content>
+                        <div>This tournament is public. Public BrackIts appear in search results and on the home page. 
+                        Private tournaments are not searchable but are still accessible via their url.</div>
+                        <Button variant='info' onClick={() => this.props.patchTournament(tournament.id, {public: false})}>Make Private</Button>
+                    </Popover.Content>
+                </Popover>
+            } >
+               <Button variant='light'>Public</Button>
+            </OverlayTrigger> 
+            
+            : <OverlayTrigger trigger='click' placement='right' overlay={
+                <Popover id='popover-positioned-left'>
+                    <Popover.Title>Private Tournament</Popover.Title>
+                    <Popover.Content>
+                        <div>This tournament is private. Private BrackIts do not appear in search results and on the home page, but are 
+                            still accessible via their url.</div>
+                        <Button variant='info' onClick={() => this.props.patchTournament(tournament.id, {public: true})} >Make Public</Button>
+                    </Popover.Content>
+                </Popover>
+            } >
+               <Button variant='light'>Private</Button>
+            </OverlayTrigger> : null }
+            {currentUser && tournament.user_id === currentUser.id? <h4><Badge className='badge-info'>You're the tournament admin! Only you have the power to make changes. Click on matchups to record scores, advance teams, and edit team names. Have fun!</Badge></h4>: null }
+             {currentUser && tournament.user_id !== currentUser.id && !follow? <Button className={'btn-info'} onClick={() => this.props.followTournament(tournament.id, currentUser.id)} >Follow Tournament </Button>: null}
+             {currentUser && tournament.user_id !== currentUser.id && follow? <Button className={'btn-info'} onClick={() => this.props.unfollowTournament(follow)} >Unfollow Tournament </Button>: null}
             <br/>
              </div>
            
              <Row className='tourney' >
-                    <Col ><LeftHalfContainer loading={this.state.loading} tUser={this.props.tournament.user_id} rounds={leftSideMatchUps} /></Col>
-                    <Col md="auto" ><FinalsContainer  loading={this.state.loading} tUser={this.props.tournament.user_id} round={finalRound}  champ={this.props.tournament.champion}/></Col>
-                    <Col><RightHalfContainer loading={this.state.loading} tUser={this.props.tournament.user_id} rounds={rightSideMatchUps} /></Col>
+                    <Col ><LeftHalfContainer loading={this.state.loading} tUser={tournament.user_id} rounds={leftSideMatchUps} /></Col>
+                    <Col md="auto" ><FinalsContainer  loading={this.state.loading} tUser={tournament.user_id} round={finalRound}  champ={tournament.champion}/></Col>
+                    <Col><RightHalfContainer loading={this.state.loading} tUser={tournament.user_id} rounds={rightSideMatchUps} /></Col>
              </Row>
         </div>
 )}
@@ -136,7 +163,8 @@ const mapDispatchToProps = (dispatch) => {
     return {removeCurrentTournament: () => dispatch(removeCurrentTournament()),
         fetchTournament: (tournamentId) => {dispatch(fetchTournament(tournamentId))},
         followTournament: (tournamentId, userId) => dispatch(followTournament(tournamentId, userId)),
-        unfollowTournament: (follow) => dispatch(unfollowTournament(follow))}
+        unfollowTournament: (follow) => dispatch(unfollowTournament(follow)),
+        patchTournament: (tournamentId, obj) => dispatch(patchTournament(tournamentId, obj))}
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TournamentPage)

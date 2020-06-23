@@ -212,6 +212,21 @@ function fetchingTournaments(){
     }
   }
 
+  // update tournaemnt from private to public
+  function patchTournament(tournamentId, obj){
+    return (dispatch) => {
+    fetch(URL+`tournaments/${tournamentId}`,{ 
+    method: 'PATCH', 
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(obj)
+    })
+    .then(res => res.json())
+    .then(tournament => {
+      dispatch(updatedTournament(tournament))})
+  }
+}
+  
+
   // remove tournament from tournaments array in store 
   function deletedTournament(bracketID){
     return {type:'DELETE_TOURNAMENT', payload: bracketID}
@@ -269,5 +284,5 @@ function fetchingTournaments(){
   export { fetchingTournaments, matchUpWinner, postTournament, 
     login, postUser, findUser, logout, newSearchTerm, deleteTournament, 
     updateTeamName, fetchTournament, removeCurrentTournament, removeTeamFromMatchUp,
-    followTournament, unfollowTournament,  matchUpScore};
+    followTournament, unfollowTournament,  matchUpScore, patchTournament};
   
