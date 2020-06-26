@@ -209,6 +209,7 @@ function fetchingTournaments(){
       .then(res => res.json())
       .then(tournament => {
         dispatch(newTournament(tournament))
+        dispatch(setTournament(tournament))
       })
     }
   }

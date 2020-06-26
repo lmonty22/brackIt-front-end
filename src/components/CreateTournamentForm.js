@@ -121,8 +121,8 @@ class CreateTournamentForm extends React.Component{
 
     render(){
         // Redirect if new tournament was just submitted. 
-        if (this.state.redirect){
-            return <Redirect to='/mytournaments'/>
+        if (this.state.redirect && this.props.currentTournament){
+            return <Redirect to={`/tournaments/${this.props.currentTournament.id}`}/>
         }
     return (
         <Col> 
@@ -191,7 +191,8 @@ class CreateTournamentForm extends React.Component{
 
 }
 const mapStateToProps = (state) => {
-    return {currentUser: state.currentUser }
+    return {currentUser: state.currentUser,
+            currentTournament: state.currentTournament}
 }
 
 const mapDispatchToProps = (dispatch) => {
