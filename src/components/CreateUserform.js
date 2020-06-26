@@ -2,6 +2,7 @@ import React from 'react'
 import {Form, Button, Modal} from 'react-bootstrap'
 import { connect } from "react-redux";
 import {postUser} from '../redux/actions'
+import {Redirect} from 'react-router-dom'
 
 class CreateUserForm extends React.Component{
     constructor(){
@@ -16,7 +17,8 @@ class CreateUserForm extends React.Component{
                 username: ''
             },
             usernameAvailable: true,
-            usernameRequired: false
+            usernameRequired: false,
+            redirect: false
         }
     }
 
@@ -37,7 +39,8 @@ class CreateUserForm extends React.Component{
                 username: ''
             },
             usernameAvailable: true,
-            usernameRequired: false
+            usernameRequired: false,
+            redirect: true
         })
 
         }
@@ -145,6 +148,10 @@ class CreateUserForm extends React.Component{
     }
 
     render(){
+     if (this.props.currentUser && this.state.redirect){
+            this.setState({redirect: false})
+            return <Redirect to='/mytournaments'/>
+    }
     return(
       <Modal show={this.props.show} onHide={this.props.handleClose}l>
       <Modal.Header closeButton >

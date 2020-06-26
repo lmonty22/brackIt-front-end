@@ -2,6 +2,7 @@ import React from 'react'
 import { Form, Button, Modal} from 'react-bootstrap'
 import {login} from '../redux/actions'
 import { connect } from "react-redux";
+import {Redirect} from 'react-router-dom'
 
 
 
@@ -11,6 +12,7 @@ class Login extends React.Component{
     this.state = {
       username: '',
       password: '',
+      redirect: false
     }
   }
 
@@ -20,7 +22,8 @@ class Login extends React.Component{
         this.props.login(this.state)
         this.setState({
           username: '',
-          password: ''
+          password: '', 
+          redirect: true
         })
     }
     
@@ -45,6 +48,10 @@ class Login extends React.Component{
     }
 
     render(){
+      if (this.props.currentUser && this.state.redirect){
+        this.setState({redirect: false})
+        return <Redirect to='/mytournaments'/>
+      }
       return(
       <Modal show={this.props.show} onHide={this.props.handleClose}l>
       <Modal.Header closeButton >
