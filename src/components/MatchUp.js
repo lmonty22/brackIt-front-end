@@ -121,8 +121,6 @@ class MatchUp extends React.Component{
         let nextMatchUp = getNextMatchUp(match_up_number)
         let lastRound = Math.log2(currentTournament.number_of_teams)
 
-        // const popoverOneTeam = 
-
         if(winner_id){
             // if winner exists. 
             return (<div className={`matchup R${round_number}-M${match_up_number}`}> 
