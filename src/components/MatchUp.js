@@ -121,6 +121,8 @@ class MatchUp extends React.Component{
         let nextMatchUp = getNextMatchUp(match_up_number)
         let lastRound = Math.log2(currentTournament.number_of_teams)
 
+        // const popoverOneTeam = 
+
         if(winner_id){
             // if winner exists. 
             return (<div className={`matchup R${round_number}-M${match_up_number}`}> 
@@ -142,7 +144,7 @@ class MatchUp extends React.Component{
                  <div>
                  <Row >
                     {team_a?  
-                        <OverlayTrigger  trigger="click" overlay={
+                        <OverlayTrigger  trigger="click" rootClose overlay={
                             <Popover id={`popover-positioned-${end}`}>
                             <Popover.Title as="h3">{team_a.name}</Popover.Title>
                             <Popover.Content>
@@ -161,7 +163,7 @@ class MatchUp extends React.Component{
                 </Row>
                 <Row  >
                     {team_b? 
-                        <OverlayTrigger  trigger="click" overlay={
+                        <OverlayTrigger  trigger="click" rootClose overlay={
                             <Popover id={`popover-positioned-${end}`}>
                             <Popover.Title as="h3">{team_b.name}</Popover.Title>
                             <Popover.Content>
@@ -172,7 +174,7 @@ class MatchUp extends React.Component{
                               You may not advance a team that does not have an opponent in their current matchup.
                             </Popover.Content>
                           </Popover>}
-                           key={'right'} placement={end} rootCloseEvent={'mousedown'} >
+                           key={'right'} placement={end}  >
                     <Button  className={`btn-light teamButton `}> {team_b.name}</Button>
                     </OverlayTrigger>
                     : 
@@ -202,7 +204,7 @@ class MatchUp extends React.Component{
                      {currentUser && currentUser.id === tUser?
                      // I wanted to make the code from 193 - 278 half the size, by putting the buttons in one div with one popover but it made the divs jump around on clicks. 
                         <div> 
-                            <Row  > <OverlayTrigger  trigger="click" overlay={
+                            <Row  > <OverlayTrigger  trigger="click" rootClose overlay={
                         <Popover id={`popover-positioned-${end}`}>
                         <Popover.Title as="h3">{team_a.name} vs. {team_b.name}</Popover.Title>
                         <Popover.Content>
@@ -250,7 +252,7 @@ class MatchUp extends React.Component{
                    </OverlayTrigger>
                 </Row>
 
-                <Row > <OverlayTrigger  trigger="click" overlay={
+                <Row > <OverlayTrigger  trigger="click" rootClose overlay={
                         <Popover id={`popover-positioned-${end}`}>
                         <Popover.Title as="h3">{team_a.name}  vs. {team_b.name}</Popover.Title>
                         <Popover.Content>
@@ -293,7 +295,7 @@ class MatchUp extends React.Component{
                             </Row>
                         </Popover.Content>
                         </Popover>
-                 } key={'right'} placement={end} rootCloseEvent={'mousedown'} >
+                 } key={'right'} placement={end}  >
                     <Button type="button" className={`btn btn-light teamButton `}> {team_b_score >= 0? <Badge>{team_b_score}</Badge>: null}{team_b.name} </Button> 
                    </OverlayTrigger>
                 </Row>
