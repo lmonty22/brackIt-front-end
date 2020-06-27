@@ -199,9 +199,8 @@ p,div, h1, h2, h3, h4{
 
 .adminBox{
   width: 100%;
-  max-height: 50px;
+  max-height: 80px;
   display: flex;
-  flex-direction: row;
   align-items: center;
 }
 
