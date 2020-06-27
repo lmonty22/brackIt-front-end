@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from "react-redux";
-import {Row, Col, Spinner, Button, Badge, Popover, OverlayTrigger, Form, FormControl } from 'react-bootstrap'
+import {Row, Col, Spinner, Button, Badge, Popover, OverlayTrigger, Form, FormControl, Jumbotron } from 'react-bootstrap'
 import LeftHalfContainer from './LeftHalfContainer'
 import FinalsContainer from './FinalsContainer'
 import RightHalfContainer from './RightHalfContainer'
@@ -118,12 +118,13 @@ render (){
         }
     // if no tournament / loading, display spinner, otherside display tournament page
     return (!tournament?  <div className='spinnerDiv'><Spinner animation="border" className='spinner-info' /></div> : 
-        <div>
+    <div>
+             {currentUser && tournament.user_id === currentUser.id? <Jumbotron className='adminBox'>You're the tournament admin! Only you have the power to make changes. Click on matchups to record scores, advance teams, and edit team names. Click on Edit Tournment to toggle your tournament from Private to Public or update the tournaemnt name. Have fun!</Jumbotron>: null }
             <div className='tourneyHeader'>
             <h1>{tournament.name}</h1>
              <p>Created By: @{tournament.user.username}</p>
             {currentUser && tournament.user_id === currentUser.id? 
-            <OverlayTrigger trigger='click' placement='right' overlay={
+            <OverlayTrigger trigger='click' placement='right' rootClose overlay={
                 <Popover>
                     <Popover.Title>Edit {tournament.name}</Popover.Title>
                     <Popover.Content>
@@ -150,7 +151,6 @@ render (){
             </OverlayTrigger>
             : null }
 
-            {currentUser && tournament.user_id === currentUser.id? <h4><Badge className='badge-info'>You're the tournament admin! Only you have the power to make changes. Click on matchups to record scores, advance teams, and edit team names. Have fun!</Badge></h4>: null }
              {currentUser && tournament.user_id !== currentUser.id && !follow? <Button className={'btn-info'} onClick={() => this.props.followTournament(tournament.id, currentUser.id)} >Follow Tournament </Button>: null}
              {currentUser && tournament.user_id !== currentUser.id && follow? <Button className={'btn-info'} onClick={() => this.props.unfollowTournament(follow)} >Unfollow Tournament </Button>: null}
             <br/>
