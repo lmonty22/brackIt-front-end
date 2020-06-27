@@ -2,13 +2,13 @@
 
 ## Summary
 
-This is a tournament bracket generater designed to allow users to login and generate a bracket to share with their friends. Users create BrackIts with 4, 8, 16, 32 or 64 teams. You may make tournaments private or public. Shuffle teams to make first round matchups random, or manually decide first round match ups when you enter your team names. You may record scores, advance teams and edit team names throughout the Torurnament and finally crown a champion. 
+This is a tournament bracket generator designed to allow users to generate and manage tournament BrackIts while their friends follow along. Users can create BrackIts with 4, 8, 16, 32 or 64 teams. Tournaments can be private (unsearchable) or public. First round matchups can be random by selecting 'shuffle teams' or the tournament creator can manually decide first round match ups when entering team names. You may record scores, advance teams and edit team names, and edit tournament details, throughout the Torurnament and finally crown a champion. 
 
-Additional features allow you to search for tournaments (that are public) and follow tournaments. 
+Additional features allow you to search for (public) tournaments and follow tournaments. 
 
 ## Instructions
 
-1. Make sure to clone down the [Backend Repo](https://github.com/lmonty22/brackIt-backend) and follow the backend Readme instructions first!
+1. Clone down the [BrackIt Backend Repo](https://github.com/lmonty22/brackIt-backend) and follow the backend Readme instructions first!
 
 2. Run 
 `npm install`
@@ -27,4 +27,16 @@ Additional features allow you to search for tournaments (that are public) and fo
 
 2. If you do not have enzyme test suite installed. Run 
 `npm i --save-dev enzyme enzyme-adapter-react-16`
+
+## Other Dependencies
+
+- React-Redux 
+
+- Redux-Thunk 
+
+- UI is styled with [react-bootstrap](https://react-bootstrap.github.io/)
+
+- Tournament lines are drawn using [react-lineto](https://www.npmjs.com/package/react-lineto)
+
+
 
