@@ -23,7 +23,7 @@ Additional features allow you to search for (public) tournaments and follow tour
 
 ## Reducer Tests
 
-1. Run reducers tests by running npm test. 
+1. Run reducer tests by running npm test. 
 
 2. If you do not have enzyme test suite installed. Run 
 `npm i --save-dev enzyme enzyme-adapter-react-16`
@@ -36,7 +36,7 @@ Additional features allow you to search for (public) tournaments and follow tour
 
 - UI is styled with [react-bootstrap](https://react-bootstrap.github.io/)
 
-- Tournament lines are drawn using [react-lineto](https://www.npmjs.com/package/react-lineto)
+- Tournament bracket lines are drawn using [react-lineto](https://www.npmjs.com/package/react-lineto)
 
 
 
