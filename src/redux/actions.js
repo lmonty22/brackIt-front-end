@@ -1,6 +1,6 @@
 
 
-const URL = 'https://brackit-backend.herokuapp.com/'
+const URL = 'https://brackit-backend.herokuapp.com'
 
 // takes an updated tournament and replaces it as the current tournament in store
 function updatedTournament(tournament){
@@ -37,7 +37,7 @@ function findUser(token){
 // sends patch request to update a team name, returns the whole tournament to replace current tournament
 function updateTeamName(teamId, newTeamName, tournamentId){
   return (dispatch) => {
-    fetch(URL+`teams/${teamId}`, {
+    fetch(URL+`/teams/${teamId}`, {
       method: 'PATCH',
       headers: {'Content-Type' : 'application/json'},
       body: JSON.stringify({name: newTeamName, tournament: tournamentId})
@@ -56,7 +56,7 @@ function newSearchTerm(string){
 // Post new user to the backend
 function postUser(obj){
   return (dispatch) => {
-    fetch(URL+'users', {
+    fetch(URL+'/users', {
     method: "POST",
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(obj)
@@ -75,7 +75,7 @@ function errorMessages(errors){
 // login user, post new login to the backend, if error, call errorMessages, if successful, setCurrentUser
 function login(userInfo){
   return (dispatch) => {
-    fetch(URL +'login', {
+    fetch(URL +'/login', {
     method: "POST",
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(userInfo)
@@ -98,7 +98,7 @@ function login(userInfo){
 // remove a team from a matchup, sends back the whole tournament, update current tournament
 function removeTeamFromMatchUp(obj){
   return (dispatch) => {
-    fetch(URL+`match_ups/${obj.match_up_id}/remove`, {
+    fetch(URL+`/match_ups/${obj.match_up_id}/remove`, {
       method: "PATCH",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify(obj)
@@ -120,7 +120,7 @@ function matchUpScore(matchUpId, team_slot, score){
     teamObj['team_b_score'] = score
   }
   return (dispatch) => {
-    fetch( URL + `match_ups/${matchUpId}`, {
+    fetch( URL + `/match_ups/${matchUpId}`, {
       method: 'PATCH',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(teamObj)
@@ -137,7 +137,7 @@ function matchUpWinner(matchUp, winnerId){
     winner_id: winnerId
   }
   return (dispatch) => {
-    fetch(URL + `match_ups/${matchUp.id}`, {
+    fetch(URL + `/match_ups/${matchUp.id}`, {
       method: 'PATCH',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(obj)
@@ -204,7 +204,7 @@ function fetchingTournaments(){
     }
 
     return (dispatch) => {
-      fetch(URL+'tournaments', {
+      fetch(URL+'/tournaments', {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(tournamentObj)
@@ -225,7 +225,7 @@ function fetchingTournaments(){
   // update tournaemnt from private to public, remove winner or change tournament name
   function patchTournament(tournamentId, obj){
     return (dispatch) => {
-    fetch(URL+`tournaments/${tournamentId}`,{ 
+    fetch(URL+`/tournaments/${tournamentId}`,{ 
     method: 'PATCH', 
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(obj)
@@ -247,7 +247,7 @@ function fetchingTournaments(){
   // delete a tournament 
   function deleteTournament(bracketID){
     return (dispatch) => {
-      fetch(URL+`tournaments/${bracketID}`, 
+      fetch(URL+`/tournaments/${bracketID}`, 
       {method: 'DELETE'
       })
         dispatch(deletedTournament(bracketID))
@@ -267,7 +267,7 @@ function fetchingTournaments(){
   // add a new follow to the backend, then add to followeds in store
   function followTournament(tournamentId, userId){
     return(dispatch) => {
-      fetch(URL+'followers', {
+      fetch(URL+'/followers', {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
@@ -284,7 +284,7 @@ function fetchingTournaments(){
   // delete follow on backend, then remove followed in store
   function unfollowTournament(follow){
     return (dispatch) => {
-      fetch(URL+`followers/${follow.id}`, {
+      fetch(URL+`/followers/${follow.id}`, {
         method: "DELETE"
       })
       dispatch(removeFollowedTournament(follow))
