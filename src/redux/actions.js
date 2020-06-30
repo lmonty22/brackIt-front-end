@@ -31,8 +31,8 @@ function findUser(token){
         dispatch(setCurrentUser(data))
       })
   }
-
 }
+
 
 // sends patch request to update a team name, returns the whole tournament to replace current tournament
 function updateTeamName(teamId, newTeamName, tournamentId){
@@ -91,6 +91,9 @@ function login(userInfo){
   })
   }
 }
+
+
+
 
 // remove a team from a matchup, sends back the whole tournament, update current tournament
 function removeTeamFromMatchUp(obj){
@@ -219,7 +222,7 @@ function fetchingTournaments(){
     return {type: 'UPDATE_TOURNAMENTS', payload: tournament}
   }
 
-  // update tournaemnt from private to public or change tournament name
+  // update tournaemnt from private to public, remove winner or change tournament name
   function patchTournament(tournamentId, obj){
     return (dispatch) => {
     fetch(URL+`tournaments/${tournamentId}`,{ 

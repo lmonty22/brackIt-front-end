@@ -144,6 +144,7 @@ render (){
                     <Button variant='info' onClick={() => this.props.patchTournament(tournament.id, {public: true})}>Make Public</Button>
                     </div>
                     }
+                    {tournament.champion? <Button onClick={() => this.props.patchTournament(tournament.id, {champion_id: null})}className='btn-dark'>Remove Champion</Button>: null }
                     </Popover.Content>
                 </Popover>
             }>

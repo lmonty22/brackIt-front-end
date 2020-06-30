@@ -47,7 +47,7 @@ class MatchUp extends React.Component{
     // we need to update state for the form field to populate with teamName or score
     componentDidUpdate = (prevProps) => {
         // if team_a is updated
-        if (this.props.currentTournament && prevProps.matchUp && prevProps.matchUp.team_a_id !== this.props.matchUp.team_a_id){
+        if (this.props.currentTournament && prevProps.matchUp && prevProps.matchUp.team_a !== this.props.matchUp.team_a){
             if (this.props.matchUp.team_a){
                 this.setState({
                     teamNameA: this.props.matchUp.team_a.name,
@@ -63,12 +63,12 @@ class MatchUp extends React.Component{
             }
            }
         // if team_b is updated
-        if (this.props.currentTournament && prevProps.matchUp && prevProps.matchUp.team_b_id !== this.props.matchUp.team_b_id){
+        if (this.props.currentTournament && prevProps.matchUp && prevProps.matchUp.team_b !== this.props.matchUp.team_b){
             if (this.props.matchUp.team_b){
                 this.setState({
                     teamNameB: this.props.matchUp.team_b.name,
                     teamAScore: this.props.matchUp.team_a_score,
-                    teamBScore: this.props.matchUp.team_a_score,
+                    teamBScore: this.props.matchUp.team_b_score,
                 })
             }else {
                 this.setState({
