@@ -16,10 +16,10 @@ const Delete = (props) => {
     </Modal.Header>
     <Modal.Body>Are you sure you want to delete this BrackIt?</Modal.Body>
     <Modal.Footer>
-      <Button variant="secondary" onClick={props.handleClose}>
+      <Button className='btn-light' onClick={props.handleClose}>
         Cancel
       </Button>
-      <Button variant="primary" onClick={() => handleDelete(props.handleClose, props.delete,props.tournamentDelete)}>
+      <Button className='btn-dark' onClick={() => handleDelete(props.handleClose, props.delete,props.tournamentDelete)}>
         Delete
       </Button>
     </Modal.Footer>
