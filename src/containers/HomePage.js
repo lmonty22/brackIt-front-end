@@ -56,19 +56,20 @@ const HomePage = (props) => {
                 width='300px'
                 alt='brackit logo'
             ></img>
-            {!props.currentUser? 
+            {/* {!props.currentUser?  */}
             <div style={{fontWeight: 'bold'}}>
             Welcome to BrackIt, a platform designed to help your tournament run smoothly.
             Whether you're hosting a cornhole tournament, or playing video games online, we want to be there for you. <Button variant='light' onClick={props.handleLoginShow}> Login </Button> or <Button variant='dark' onClick={props.handleCreateShow}>Sign Up</Button> to start generating BrackIts 
             and sharing your BrackIts with friends.
-            Have fun! </div>
-            :   <div style={{fontWeight: 'bold'}}>
+            Have fun! 
+            {/* </div> */}
+            {/* :   <div style={{fontWeight: 'bold'}}> */}
             Welcome to BrackIt, a platform designed to help your tournament run smoothly.
             Whether you're hosting a cornhole tournament, or playing video games online, we want to be there for you. Login or Sign Up to start generating BrackIts 
             and sharing your BrackIts with friends.
             Have fun! </div>
-            }
-         </Jumbotron>
+            {/* } */}
+            </Jumbotron>
             </Row>
         : null }
         
