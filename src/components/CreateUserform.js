@@ -88,7 +88,7 @@ class CreateUserForm extends React.Component{
             passwordCorrrect: false,
             errors: {
                 ...this.state.errors,
-                password: 'passwords must mactch'
+                password: 'passwords must match'
             }
         })
     }
