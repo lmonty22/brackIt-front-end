@@ -72,6 +72,7 @@ class CreateUserForm extends React.Component{
     // Checks if username is unqiue, called by OnChange
     checkUsername = (username) => {
         fetch('https://brackit-backend.herokuapp.com/users')
+        // fetch('http://localhost:3000/users')
         .then(respone => respone.json())
         .then(data => {
             let username_exists = data.find(user => user.username === username)
