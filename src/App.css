@@ -186,7 +186,7 @@ p,div, h1, h2, h3, h4{
 }
 
 .intro-box{
-  opacity:80%;
+  opacity: 80;
   position: absolute;
   z-index: 100;
   max-width: 50%;
