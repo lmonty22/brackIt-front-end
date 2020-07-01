@@ -50,20 +50,20 @@ const HomePage = (props) => {
             />
         </Carousel.Item>
         </Carousel>
-         <Jumbotron className={'intro-box'}>
+         <Jumbotron className='intro-box'>
              <img src={logo}
                 height='100px'
                 width='300px'
                 alt='brackit logo'
             ></img>
             {/* {!props.currentUser?  */}
-            <div style={{fontWeight: 'bold'}}>
+            {/* <div style={{fontWeight: 'bold'}}>
             Welcome to BrackIt, a platform designed to help your tournament run smoothly.
             Whether you're hosting a cornhole tournament, or playing video games online, we want to be there for you. <Button variant='light' onClick={props.handleLoginShow}> Login </Button> or <Button variant='dark' onClick={props.handleCreateShow}>Sign Up</Button> to start generating BrackIts 
             and sharing your BrackIts with friends.
-            Have fun! 
+            Have fun!  */}
             {/* </div> */}
-            {/* :   <div style={{fontWeight: 'bold'}}> */}
+              <div style={{fontWeight: 'bold'}}>
             Welcome to BrackIt, a platform designed to help your tournament run smoothly.
             Whether you're hosting a cornhole tournament, or playing video games online, we want to be there for you. Login or Sign Up to start generating BrackIts 
             and sharing your BrackIts with friends.
