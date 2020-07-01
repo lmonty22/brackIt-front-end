@@ -1,6 +1,6 @@
 
 
-const URL = 'https://brackit-backend.herokuapp.com'
+const URL = 'http://localhost:3000/'
 
 // takes an updated tournament and replaces it as the current tournament in store
 function updatedTournament(tournament){
