@@ -119,7 +119,7 @@ render (){
     // if no tournament / loading, display spinner, otherside display tournament page
     return (!tournament?  <div className='spinnerDiv'><Spinner animation="border" className='spinner-info' /></div> : 
     <div>
-             {currentUser && tournament.user_id === currentUser.id? <Jumbotron className='adminBox'>You're the tournament admin! Only you have the power to make changes. Click on matchups to record scores, advance teams, and edit team names. Click on Edit Tournment to toggle your tournament from Private to Public or update the tournaemnt name. Have fun!</Jumbotron>: null }
+             {currentUser && tournament.user_id === currentUser.id? <Jumbotron className='adminBox'>You're the tournament admin! Only you have the power to make changes. Click on matchups to record scores, advance teams, and edit team names. Click on Edit Tournament to toggle your tournament from Private to Public or update the tournament name. Have fun!</Jumbotron>: null }
             <div className='tourneyHeader'>
             <h1>{tournament.name}</h1>
              <p>Created By: @{tournament.user.username}</p>
