@@ -38,5 +38,15 @@ Additional features allow you to search for (public) tournaments and follow tour
 
 - Tournament bracket lines are drawn using [react-lineto](https://www.npmjs.com/package/react-lineto)
 
+## Deployed 
+
+BrackIt is deployed on Netlify: https://brackit.netlify.app/ 
+
+## Demon 
+
+Loom Demo can be found here: https://www.loom.com/share/06a2cdcebfc74d2da1aa0d704d4786f3
+
+
+
 
 
