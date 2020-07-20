@@ -11,14 +11,12 @@ Additional features allow you to search for (public) tournaments and follow tour
 1. Clone down the [BrackIt Backend Repo](https://github.com/lmonty22/brackIt-backend) and follow the backend Readme instructions first!
 
 2. Run 
-`npm install`
+`npm install` 
 
 3. Run
-`npm start`
+ `npm start`
 
-4. Allow React to run on port 3001 (the backend repo should be running on port:3000).
-
-5. Open http://localhost:3001
+4. Open http://localhost:3001
 
 
 ## Reducer Tests
