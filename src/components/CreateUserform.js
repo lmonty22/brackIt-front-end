@@ -70,18 +70,21 @@ class CreateUserForm extends React.Component{
 
 
     // Checks if username is unqiue, called by OnChange
-    checkUsername = (username) => {
-        //for deployed on netlify 
-        // fetch('https://brackit-backend.herokuapp.com/users')
-        // for local
-        fetch('http://localhost:3000/users')
-        .then(respone => respone.json())
-        .then(data => {
+    checkUsername = async(username) => {
+        try {
+            // const res = await fetch('https://brackit-backend.herokuapp.com/users')
+            const res = await fetch('http://localhost:3000/users')
+            const data = await res.json()
             let username_exists = data.find(user => user.username === username)
             if (username_exists){
                 this.invalidUsername()
-            }else {this.validUsername()}
-        })
+            }else {
+                this.validUsername()
+            }
+        }
+        catch (err) {
+            console.log(err)
+        }
     }
 
     // Called by OnChange if passwords don't match

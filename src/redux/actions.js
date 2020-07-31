@@ -80,7 +80,6 @@ function postUser(obj){
 }
 
 
-
 // login error (password and username do not match )
 function errorMessages(errors){
   return {type: "LOGIN_ERROR", payload: errors}
