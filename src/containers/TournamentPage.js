@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from "react-redux";
-import {Row, Col, Spinner, Button, Badge, Popover, OverlayTrigger, Form, FormControl, Jumbotron } from 'react-bootstrap'
+import {Row, Col, Spinner, Button, Popover, OverlayTrigger, Form, FormControl, Jumbotron } from 'react-bootstrap'
 import LeftHalfContainer from './LeftHalfContainer'
 import FinalsContainer from './FinalsContainer'
 import RightHalfContainer from './RightHalfContainer'
